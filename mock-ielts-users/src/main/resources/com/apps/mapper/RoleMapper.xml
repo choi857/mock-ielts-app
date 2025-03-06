@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apps.mapper.RoleMapper">
+
+    <insert id="insert" parameterType="com.apps.model.Role">
+        INSERT INTO COL_ROLE (
+            role_name, permissions, description, created_at, updated_at
+        ) VALUES (
+                     #{roleName}, #{permissions}, #{description}, #{createdAt}, #{updatedAt}
+                 )
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.apps.model.Role">
+        UPDATE COL_ROLE
+        <set>
+            role_name = #{roleName},
+            permissions = #{permissions},
+            description = #{description},
+            updated_at = #{updatedAt}
+        </set>
+        WHERE role_id = #{roleId}
+    </update>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.apps.model.Role">
+        SELECT
+            role_id, role_name, permissions, description, created_at, updated_at
+        FROM
+            COL_ROLE
+        WHERE
+            role_id = #{roleId}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM COL_ROLE WHERE role_id = #{roleId}
+    </delete>
+
+</mapper>

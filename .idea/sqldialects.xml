@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SqlDialectMappings">
+    <file url="file://$PROJECT_DIR$/mock-ielts-topic/src/main/resources/com/apps/mapper/ReadingMapper.xml" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/备份/mysql第一版.sql" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/备份/mysql第二版.sql" dialect="MySQL" />
+  </component>
+</project>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.apps.mapper.QuestionMapper">
+
+    <!-- 字段映射 -->
+    <resultMap id="QuestionResultMap" type="com.apps.model.Question">
+        <id property="id" column="COL_ID"/>
+        <result property="readingId" column="COL_READING_ID"/>
+        <result property="type" column="COL_TYPE"/>
+        <result property="content" column="COL_CONTENT"/>
+        <result property="placeholderFormat" column="COL_PLACEHOLDER_FORMAT"/>
+        <result property="createdAt" column="COL_CREATED_AT"/>
+        <result property="updatedAt" column="COL_UPDATED_AT"/>
+    </resultMap>
+
+    <!-- 插入题目 -->
+    <insert id="insertQuestion" parameterType="com.apps.model.Question" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO COL_QUESTION (COL_READING_ID, COL_TYPE, COL_CONTENT, COL_PLACEHOLDER_FORMAT)
+        VALUES (#{readingId}, #{type}, #{content}, #{placeholderFormat})
+    </insert>
+
+    <!-- 根据 ID 查询题目 -->
+    <select id="selectQuestionById" resultMap="QuestionResultMap">
+        SELECT * FROM COL_QUESTION WHERE COL_ID = #{id}
+    </select>
+
+    <!-- 根据阅读材料 ID 查询题目 -->
+    <select id="selectQuestionsByReadingId" resultMap="QuestionResultMap">
+        SELECT * FROM COL_QUESTION WHERE COL_READING_ID = #{readingId}
+    </select>
+
+    <!-- 更新题目 -->
+    <update id="updateQuestion" parameterType="com.apps.model.Question">
+        UPDATE COL_QUESTION
+        SET COL_CONTENT = #{content},
+            COL_PLACEHOLDER_FORMAT = #{placeholderFormat}
+        WHERE COL_ID = #{id}
+    </update>
+
+    <!-- 根据 ID 删除题目 -->
+    <delete id="deleteQuestionById" >
+        DELETE FROM COL_QUESTION WHERE COL_ID = #{id}
+    </delete>
+
+</mapper>

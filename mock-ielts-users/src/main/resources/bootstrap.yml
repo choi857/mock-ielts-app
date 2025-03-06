@@ -1,0 +1,12 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        namespace: 1695f1a3-225f-4479-9dc1-1f71f7c845a7
+        group: DEFAULT_GROUP
+        extension-configs:
+          - data-id: mock-ielts-app-dev.yaml
+            group: DEFAULT_GROUP
+            refresh: true
+        file-extension: yml
