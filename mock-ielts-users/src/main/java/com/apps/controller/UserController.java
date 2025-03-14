@@ -58,9 +58,35 @@ public class UserController {
             Map<String, String> respon = new HashMap<String, String>();
             respon.put("role",loggedInUser.getRole());
             respon.put("userId",String.valueOf(loggedInUser.getId()));
+            respon.put("username",loggedInUser.getUsername());
             return  ResponseResult.success("登录成功",200,respon);
         } else {
             return  ResponseResult.fail("用户名或密码错误");
         }
     }
+
+    @DeleteMapping("/delete/{userId}")
+    public ResponseEntity<ResponseResult<String>> deleteUser(@PathVariable Long userId) {
+        try {
+            userService.deleteUser(userId);
+            return ResponseEntity.ok(ResponseResult.success("User deleted successfully", 200, null));
+        } catch (Exception e) {
+            logger.error("删除用户失败: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ResponseResult.fail("Failed to delete user: " + e.getMessage()));
+        }
+    }
+
+    @PostMapping("/reset-password/{userId}")
+    public ResponseEntity<ResponseResult<String>> resetPassword(@PathVariable Long userId) {
+        try {
+            userService.resetPassword(userId);
+            return ResponseEntity.ok(ResponseResult.success("Password reset successfully", 200, null));
+        } catch (Exception e) {
+            logger.error("更新密码失败: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ResponseResult.fail("Failed to reset password: " + e.getMessage()));
+        }
+    }
+
 }

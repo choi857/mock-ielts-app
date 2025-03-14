@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apps.mapper.write.WritingTaskRecordMapper">
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.apps.model.write.WritingTaskRecord">
+        INSERT INTO COL_WRITING_TASK_RECORD (
+            task1_id, task2_id, created_at, updated_at
+        ) VALUES (
+            #{task1Id}, #{task2Id}, #{createdAt}, #{updatedAt}
+        )
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="update" parameterType="com.apps.model.write.WritingTaskRecord">
+        UPDATE COL_WRITING_TASK_RECORD
+        <set>
+            task1_id = #{task1Id},
+            task2_id = #{task2Id},
+            updated_at = #{updatedAt}
+        </set>
+        WHERE record_id = #{recordId}
+    </update>
+
+    <!-- 根据ID查询记录 -->
+    <select id="selectById" parameterType="java.lang.Long" resultType="com.apps.model.write.WritingTaskRecord">
+        SELECT
+            record_id AS recordId, task1_id AS task1Id, task2_id AS task2Id, created_at AS createdAt, updated_at AS updatedAt
+        FROM
+            COL_WRITING_TASK_RECORD
+        WHERE
+            record_id = #{recordId}
+    </select>
+
+    <!-- 删除记录 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM COL_WRITING_TASK_RECORD WHERE record_id = #{recordId}
+    </delete>
+
+    <!-- 查询所有记录 -->
+    <select id="selectAll" resultType="com.apps.model.write.WritingTaskRecord">
+        SELECT
+            record_id AS recordId, task1_id AS task1Id, task2_id AS task2Id, created_at AS createdAt, updated_at AS updatedAt
+        FROM
+            COL_WRITING_TASK_RECORD
+    </select>
+
+    <select id="selectByRecordId" parameterType="java.lang.Long" resultType="com.apps.model.write.WritingTaskRecord">
+        SELECT
+            record_id AS recordId, task1_id AS task1Id, task2_id AS task2Id, created_at AS createdAt, updated_at AS updatedAt
+        FROM
+            COL_WRITING_TASK_RECORD
+        WHERE
+            record_id = #{recordId}
+    </select>
+</mapper>

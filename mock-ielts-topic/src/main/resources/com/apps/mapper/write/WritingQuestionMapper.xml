@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apps.mapper.write.WritingQuestionMapper">
+
+    <!-- 插入写作题 -->
+    <insert id="insert" parameterType="com.apps.model.write.WritingQuestion">
+        INSERT INTO COL_WRITING_TASK (
+            task_title,task_id, task_description, task_type, task_requirements, word_limit, created_at, updated_at
+        ) VALUES (
+            #{taskTitle}, #{taskId}, #{taskDescription}, #{taskType}, #{taskRequirements}, #{wordLimit}, #{createdAt}, #{updatedAt}
+        )
+    </insert>
+
+    <!-- 更新写作题 -->
+    <update id="update" parameterType="com.apps.model.write.WritingQuestion">
+        UPDATE COL_WRITING_TASK
+        <set>
+            task_title = #{taskTitle},
+            task_description = #{taskDescription},
+            task_type = #{taskType},
+            task_requirements = #{taskRequirements},
+            word_limit = #{wordLimit},
+            updated_at = #{updatedAt}
+        </set>
+        WHERE task_id = #{taskId}
+    </update>
+
+    <!-- 根据ID查询写作题 -->
+    <select id="selectById" parameterType="java.lang.Long" resultType="com.apps.model.write.WritingQuestion">
+        SELECT
+            task_id AS taskId, task_title AS taskTitle, task_description AS taskDescription, task_type AS taskType, task_requirements AS taskRequirements, word_limit AS wordLimit, created_at AS createdAt, updated_at AS updatedAt
+        FROM
+            COL_WRITING_TASK
+        WHERE
+            task_id = #{taskId}
+    </select>
+
+    <!-- 删除写作题 -->
+    <delete id="deleteById" parameterType="java.lang.Long">
+        DELETE FROM COL_WRITING_TASK WHERE task_id = #{taskId}
+    </delete>
+
+    <!-- 查询所有写作题 -->
+    <select id="selectAll" resultType="com.apps.model.write.WritingQuestion">
+        SELECT
+            task_id AS taskId, task_title AS taskTitle, task_description AS taskDescription, task_type AS taskType, task_requirements AS taskRequirements, word_limit AS wordLimit, created_at AS createdAt, updated_at AS updatedAt
+        FROM
+            COL_WRITING_TASK
+    </select>
+
+    <select id="selectByTaskIds" parameterType="java.util.List" resultType="com.apps.model.write.WritingQuestion">
+        SELECT
+        task_id AS taskId, task_title AS taskTitle, task_description AS taskDescription, task_type AS taskType, task_requirements AS taskRequirements, word_limit AS wordLimit, created_at AS createdAt, updated_at AS updatedAt
+        FROM
+        COL_WRITING_TASK
+        WHERE
+        task_id IN
+        <foreach item="taskId" collection="list" open="(" separator="," close=")">
+            #{taskId}
+        </foreach>
+    </select>
+</mapper>

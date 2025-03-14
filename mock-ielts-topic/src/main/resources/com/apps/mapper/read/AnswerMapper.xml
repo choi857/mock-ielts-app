@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.apps.mapper.read.AnswerMapper">
+    <!-- 字段映射 -->
+    <resultMap id="AnswerResultMap" type="com.apps.model.read.Answer">
+        <id property="id" column="COL_ID"/>
+        <result property="questionId" column="COL_QUESTION_ID"/>
+        <result property="content" column="COL_CONTENT"/>
+        <result property="isCorrect" column="COL_IS_CORRECT"/>
+        <result property="blankNumber" column="COL_BLANK_NUMBER"/>
+        <result property="matchingKey" column="COL_MATCHING_KEY"/>
+        <result property="createdAt" column="COL_CREATED_AT"/>
+        <result property="updatedAt" column="COL_UPDATED_AT"/>
+    </resultMap>
+    <!-- 插入答案 -->
+    <insert id="insertAnswer" parameterType="com.apps.model.read.Answer" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO COL_ANSWER (COL_QUESTION_ID, COL_CONTENT, COL_IS_CORRECT, COL_BLANK_NUMBER, COL_MATCHING_KEY)
+        VALUES (#{questionId}, #{content}, #{isCorrect}, #{blankNumber}, #{matchingKey})
+    </insert>
+
+    <!-- 根据 ID 查询答案 -->
+    <select id="selectAnswerById" resultMap="AnswerResultMap">
+        SELECT * FROM COL_ANSWER WHERE COL_ID = #{id}
+    </select>
+
+    <!-- 根据题目 ID 查询答案 -->
+    <select id="selectAnswersByQuestionId" resultMap="AnswerResultMap">
+        SELECT * FROM COL_ANSWER WHERE COL_QUESTION_ID = #{questionId}
+    </select>
+
+    <!-- 更新答案 -->
+    <update id="updateAnswer" parameterType="com.apps.model.read.Answer">
+        UPDATE COL_ANSWER
+        SET COL_CONTENT = #{content},
+            COL_IS_CORRECT = #{isCorrect},
+            COL_BLANK_NUMBER = #{blankNumber},
+            COL_MATCHING_KEY = #{matchingKey}
+        WHERE COL_ID = #{id}
+    </update>
+
+    <!-- 根据 ID 删除答案 -->
+    <delete id="deleteAnswerById">
+        DELETE FROM COL_ANSWER WHERE COL_ID = #{id}
+    </delete>
+
+
+
+<select id="selectCorrectAnswersByQuestionId" parameterType="java.lang.Long" resultType="java.lang.String">
+    SELECT COL_CONTENT
+    FROM COL_ANSWER
+    WHERE COL_QUESTION_ID = #{questionId}
+    ORDER BY COL_BLANK_NUMBER
+</select>
+
+<select id="selectCorrectAnswerByQuestionId" parameterType="java.lang.Long" resultType="java.lang.String">
+    SELECT COL_MATCHING_KEY
+    FROM COL_ANSWER
+    WHERE COL_QUESTION_ID = #{questionId} AND COL_IS_CORRECT = 1
+    LIMIT 1
+</select>
+</mapper>

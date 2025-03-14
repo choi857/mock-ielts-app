@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apps.mapper.write.WritingAnswerDetailMapper">
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.apps.model.write.WritingAnswerDetail">
+        INSERT INTO COL_WRITE_USER_ANSWER_DETAIL (
+            detail_id, record_id, user_id, task_type, answer_content, created_at
+        ) VALUES (
+            #{detailId}, #{recordId}, #{userId}, #{taskType}, #{answerContent}, #{createdAt}
+        )
+    </insert>
+</mapper>

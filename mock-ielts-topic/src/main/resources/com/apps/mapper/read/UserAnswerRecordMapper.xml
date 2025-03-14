@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apps.mapper.read.UserAnswerRecordMapper">
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.apps.model.read.UserAnswerRecord">
+        INSERT INTO COL_USER_ANSWER_RECORD (
+            record_id, user_id, reading_id, score, duration_seconds, device_type, created_at, updated_at
+        ) VALUES (
+                     #{recordId}, #{userId}, #{readingId}, #{score}, #{durationSeconds}, #{deviceType}, #{createdAt}, #{updatedAt}
+                 )
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="updateByPrimaryKey" parameterType="com.apps.model.read.UserAnswerRecord">
+        UPDATE COL_USER_ANSWER_RECORD
+        <set>
+            user_id = #{userId},
+            reading_id = #{readingId},
+            score = #{score},
+            duration_seconds = #{durationSeconds},
+            device_type = #{deviceType},
+            updated_at = #{updatedAt}
+        </set>
+        WHERE record_id = #{recordId}
+    </update>
+
+    <!-- 查询记录 -->
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.apps.model.read.UserAnswerRecord">
+        SELECT
+            record_id AS recordId,
+            user_id AS userId,
+            reading_id AS readingId,
+            score,
+            duration_seconds AS durationSeconds,
+            device_type AS deviceType,
+            created_at AS createdAt,
+            updated_at AS updatedAt
+        FROM
+            COL_USER_ANSWER_RECORD
+        WHERE
+            record_id = #{recordId}
+    </select>
+    <!-- 删除记录 -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM COL_USER_ANSWER_RECORD WHERE record_id = #{recordId}
+    </delete>
+
+
+
+    <!-- 更新用户答题记录的分数 -->
+    <update id="updateScoreByRecordId" parameterType="map">
+        UPDATE COL_USER_ANSWER_RECORD
+        SET score = #{score}, answer_evaluation = #{answerEvaluation}
+        WHERE record_id = #{recordId}
+    </update>
+</mapper>

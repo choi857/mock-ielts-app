@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.apps.mapper.read.UserAnswerDetailMapper">
+
+    <!-- 插入记录 -->
+    <insert id="insert" parameterType="com.apps.model.read.UserAnswerDetail">
+        INSERT INTO COL_USER_ANSWER_DETAIL (
+            detail_id, record_id, user_id, question_id, answer_type, submitted_answer, is_correct, blank_index, created_at
+        ) VALUES (
+                     #{detailId}, #{recordId}, #{userId}, #{questionId}, #{answerType}, #{submittedAnswer}, #{isCorrect}, #{blankIndex}, #{createdAt}
+                 )
+    </insert>
+
+    <!-- 更新记录 -->
+    <update id="updateByPrimaryKey" parameterType="com.apps.model.read.UserAnswerDetail">
+        UPDATE COL_USER_ANSWER_DETAIL
+        <set>
+            record_id = #{recordId},
+            user_id = #{userId},
+            question_id = #{questionId},
+            answer_type = #{answerType},
+            submitted_answer = #{submittedAnswer},
+            is_correct = #{isCorrect},
+            blank_index = #{blankIndex},
+            created_at = #{createdAt}
+        </set>
+        WHERE detail_id = #{detailId}
+    </update>
+
+    <!-- 查询记录 -->
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.apps.model.read.UserAnswerDetail">
+        SELECT
+            detail_id, record_id, user_id, question_id, answer_type, submitted_answer, is_correct, blank_index, created_at
+        FROM
+            COL_USER_ANSWER_DETAIL
+        WHERE
+            detail_id = #{detailId}
+    </select>
+
+    <!-- 删除记录 -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        DELETE FROM COL_USER_ANSWER_DETAIL WHERE detail_id = #{detailId}
+    </delete>
+
+    <!-- 根据record_id和user_id查询用户答题记录 -->
+    <select id="selectUserAnswerDetailsByRecordIdAndUserId" parameterType="map" resultType="com.apps.DTO.read.AnswerValidationDTO">
+        SELECT
+            d.record_id AS recordId,
+            d.user_id AS userId,
+            d.question_id AS questionId,
+            d.answer_type AS answerType,
+            d.submitted_answer AS submittedAnswer,
+            q.col_content AS correctAnswer,
+            r.answer_evaluation AS answerEvaluation
+        FROM
+            COL_USER_ANSWER_DETAIL d
+                JOIN
+            COL_QUESTION q ON d.question_id = q.col_id
+                JOIN
+            COL_USER_ANSWER_RECORD r ON d.record_id = r.record_id
+        WHERE
+            d.record_id = #{recordId} AND d.user_id = #{userId}
+    </select>
+
+</mapper>

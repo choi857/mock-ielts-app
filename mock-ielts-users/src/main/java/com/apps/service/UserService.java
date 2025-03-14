@@ -50,4 +50,17 @@ public class UserService {
         }
         return null;
     }
+
+    public void deleteUser(Long userId) {
+        userMapper.deleteUserById(userId);
+    }
+
+    public void resetPassword(Long userId) {
+        User user = userMapper.selectUserById(userId);
+        if (user != null) {
+            user.setPassword(bCryptPasswordEncoder.encode("Aa123456"));
+            userMapper.updateUser(user);
+        }
+    }
+
 }
