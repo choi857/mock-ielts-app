@@ -1,8 +1,8 @@
 package com.apps.service.read;
 
-import com.apps.DTO.read.AnswerDTO;
-import com.apps.DTO.read.QuestionDTO;
-import com.apps.DTO.read.ReadingWithQuestionsDTO;
+import com.apps.dto.read.AnswerDTO;
+import com.apps.dto.read.QuestionDTO;
+import com.apps.dto.read.ReadingWithQuestionsDTO;
 import com.apps.common.ResponseResult;
 import com.apps.mapper.read.AnswerMapper;
 import com.apps.mapper.read.QuestionMapper;

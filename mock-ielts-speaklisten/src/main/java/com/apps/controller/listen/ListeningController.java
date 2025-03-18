@@ -1,0 +1,57 @@
+package com.apps.controller.listen;
+
+import com.apps.dto.ListeningWithQuestionsAndAnswersDTO;
+import com.apps.dto.ListeningWithQuestionsDTO;
+import com.apps.model.listen.ListeningQuestion;
+import com.apps.service.listen.ListeningService;
+import com.apps.common.ResponseResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/listening")
+public class ListeningController {
+
+    @Autowired
+    private ListeningService listeningService;
+
+    /**
+     * 新增听力题及其题目和答案
+     *
+     * @param dto 听力题对象
+     * @return ResponseResult<String> 响应结果
+     */
+    @PostMapping("admin/add")
+    public ResponseResult<Object> addListeningWithQuestionsAndAnswers(@RequestBody ListeningWithQuestionsAndAnswersDTO dto) {
+        return listeningService.addListeningWithQuestionsAndAnswers(dto);
+    }
+
+    /**
+     * 查询听力题目及答案
+     * @param listeningId
+     * @return
+     */
+    @GetMapping("admin/getListeningWithQuestionsAndAnswers/{listeningId}")
+    public ResponseResult<Object> getListeningWithQuestionsAndAnswers(@PathVariable Long listeningId) {
+        return listeningService.getListeningWithQuestionsAndAnswers(listeningId);
+    }
+    /**
+     * 更新听力题目
+     * @param dto 听力题目对象
+     * @return ResponseResult<String> 响应结果
+     */
+    @PostMapping("admin/update")
+    public ResponseResult<Object> updateQuestion(@RequestBody ListeningWithQuestionsAndAnswersDTO dto) {
+        return listeningService.updateListeningWithQuestionsAndAnswers(dto);
+    }
+
+    /**
+     * 查询听力题目部分
+     * @param listeningId 听力材料ID
+     * @return ResponseResult<ListeningWithQuestionsDTO> 响应结果
+     */
+    @GetMapping("/getQuestions/{listeningId}")
+    public ResponseResult<ListeningWithQuestionsDTO> getQuestionsByListeningId(@PathVariable Long listeningId) {
+        return listeningService.getQuestionsByListeningIdAndPart(listeningId);
+    }
+}

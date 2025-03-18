@@ -43,7 +43,7 @@
     </delete>
 
     <!-- 根据record_id和user_id查询用户答题记录 -->
-    <select id="selectUserAnswerDetailsByRecordIdAndUserId" parameterType="map" resultType="com.apps.DTO.read.AnswerValidationDTO">
+    <select id="selectUserAnswerDetailsByRecordIdAndUserId" parameterType="map" resultType="com.apps.dto.read.AnswerValidationDTO">
         SELECT
             d.record_id AS recordId,
             d.user_id AS userId,

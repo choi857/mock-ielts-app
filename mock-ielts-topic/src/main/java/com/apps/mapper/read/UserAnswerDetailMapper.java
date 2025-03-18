@@ -1,7 +1,7 @@
 package com.apps.mapper.read;
 
 
-import com.apps.DTO.read.AnswerValidationDTO;
+import com.apps.dto.read.AnswerValidationDTO;
 import com.apps.model.read.UserAnswerDetail;
 
 import java.util.List;

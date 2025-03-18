@@ -1,0 +1,18 @@
+server:
+  port: 9486
+
+spring:
+  application:
+    name: mock-ielts-speaklisten
+  cloud:
+    nacos:
+      discovery:
+        # 指定nacos server的地址
+        server-addr: localhost:8848
+        namespace: 1695f1a3-225f-4479-9dc1-1f71f7c845a7
+    sentinel:
+      transport:
+        dashboard: localhost:8080 #配置Sentinel dashboard地址
+        client-ip: 127.0.0.1
+
+

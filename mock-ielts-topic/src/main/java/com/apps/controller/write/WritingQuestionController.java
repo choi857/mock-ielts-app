@@ -1,6 +1,6 @@
 package com.apps.controller.write;
 
-     import com.apps.DTO.write.WritingQuestionsRequest;
+     import com.apps.dto.write.WritingQuestionsRequest;
      import com.apps.model.write.WritingQuestion;
      import com.apps.service.write.WritingQuestionService;
      import org.springframework.beans.factory.annotation.Autowired;

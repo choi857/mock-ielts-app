@@ -1,6 +1,6 @@
 package com.apps.service.read;
 
-import com.apps.DTO.read.AnswerValidationDTO;
+import com.apps.dto.read.AnswerValidationDTO;
 import com.apps.mapper.read.AnswerMapper;
 import com.apps.mapper.read.UserAnswerDetailMapper;
 import com.apps.mapper.read.UserAnswerRecordMapper;

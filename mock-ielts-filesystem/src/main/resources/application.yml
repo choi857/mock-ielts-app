@@ -1,0 +1,32 @@
+server:
+  port: 9489
+
+spring:
+  application:
+    name: mock-ielts-filesystem
+  cloud:
+    nacos:
+      discovery:
+        # 指定nacos server的地址
+        server-addr: localhost:8848
+        namespace: 1695f1a3-225f-4479-9dc1-1f71f7c845a7
+    sentinel:
+      transport:
+        dashboard: localhost:8080 #配置Sentinel dashboard地址
+        client-ip: 127.0.0.1
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+      location: ${java.io.tmpdir}
+      file-size-threshold: 2MB
+
+file:
+  upload:
+    # 文件上传根目录
+    base-dir: D:/uploads
+    # 允许的文件类型
+    allowed-types: mp3,wav,mp4,avi,pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png,gif
+    # 文件访问URL前缀
+    url-prefix: http://localhost:9489/files/stream

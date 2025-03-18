@@ -1,6 +1,5 @@
-package com.apps.DTO.read;
+package com.apps.dto.read;
 
-import com.apps.DTO.read.AnswerDTO;
 import lombok.Data;
 
 import java.util.List;

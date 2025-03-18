@@ -1,6 +1,4 @@
-package com.apps.DTO.read;
-
-import com.apps.DTO.read.AnswerDTO;
+package com.apps.dto.read;
 
 import java.util.List;
 

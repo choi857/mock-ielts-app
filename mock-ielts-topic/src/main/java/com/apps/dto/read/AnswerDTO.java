@@ -1,4 +1,4 @@
-package com.apps.DTO.read;
+package com.apps.dto.read;
 
 public class AnswerDTO {
     private Long id;                      // 答案ID

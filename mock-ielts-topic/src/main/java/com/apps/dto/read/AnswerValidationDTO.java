@@ -1,4 +1,4 @@
-package com.apps.DTO.read;
+package com.apps.dto.read;
 
     public class AnswerValidationDTO {
         private Long recordId;

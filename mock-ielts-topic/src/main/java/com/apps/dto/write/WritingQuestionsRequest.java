@@ -1,4 +1,4 @@
-package com.apps.DTO.write;
+package com.apps.dto.write;
 
 public class WritingQuestionsRequest {
     private String task1Title;
