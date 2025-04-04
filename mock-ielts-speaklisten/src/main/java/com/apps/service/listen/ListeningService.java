@@ -157,10 +157,10 @@ public class ListeningService {
         if (existingListening == null) {
             return addListeningWithQuestionsAndAnswers(dto);
         } else {
-            // Update listening
+            // 更新listening
             listeningMapper.updateListening(listening);
 
-            // Update questions and answers
+            // 更新问题和答案
             Map<String, List<ListeningWithQuestionsAndAnswersDTO.QuestionWithAnswers>> parts = dto.getParts();
             for (Map.Entry<String, List<ListeningWithQuestionsAndAnswersDTO.QuestionWithAnswers>> entry : parts.entrySet()) {
                 for (ListeningWithQuestionsAndAnswersDTO.QuestionWithAnswers questionWithAnswers : entry.getValue()) {

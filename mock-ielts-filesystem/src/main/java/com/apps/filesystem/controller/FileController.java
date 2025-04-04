@@ -36,15 +36,15 @@ public class FileController {
     @PostMapping("/upload")
     public ResponseResult<String> uploadFile(@RequestParam("file") MultipartFile file) {
         if (file.isEmpty()) {
-            return ResponseResult.error("请选择要上传的文件");
+            return ResponseResult.fail("请选择要上传的文件");
         }
         try {
             String fileUrl = fileService.uploadFile(file);
             return ResponseResult.success("文件上传成功", fileUrl);
         } catch (IllegalArgumentException e) {
-            return ResponseResult.error(e.getMessage());
+            return ResponseResult.fail(e.getMessage());
         } catch (IOException e) {
-            return ResponseResult.error("文件上传失败: " + e.getMessage());
+            return ResponseResult.fail("文件上传失败: " + e.getMessage());
         }
     }
 
@@ -59,7 +59,7 @@ public class FileController {
             fileService.deleteFile(fileName);
             return ResponseResult.success("文件删除成功",null);
         } catch (Exception e) {
-            return ResponseResult.error("文件删除失败: " + e.getMessage());
+            return ResponseResult.fail("文件删除失败: " + e.getMessage());
         }
     }
 

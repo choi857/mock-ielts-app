@@ -19,6 +19,7 @@ public class CorsConfig {
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 允许的 HTTP 方法
                         .allowedHeaders("*") // 允许所有头部信息
                         .allowCredentials(true); // 允许携带身份验证信息（如 Cookie）
+
             }
         };
     }

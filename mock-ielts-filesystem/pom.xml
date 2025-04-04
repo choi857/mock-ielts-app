@@ -38,11 +38,11 @@
             <version>1.28.5</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.apps</groupId>
-            <artifactId>mock-ielts-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.apps</groupId>-->
+<!--            <artifactId>mock-ielts-common</artifactId>-->
+<!--            <version>${project.version}</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>

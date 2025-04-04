@@ -1,0 +1,25 @@
+package com.apps.common.exception;
+
+import org.springframework.security.core.AuthenticationException;
+
+/**
+ * 自定义认证异常
+ */
+public class AuthException extends AuthenticationException {
+    
+    private final ErrorCode errorCode;
+    
+    public AuthException(ErrorCode errorCode) {
+        super(errorCode.getMessage());
+        this.errorCode = errorCode;
+    }
+    
+    public AuthException(ErrorCode errorCode, String message) {
+        super(message);
+        this.errorCode = errorCode;
+    }
+    
+    public ErrorCode getErrorCode() {
+        return errorCode;
+    }
+} 

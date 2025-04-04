@@ -33,6 +33,7 @@
         <druid.version>1.2.6</druid.version> <!-- Druid 数据源版本 -->
         <mysql.version>8.0.23</mysql.version> <!-- MySQL 驱动版本 -->
         <lombok.version>1.18.20</lombok.version> <!-- Lombok 版本 -->
+        <jjwt.version>0.11.5</jjwt.version>
         <!--        <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version> &lt;!&ndash; MyBatis Plus Generator 版本 &ndash;&gt;-->
     </properties>
 
@@ -104,6 +105,24 @@
 <!--                <artifactId>mybatis-generator-core</artifactId>-->
 <!--                <version>1.4.1</version>-->
 <!--            </dependency>-->
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+                <scope>runtime</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -1,0 +1,136 @@
+server:
+  port: 9490
+  servlet:
+    context-path: /api
+
+spring:
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      discovery:
+        # 指定nacos server的地址
+        server-addr: localhost:8848
+        namespace: 1695f1a3-225f-4479-9dc1-1f71f7c845a7
+    sentinel:
+      transport:
+        dashboard: localhost:8080 #配置Sentinel dashboard地址
+        client-ip: 127.0.0.1
+  application:
+    name: mock-ielts-common
+  # Redis配置
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    timeout: 10s
+    lettuce:
+      pool:
+        min-idle: 0
+        max-idle: 8
+        max-active: 8
+        max-wait: -1ms
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mock_ielts?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+
+# JWT配置
+jwt:
+  # JWT密钥（使用至少32位的随机字符串）
+  secret: your-secret-key-must-be-at-least-32-characters-long
+  # Token过期时间（毫秒）
+  expiration: 86400000  # 24小时
+  # Token刷新时间（毫秒）
+  refresh-expiration: 604800000  # 7天
+  # Token请求头名称
+  header: Authorization
+  # Token前缀
+  token-prefix: Bearer
+  # 不需要验证的路径
+  exclude-paths:
+    - /login
+    - /register
+    - /error
+    - /swagger-ui/**
+    - /swagger-resources/**
+    - /v2/api-docs
+    - /webjars/**
+  paths:
+    - /api/login
+    - /api/register
+    - /api/error
+    - /api/swagger-ui.html
+    - /api/swagger-resources/**
+    - /api/webjars/**
+    - /api/v2/api-docs
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.apps: DEBUG
+    org.springframework.security: INFO
+  file:
+    name: logs/mock-ielts-common.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# 安全配置
+security:
+  # 是否启用CSRF
+  csrf:
+    enabled: false
+  # 是否启用XSS防护
+  xss:
+    enabled: true
+  # 是否启用SQL注入防护
+  sql-injection:
+    enabled: true
+  # 是否启用请求频率限制
+  rate-limit:
+    enabled: true
+    # 限制次数
+    limit: 100
+    # 时间窗口（秒）
+    window: 60
+
+# MyBatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.apps.common.model.entity
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# Swagger配置
+springfox:
+  documentation:
+    swagger-ui:
+      enabled: true
+    enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+  packages-to-scan: com.apps.common
+  paths-to-match: /** 
