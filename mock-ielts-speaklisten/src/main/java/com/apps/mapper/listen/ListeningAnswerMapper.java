@@ -31,4 +31,6 @@ public interface ListeningAnswerMapper {
     void updateAnswer(ListeningAnswer answer);
 
 
+    @Select("SELECT * FROM COL_LISTENING_ANSWER WHERE COL_QUESTION_ID = #{questionId} AND COL_IS_CORRECT = TRUE")
+    ListeningAnswer findCorrectAnswerByQuestionId(Long questionId);
 }

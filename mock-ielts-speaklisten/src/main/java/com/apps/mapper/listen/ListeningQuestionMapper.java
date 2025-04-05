@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface ListeningQuestionMapper {
-    @Insert("INSERT INTO COL_LISTENING_QUESTION (COL_ID, COL_LISTENING_ID, COL_TYPE, COL_CONTENT, COL_PLACEHOLDER_FORMAT, COL_PART, COL_IMAGE_URL, COL_CREATED_AT, COL_UPDATED_AT) VALUES (#{id}, #{listeningId}, #{type}, #{content}, #{placeholderFormat}, #{part}, #{colImageUrl}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)")
+    @Insert("INSERT INTO COL_LISTENING_QUESTION (COL_ID, COL_LISTENING_ID, COL_TYPE, COL_CONTENT, COL_PLACEHOLDER_FORMAT, COL_PART, COL_IMAGE_URL, COL_CREATED_AT, COL_UPDATED_AT,COL_SERIAL) VALUES (#{id}, #{listeningId}, #{type}, #{content}, #{placeholderFormat}, #{part}, #{colImageUrl}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP , #{serial})")
     void insertQuestion(ListeningQuestion question);
 
     @Select("SELECT * FROM COL_LISTENING_QUESTION WHERE COL_LISTENING_ID = #{listeningId} AND COL_PART = #{part}")
@@ -20,7 +20,8 @@ public interface ListeningQuestionMapper {
             @Result(property = "createdAt", column = "COL_CREATED_AT"),
             @Result(property = "updatedAt", column = "COL_UPDATED_AT"),
             @Result(property = "part", column = "COL_PART"),
-            @Result(property = "colImageUrl", column = "COL_IMAGE_URL")
+            @Result(property = "colImageUrl", column = "COL_IMAGE_URL"),
+            @Result(property = "serial", column = "COL_SERIAL")
     })
     List<ListeningQuestion> findQuestionsByListeningIdAndPart(Long listeningId, String part);
 
@@ -40,7 +41,8 @@ public interface ListeningQuestionMapper {
             @Result(property = "createdAt", column = "COL_CREATED_AT"),
             @Result(property = "updatedAt", column = "COL_UPDATED_AT"),
             @Result(property = "part", column = "COL_PART"),
-            @Result(property = "colImageUrl", column = "COL_IMAGE_URL")
+            @Result(property = "colImageUrl", column = "COL_IMAGE_URL"),
+            @Result(property = "serial", column = "COL_SERIAL")
     })
     List<ListeningQuestion> findQuestionsByListeningId(Long listeningId);
 }

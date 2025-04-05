@@ -1,0 +1,622 @@
+{
+  "listening": {
+    "id": -3229998652351858000,
+    "title": "雅思真题试卷2024一月*真",
+    "content": "雅思真题试卷2024一月 雅思听力真题",
+    "audioUrl": "http://localhost:9489/files/stream/7ba57ad7-8f38-4c19-ae24-d8a2b7aea7b8.mp3",
+    "createdAt": "2025-04-05 01:12:01",
+    "updatedAt": "2025-04-05 01:12:01",
+    "username": "学生11",
+    "userId": "26"
+  },
+  "parts": {
+    "Part1": [
+      {
+        "question": {
+          "id": -8674271977875795000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "School Excursion\n\nDay: Wednesday (Example)\n\nDestination: ____",
+          "placeholderFormat": "{{Animal Park}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part1",
+          "colImageUrl": "",
+          "serial": 1
+        }
+      },
+      {
+        "question": {
+          "id": -8541525026866807000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Eat: Catered lunch\n\nAttend: ____",
+          "placeholderFormat": "{{reptile display}}",
+          "answers": "qqqqq",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part1",
+          "colImageUrl": "",
+          "serial": 5
+        }
+      },
+      {
+        "question": {
+          "id": -7375597359807644000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": " ____   25%  ",
+          "placeholderFormat": "{{Japanese}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part1",
+          "colImageUrl": "",
+          "serial": 8
+        }
+      },
+      {
+        "question": {
+          "id": -6736849957646015000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Complete the table. Write ONE WORD ONLY for each answer.\n\n ____   26%",
+          "placeholderFormat": "{{Chinese}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part1",
+          "colImageUrl": "",
+          "serial": 7
+        }
+      },
+      {
+        "question": {
+          "id": -3069679755118587000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Return time:  ____",
+          "placeholderFormat": "{{6.30 pm}}",
+          "answers": "qqqqqq",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part1",
+          "colImageUrl": "",
+          "serial": 6
+        }
+      },
+      {
+        "question": {
+          "id": -2881676369661476400,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": " ____   8%\nSaudi\t7%\nOther\t3%",
+          "placeholderFormat": "{{Thai}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part1",
+          "colImageUrl": "",
+          "serial": 10
+        }
+      },
+      {
+        "question": {
+          "id": -2679604714820915000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": " ____   16%\nIndonesian   15%",
+          "placeholderFormat": "{{Korean}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part1",
+          "colImageUrl": "",
+          "serial": 9
+        }
+      },
+      {
+        "question": {
+          "id": 18990154482523796,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Activities Planned See: ____",
+          "placeholderFormat": "{{Birds of prey}}",
+          "answers": "qqqq",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part1",
+          "colImageUrl": "",
+          "serial": 4
+        }
+      },
+      {
+        "question": {
+          "id": 1295479517840171800,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Weather: ____",
+          "placeholderFormat": "{{Cold and cloudy}}",
+          "answers": "qq",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part1",
+          "colImageUrl": "",
+          "serial": 2
+        }
+      },
+      {
+        "question": {
+          "id": 2588017200348290000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Arrival time: ____",
+          "placeholderFormat": "{{10.15 am}}",
+          "answers": "qqq",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part1",
+          "colImageUrl": "",
+          "serial": 3
+        }
+      }
+    ],
+    "Part2": [
+      {
+        "question": {
+          "id": -8852633411262478000,
+          "listeningId": -3229998652351858000,
+          "type": "SINGLE_CHOICE",
+          "content": "The overseas consultants deal mostly with:",
+          "placeholderFormat": null,
+          "answers": "Asia",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part2",
+          "colImageUrl": "",
+          "serial": 12
+        }
+      },
+      {
+        "question": {
+          "id": -6998235518831739000,
+          "listeningId": -3229998652351858000,
+          "type": "SINGLE_CHOICE",
+          "content": "Interstate Tours",
+          "placeholderFormat": null,
+          "answers": "B",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part2",
+          "colImageUrl": "",
+          "serial": 17
+        }
+      },
+      {
+        "question": {
+          "id": -4522066334072888000,
+          "listeningId": -3229998652351858000,
+          "type": "SINGLE_CHOICE",
+          "content": "Trips to regional locations are good because:",
+          "placeholderFormat": null,
+          "answers": "There is storage for suitcases.",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part2",
+          "colImageUrl": "",
+          "serial": 14
+        }
+      },
+      {
+        "question": {
+          "id": -2859826464139126000,
+          "listeningId": -3229998652351858000,
+          "type": "SINGLE_CHOICE",
+          "content": "Asian Region",
+          "placeholderFormat": null,
+          "answers": "G",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part2",
+          "colImageUrl": "",
+          "serial": 19
+        }
+      },
+      {
+        "question": {
+          "id": -35816781268054144,
+          "listeningId": -3229998652351858000,
+          "type": "SINGLE_CHOICE",
+          "content": " The company deals mostly with:",
+          "placeholderFormat": null,
+          "answers": "Big cities",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part2",
+          "colImageUrl": "",
+          "serial": 11
+        }
+      },
+      {
+        "question": {
+          "id": 3828080639676629000,
+          "listeningId": -3229998652351858000,
+          "type": "SINGLE_CHOICE",
+          "content": "General Office",
+          "placeholderFormat": null,
+          "answers": "F",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part2",
+          "colImageUrl": "",
+          "serial": 20
+        }
+      },
+      {
+        "question": {
+          "id": 4355720478100811000,
+          "listeningId": -3229998652351858000,
+          "type": "SINGLE_CHOICE",
+          "content": " International Tours",
+          "placeholderFormat": null,
+          "answers": "A",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part2",
+          "colImageUrl": "",
+          "serial": 18
+        }
+      },
+      {
+        "question": {
+          "id": 7571708085198162000,
+          "listeningId": -3229998652351858000,
+          "type": "SINGLE_CHOICE",
+          "content": "For deserts and gorges, customers should come in the:",
+          "placeholderFormat": null,
+          "answers": "Afternoon",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part2",
+          "colImageUrl": "",
+          "serial": 13
+        }
+      },
+      {
+        "question": {
+          "id": 8360204312800303000,
+          "listeningId": -3229998652351858000,
+          "type": "SINGLE_CHOICE",
+          "content": "SleekLine buses are particularly known for their:",
+          "placeholderFormat": null,
+          "answers": "Service",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part2",
+          "colImageUrl": "",
+          "serial": 15
+        }
+      },
+      {
+        "question": {
+          "id": 9211781489808833000,
+          "listeningId": -3229998652351858000,
+          "type": "SINGLE_CHOICE",
+          "content": "Local Tours",
+          "placeholderFormat": null,
+          "answers": "B",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part2",
+          "colImageUrl": "http://localhost:9489/files/stream/c6dc1fe9-18e6-4f6a-9a86-a74cac4d302b.png",
+          "serial": 16
+        }
+      }
+    ],
+    "Part3": [
+      {
+        "question": {
+          "id": -9099735913117294000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "____",
+          "placeholderFormat": "{{Single}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part3",
+          "colImageUrl": "",
+          "serial": 28
+        }
+      },
+      {
+        "question": {
+          "id": -8151616073914749000,
+          "listeningId": -3229998652351858000,
+          "type": "MATCHING",
+          "content": "Tuesday   ____   Study Skills",
+          "placeholderFormat": null,
+          "answers": "B",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part3",
+          "colImageUrl": "",
+          "serial": 22
+        }
+      },
+      {
+        "question": {
+          "id": -7706386588354335000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "____",
+          "placeholderFormat": "{{12}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part3",
+          "colImageUrl": "",
+          "serial": 27
+        }
+      },
+      {
+        "question": {
+          "id": -40289716064943810,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "____",
+          "placeholderFormat": "{{16}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part3",
+          "colImageUrl": "",
+          "serial": 26
+        }
+      },
+      {
+        "question": {
+          "id": 1765289427509736000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "____",
+          "placeholderFormat": "{{Work}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part3",
+          "colImageUrl": "",
+          "serial": 29
+        }
+      },
+      {
+        "question": {
+          "id": 3045169456450167300,
+          "listeningId": -3229998652351858000,
+          "type": "MATCHING",
+          "content": "Monday   Opening Lecture  ____",
+          "placeholderFormat": null,
+          "answers": "D",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part3",
+          "colImageUrl": "",
+          "serial": 21
+        }
+      },
+      {
+        "question": {
+          "id": 3919673754154708500,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "____",
+          "placeholderFormat": "{{Teacher}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part3",
+          "colImageUrl": "",
+          "serial": 30
+        }
+      },
+      {
+        "question": {
+          "id": 6611363389134154000,
+          "listeningId": -3229998652351858000,
+          "type": "MATCHING",
+          "content": "Thursday   X   X\nFriday   X   ____",
+          "placeholderFormat": null,
+          "answers": "A",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part3",
+          "colImageUrl": "",
+          "serial": 24
+        }
+      },
+      {
+        "question": {
+          "id": 6929380357452078000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "____",
+          "placeholderFormat": "{{Header}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part3",
+          "colImageUrl": "http://localhost:9489/files/stream/1b159caf-ec2d-4a99-baf5-602d965d7248.png",
+          "serial": 25
+        }
+      },
+      {
+        "question": {
+          "id": 6968364734092656000,
+          "listeningId": -3229998652351858000,
+          "type": "MATCHING",
+          "content": "Wednesday   X   ____",
+          "placeholderFormat": null,
+          "answers": "B",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part3",
+          "colImageUrl": "",
+          "serial": 23
+        }
+      }
+    ],
+    "Part4": [
+      {
+        "question": {
+          "id": -9029037449832564000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Princes Park\t\nland originally worth £ ____",
+          "placeholderFormat": "{{50,000}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part4",
+          "colImageUrl": "",
+          "serial": 37
+        }
+      },
+      {
+        "question": {
+          "id": -8902027075592249000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Princes Park\ndesigned by Joseph Paxton\nin the middle was a ____",
+          "placeholderFormat": "{{lake}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part4",
+          "colImageUrl": "",
+          "serial": 38
+        }
+      },
+      {
+        "question": {
+          "id": -6495729524152594000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "1000 years ago\t\nsufficient wilderness\n\nlarge forests: people could ____",
+          "placeholderFormat": "{{Get lost}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part4",
+          "colImageUrl": "",
+          "serial": 35
+        }
+      },
+      {
+        "question": {
+          "id": -1871368064081885700,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Behavior in parks is controlled by ____",
+          "placeholderFormat": "{{Regulations}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part4",
+          "colImageUrl": "",
+          "serial": 31
+        }
+      },
+      {
+        "question": {
+          "id": -1111347405067402200,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "A wilderness park does not have any ____",
+          "placeholderFormat": "{{Development}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part4",
+          "colImageUrl": "",
+          "serial": 33
+        }
+      },
+      {
+        "question": {
+          "id": 3901433293246020000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Insect numbers are reduced by having  ____",
+          "placeholderFormat": "{{Short grass}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part4",
+          "colImageUrl": "",
+          "serial": 32
+        }
+      },
+      {
+        "question": {
+          "id": 3995966748610146300,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Observing trees and lying in the grass are examples of  ____",
+          "placeholderFormat": "{{Passive recreation}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part4",
+          "colImageUrl": "",
+          "serial": 34
+        }
+      },
+      {
+        "question": {
+          "id": 7322831932328510000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "e.g. in ____",
+          "placeholderFormat": "{{Melbourne}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part4",
+          "colImageUrl": "",
+          "serial": 40
+        }
+      },
+      {
+        "question": {
+          "id": 8807329700302347000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "Neighborhood Parks\nnow regarded as a ____ satisfy a natural desire can be famous",
+          "placeholderFormat": "{{Refuge}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part4",
+          "colImageUrl": "",
+          "serial": 39
+        }
+      },
+      {
+        "question": {
+          "id": 8814474846157853000,
+          "listeningId": -3229998652351858000,
+          "type": "FILL_IN_THE_BLANK",
+          "content": "1000 years ago\ndesigned by Joseph Paxton at the start of the ____",
+          "placeholderFormat": "{{Industrial Revolution}}",
+          "answers": "q",
+          "createdAt": "2025-04-05 01:12:01",
+          "updatedAt": "2025-04-05 01:12:01",
+          "part": "Part4",
+          "colImageUrl": "",
+          "serial": 36
+        }
+      }
+    ]
+  }
+}

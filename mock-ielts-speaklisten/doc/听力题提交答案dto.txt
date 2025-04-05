@@ -1,0 +1,50 @@
+听力题提交答案DTO数据结构说明：
+
+1. 顶层结构
+{
+    listening: ListeningDTO,    // 听力试题基本信息
+    parts: {                    // 各部分题目和答案
+        Part1: QuestionDTO[],
+        Part2: QuestionDTO[],
+        Part3: QuestionDTO[],
+        Part4: QuestionDTO[]
+    }
+}
+
+2. ListeningDTO 结构
+{
+    id: Long,                   // 听力试题ID
+    title: String,              // 标题
+    content: String,            // 内容描述
+    audioUrl: String,           // 音频URL
+    createdAt: String,          // 创建时间
+    updatedAt: String,          // 更新时间
+    username: String,           // 用户名
+    userId: String             // 用户ID
+}
+
+3. QuestionDTO 结构
+{
+    question: {
+        id: Long,               // 问题ID
+        listeningId: Long,      // 所属听力试题ID
+        type: String,           // 题目类型：SINGLE_CHOICE(单选题), FILL_IN_THE_BLANK(填空题), MATCHING(配对题)
+        content: String,        // 问题内容
+        placeholderFormat: String, // 填空题占位符格式
+        answers: String,        // 用户答案（单个字符串）
+        createdAt: String,      // 创建时间
+        updatedAt: String,      // 更新时间
+        part: String,           // 所属部分（Part1, Part2, Part3, Part4）
+        colImageUrl: String,    // 题目图片URL（如果有）
+        serial: Number          // 题号（1-40）
+    }
+}
+
+注意事项：
+1. answers 字段根据题目类型存储不同格式：
+   - SINGLE_CHOICE: 存储选项内容
+   - FILL_IN_THE_BLANK: 存储填写的文本
+   - MATCHING: 存储选择的字母（A-H）
+2. 所有时间字段使用 ISO 8601 格式的字符串
+3. ID 字段使用 Long 类型以支持大数据量
+4. 图片URL可以为 null 

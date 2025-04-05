@@ -1,8 +1,10 @@
 package com.apps.controller.listen;
 
+import com.apps.dto.ListeningAnswerSubmissionDTO;
 import com.apps.dto.ListeningWithQuestionsAndAnswersDTO;
 import com.apps.dto.ListeningWithQuestionsDTO;
 import com.apps.model.listen.ListeningQuestion;
+import com.apps.service.listen.ListeningAnswerService;
 import com.apps.service.listen.ListeningService;
 import com.apps.common.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,8 @@ public class ListeningController {
 
     @Autowired
     private ListeningService listeningService;
-
+    @Autowired
+    private ListeningAnswerService listeningAnswerService;
     /**
      * 新增听力题及其题目和答案
      *
@@ -57,4 +60,15 @@ public class ListeningController {
 
 
 
+
+    /**
+     * 提交听力题答案
+     * @param submission 提交的答案
+     * @return ResponseResult<String> 响应结果
+     */
+    @PostMapping("/submit/answers")
+    public ResponseResult<String> submitAnswers(@RequestBody ListeningAnswerSubmissionDTO submission) {
+        listeningAnswerService.submitAnswers(submission);
+        return ResponseResult.success("答案提交成功");
+    }
 }

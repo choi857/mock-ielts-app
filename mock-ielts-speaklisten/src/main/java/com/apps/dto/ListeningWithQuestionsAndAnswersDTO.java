@@ -7,6 +7,9 @@ import com.apps.model.listen.ListeningQuestion;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 查询听力题目答案和题目的dto
+ */
 public class ListeningWithQuestionsAndAnswersDTO {
     private Listening listening;
     private Map<String, List<QuestionWithAnswers>> parts;

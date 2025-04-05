@@ -15,5 +15,6 @@ public class ListeningQuestion {
     private String updatedAt;
     private String part;
     private String colImageUrl;
+    private Integer serial;
     // Getters and Setters
 }
