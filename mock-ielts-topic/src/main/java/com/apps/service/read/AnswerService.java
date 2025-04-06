@@ -96,7 +96,13 @@ public class AnswerService {
             userAnswerDetailMapper.insert(userAnswerDetail);
         }
     }
-public void validateAnswers(Long recordId, Integer userId) {
+
+    /**
+     * 校验答案并更新分数,设置评语
+     * @param recordId
+     * @param userId
+     */
+    public void validateAnswers(Long recordId, Integer userId) {
     // 查询用户答题记录
     Map<String, Object> params = new HashMap<>();
     params.put("recordId", recordId);

@@ -169,13 +169,13 @@ FOREIGN KEY (task_id) REFERENCES COL_WRITING_TASK(task_id) ON DELETE CASCADE;
 
 # 写作答案评分明细表
 CREATE TABLE COL_WRITING_ANSWER_SCORE (
-                                          score_id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '评分明细ID',
-                                          answer_id BIGINT NOT NULL COMMENT '关联COL_WRITE_USER_ANSWER_DETAIL.detail_id',
-                                          dimension_id BIGINT NOT NULL COMMENT '关联写作评分维度表COL_WRITING_SCORE_DIMENSION.dimension_id',
-                                          max_score INT DEFAULT 25 COMMENT '该维度满分',
-                                          score DECIMAL(5,2) COMMENT '得分',
-                                          comments TEXT COMMENT '评分评语',
-                                          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '评分时间'
+       score_id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '评分明细ID',
+       answer_id BIGINT NOT NULL COMMENT '关联COL_WRITE_USER_ANSWER_DETAIL.detail_id',
+       dimension_id BIGINT NOT NULL COMMENT '关联写作评分维度表COL_WRITING_SCORE_DIMENSION.dimension_id',
+       max_score INT DEFAULT 25 COMMENT '该维度满分',
+       score DECIMAL(5,2) COMMENT '得分',
+       comments TEXT COMMENT '评分评语',
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '评分时间'
 ) COMMENT='雅思机考写作答案评分明细表';
 
 -- 外键创建语句（注释掉）

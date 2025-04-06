@@ -14,11 +14,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 /**
  * 听力答案服务类
  */
 @Service
 public class ListeningAnswerService {
+    private static final Logger logger = LoggerFactory.getLogger(ListeningAnswerService.class);
 
     @Autowired
     private ListeningUserAnswerMapper listeningUserAnswerMapper;
@@ -83,6 +86,7 @@ public class ListeningAnswerService {
         int matchingErrors = 0;
 
         for (ListeningUserAnswerDetail detail : details) {
+            logger.debug("问题id-------" + detail.getQuestionId());
             // 获取正确答案
             ListeningAnswer correctAnswer = listeningAnswerMapper.findCorrectAnswerByQuestionId(detail.getQuestionId());
             if (correctAnswer != null && correctAnswer.getContent().equals(detail.getSubmittedAnswer())) {
@@ -107,8 +111,8 @@ public class ListeningAnswerService {
             listeningUserAnswerMapper.updateUserAnswerDetail(detail);
         }
 
-        double score = (double) correctAnswers / totalQuestions * 100;
-
+     //   double score = (double) correctAnswers / totalQuestions * 100;
+        double score = (double) correctAnswers;
         // 计算错误最多的题型
         String evaluation;
         if (fillInTheBlankErrors >= singleChoiceErrors && fillInTheBlankErrors >= matchingErrors) {

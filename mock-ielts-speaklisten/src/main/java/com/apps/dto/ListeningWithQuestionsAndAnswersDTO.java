@@ -3,15 +3,17 @@ package com.apps.dto;
 import com.apps.model.listen.Listening;
 import com.apps.model.listen.ListeningAnswer;
 import com.apps.model.listen.ListeningQuestion;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 import java.util.Map;
 
-/**
- * 查询听力题目答案和题目的dto
- */
 public class ListeningWithQuestionsAndAnswersDTO {
+    @JsonProperty("listening")
     private Listening listening;
+
+    @JsonProperty("parts")
     private Map<String, List<QuestionWithAnswers>> parts;
 
     public Listening getListening() {
@@ -31,7 +33,10 @@ public class ListeningWithQuestionsAndAnswersDTO {
     }
 
     public static class QuestionWithAnswers {
+        @JsonProperty("question")
         private ListeningQuestion question;
+
+        @JsonProperty("answers")
         private List<ListeningAnswer> answers;
 
         public ListeningQuestion getQuestion() {

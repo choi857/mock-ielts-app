@@ -31,6 +31,19 @@ public interface ListeningAnswerMapper {
     void updateAnswer(ListeningAnswer answer);
 
 
-    @Select("SELECT * FROM COL_LISTENING_ANSWER WHERE COL_QUESTION_ID = #{questionId} AND COL_IS_CORRECT = TRUE")
-    ListeningAnswer findCorrectAnswerByQuestionId(Long questionId);
+//    @Select("SELECT * FROM COL_LISTENING_ANSWER WHERE COL_QUESTION_ID = #{questionId} AND COL_IS_CORRECT = TRUE")
+//    ListeningAnswer findCorrectAnswerByQuestionId(Long questionId);
+@Select("SELECT * FROM COL_LISTENING_ANSWER WHERE COL_QUESTION_ID = #{questionId} AND COL_IS_CORRECT = TRUE")
+@Results({
+        @Result(property = "id", column = "COL_ID"),
+        @Result(property = "questionId", column = "COL_QUESTION_ID"),
+        @Result(property = "content", column = "COL_CONTENT"),
+        @Result(property = "isCorrect", column = "COL_IS_CORRECT"),
+        @Result(property = "blankNumber", column = "COL_BLANK_NUMBER"),
+        @Result(property = "matchingKey", column = "COL_MATCHING_KEY"),
+        @Result(property = "createdAt", column = "COL_CREATED_AT"),
+        @Result(property = "updatedAt", column = "COL_UPDATED_AT"),
+        @Result(property = "part", column = "COL_PART")
+})
+ListeningAnswer findCorrectAnswerByQuestionId(Long questionId);
 }
