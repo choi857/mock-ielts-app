@@ -1,0 +1,291 @@
+接口：根据ID获取口语材料
+URL: http://localhost:9486/speaking/{id}
+方法: GET
+请求参数:  id (路径变量): 要获取的口语材料的ID。暂时为：599592616547275166
+响应:  响应数据被包裹在一个 ResponseResult 对象中，包含以下字段：
+status (String): 响应状态，例如 "success"。
+message (String): 描述操作结果的消息。
+code (Integer): HTTP状态码。
+data (Object): 包含口语材料详细信息的 SpeakingDTO 对象。
+响应体:
+{
+  "status": "success",
+  "message": "口语材料获取成功",
+  "code": 200,
+  "data": {
+    "speaking": {
+      "id": "599592616547275166",
+      "title": "雅思真题试卷2024一月*真",
+      "imageUrl": "http://localhost:9489/files/stream/397847b7-9de9-43b7-a095-0ac8f6dc8a14.mp3",
+      "transcript": "Please change the volume using the volume setting on your device. When you are happy with the sound, move on to check your microphone."
+    },
+    "parts": {
+      "Part3": [
+        {
+          "question": {
+            "id": 599592616841752980,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "What are the characteristics that good co-workers need?",
+            "imageUrl": "http://localhost:9489/files/stream/c061487e-95d6-4f5e-a509-3386af3980bd.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 15,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616850263231,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "What benefits if you are surrounded by good co-workers?",
+            "imageUrl": "http://localhost:9489/files/stream/0db2f122-3864-4985-9be9-4b1c22adc0b3.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 16,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616862224258,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "What would happen if the co-workers are not good?",
+            "imageUrl": "http://localhost:9489/files/stream/e23556a6-8547-49aa-8962-3ce27ef44fba.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 17,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616878039036,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Are there values if managers build good relationships with the workers who work underneath them?",
+            "imageUrl": "http://localhost:9489/files/stream/1ebd7232-fdc1-4e43-a4de-26d2b01dcb69.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 18,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616883750133,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Is it good for workers if the company applies sports facilities for them?",
+            "imageUrl": "http://localhost:9489/files/stream/f9995d72-047b-444c-ae8a-ce4a8ad7025b.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 19,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616892287962,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Are knowledgeable people popular at work?",
+            "imageUrl": "http://localhost:9489/files/stream/4036235a-2f06-4013-af41-17efdf60e5e4.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 20,
+            "part": null
+          }
+        }
+      ],
+      "Part2": [
+        {
+          "question": {
+            "id": 599592616831682240,
+            "speakingId": 599592616547275166,
+            "type": "CUE_CARD",
+            "content": "Describe a person you like to work or study with",
+            "imageUrl": "http://localhost:9489/files/stream/a00a7891-e0e8-4d2f-a074-c1125136714d.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 14,
+            "part": null
+          }
+        }
+      ],
+      "Part1": [
+        {
+          "question": {
+            "id": 599592616674979648,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "What is your full name?",
+            "imageUrl": "http://localhost:9489/files/stream/a936b137-1696-4d24-af66-adc6eb8ec9e8.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 1,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616707986846,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Where are you from?",
+            "imageUrl": "http://localhost:9489/files/stream/a659cbfd-afe6-4167-84c2-6fa445481e3c.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 2,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616727184775,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Do you work or study?",
+            "imageUrl": "http://localhost:9489/files/stream/7a0eaff1-424e-47ba-9b06-a5d8c6e5ea9d.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 3,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616741502318,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Do you want to travel in the outer space?",
+            "imageUrl": "http://localhost:9489/files/stream/fe0551b2-3467-47a3-82ad-5b8a3ad22640.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 4,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616750243408,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "What would you do if you had an opportunity?",
+            "imageUrl": "http://localhost:9489/files/stream/334a89fd-716c-496b-89dd-a24dd6b852f9.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 5,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616757426187,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Have you ever learnt about stars and outer space?",
+            "imageUrl": "http://localhost:9489/files/stream/bb3f5cf1-52b0-47e8-be10-3cb5c6c034ab.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 6,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616770038271,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Is it important to study stars?",
+            "imageUrl": "http://localhost:9489/files/stream/bd22fbab-805a-47df-ae66-5baa96494b86.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 7,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616779613692,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "What is your favourite star?",
+            "imageUrl": "http://localhost:9489/files/stream/7671394c-bc29-4a4b-aeaa-b7e15d65c7c8.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 8,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616787158724,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Do you like wearing jewellery?",
+            "imageUrl": "http://localhost:9489/files/stream/4e07825c-9278-4b5c-9502-b9c868a8a44c.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 9,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616797683878,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "What type of jewellery do you like?",
+            "imageUrl": "http://localhost:9489/files/stream/5dbb84b6-1226-48ec-ae68-2a10205d8fb7.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 10,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616805100043,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Have you ever sent someone jewelry as a gift?",
+            "imageUrl": "http://localhost:9489/files/stream/328fa40b-bee0-45c6-83b3-209f662e3632.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 11,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616814904031,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Where do you buy jewellery?",
+            "imageUrl": "http://localhost:9489/files/stream/7d480e1c-549b-4a1c-9a57-0473f67a3239.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 12,
+            "part": null
+          }
+        },
+        {
+          "question": {
+            "id": 599592616826391865,
+            "speakingId": 599592616547275166,
+            "type": "INTRODUCTION",
+            "content": "Have you ever bought expensive jewellery for yourself?",
+            "imageUrl": "http://localhost:9489/files/stream/468294e7-4b3b-4769-b01b-0a67c29a68b3.mp4",
+            "createdAt": "2025-04-07T06:43:29.000+00:00",
+            "updatedAt": "2025-04-07T06:43:29.000+00:00",
+            "serial": 13,
+            "part": null
+          }
+        }
+      ]
+    }
+  }
+}

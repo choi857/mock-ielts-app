@@ -1,6 +1,6 @@
 package com.apps.service.listen;
 
-import com.apps.dto.ListeningAnswerSubmissionDTO;
+import com.apps.dto.listen.ListeningAnswerSubmissionDTO;
 import com.apps.mapper.listen.ListeningAnswerMapper;
 import com.apps.mapper.listen.ListeningUserAnswerMapper;
 import com.apps.model.listen.ListeningAnswer;

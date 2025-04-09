@@ -14,5 +14,12 @@ spring:
       transport:
         dashboard: localhost:8080 #配置Sentinel dashboard地址
         client-ip: 127.0.0.1
-
+file:
+  upload:
+    # 文件系统上传根目录
+    base-dir: D:/uploads
+    # 允许的文件类型
+    allowed-types: mp3,wav,mp4,avi,pdf,doc,docx,xls,xlsx,ppt,pptx,jpg,jpeg,png,gif
+    # 文件系统文件访问URL前缀
+    url-prefix: http://localhost:9489/files/stream
 

@@ -1,9 +1,8 @@
 package com.apps.controller.listen;
 
-import com.apps.dto.ListeningAnswerSubmissionDTO;
-import com.apps.dto.ListeningWithQuestionsAndAnswersDTO;
-import com.apps.dto.ListeningWithQuestionsDTO;
-import com.apps.model.listen.ListeningQuestion;
+import com.apps.dto.listen.ListeningAnswerSubmissionDTO;
+import com.apps.dto.listen.ListeningWithQuestionsAndAnswersDTO;
+import com.apps.dto.listen.ListeningWithQuestionsDTO;
 import com.apps.service.listen.ListeningAnswerService;
 import com.apps.service.listen.ListeningService;
 import com.apps.common.ResponseResult;

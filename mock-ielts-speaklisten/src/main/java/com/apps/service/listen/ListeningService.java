@@ -1,7 +1,7 @@
 package com.apps.service.listen;
 
-import com.apps.dto.ListeningWithQuestionsAndAnswersDTO;
-import com.apps.dto.ListeningWithQuestionsDTO;
+import com.apps.dto.listen.ListeningWithQuestionsAndAnswersDTO;
+import com.apps.dto.listen.ListeningWithQuestionsDTO;
 import com.apps.mapper.listen.ListeningMapper;
 import com.apps.mapper.listen.ListeningQuestionMapper;
 import com.apps.mapper.listen.ListeningAnswerMapper;

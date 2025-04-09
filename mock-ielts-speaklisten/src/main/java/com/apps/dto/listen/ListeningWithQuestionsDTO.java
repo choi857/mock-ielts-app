@@ -1,4 +1,4 @@
-package com.apps.dto;
+package com.apps.dto.listen;
 
 import com.apps.model.listen.Listening;
 import com.apps.model.listen.ListeningQuestion;

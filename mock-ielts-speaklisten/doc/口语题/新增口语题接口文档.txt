@@ -1,0 +1,65 @@
+以下是`createSpeaking`接口的详细文档，包括请求格式和示例：
+
+### 接口：创建口语材料
+
+**URL:** http://localhost:9486/speaking/admin/add
+
+**方法:** `POST`
+
+**请求体:**
+
+请求体应为一个JSON对象，结构如下：
+
+```json
+{
+  "speaking": {
+    "id": "String",
+    "title": "String",
+    "imageUrl": "String",
+    "transcript": "String"
+  },
+  "parts": {
+    "Part1": [
+      {
+        "question": {
+          "id": 1,
+          "speakingId": 1,
+          "type": "CUE_CARD",
+          "content": "描述一次你帮助别人的经历。",
+          "imageUrl": "http://example.com/image.jpg",
+          "serial": 1,
+          "createdAt": "2023-10-01T12:00:00Z",
+          "updatedAt": "2023-10-01T12:00:00Z"
+        }
+      }
+    ],
+    "Part2": [
+      {
+        "question": {
+          "id": 2,
+          "speakingId": 1,
+          "type": "DISCUSSION",
+          "content": "讨论一个你感兴趣的话题。",
+          "imageUrl": "http://example.com/image2.jpg",
+          "serial": 2,
+          "createdAt": "2023-10-01T12:00:00Z",
+          "updatedAt": "2023-10-01T12:00:00Z"
+        }
+      }
+    ],
+    "Part3": [
+      {
+        "question": {
+          "id": 2,
+          "speakingId": 1,
+          "type": "DISCUSSION",
+          "content": "讨论一个你感兴趣的话题。",
+          "imageUrl": "http://example.com/image2.jpg",
+          "serial": 2,
+          "createdAt": "2023-10-01T12:00:00Z",
+          "updatedAt": "2023-10-01T12:00:00Z"
+        }
+      }
+    ]
+  }
+}
