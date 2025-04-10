@@ -12,12 +12,13 @@
         <result property="imageBase64" column="COL_IMAGE_BASE64"/>
         <result property="createdAt" column="COL_CREATED_AT"/>
         <result property="updatedAt" column="COL_UPDATED_AT"/>
+        <result property="readSummaryId" column="COL_READING_SUMMARY_ID"/>
     </resultMap>
 
     <!-- 插入阅读材料 -->
     <insert id="insertReading" parameterType="com.apps.model.read.Reading" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO COL_READING (COL_TITLE, COL_CONTENT, COL_IMAGE_BASE64)
-        VALUES (#{title}, #{content}, #{imageBase64})
+        INSERT INTO COL_READING (COL_TITLE, COL_CONTENT, COL_IMAGE_BASE64, COL_READING_SUMMARY_ID, COL_ID)
+        VALUES (#{title}, #{content}, #{imageBase64}, #{readSummaryId},#{id})
     </insert>
 
     <!-- 根据 ID 查询阅读材料 -->
@@ -30,6 +31,9 @@
         SELECT * FROM COL_READING
     </select>
 
+    <select id="selectAllReadingSummary" resultMap="ReadingSummaryResultMap">
+        SELECT * FROM COL_READING_SUMMARY
+    </select>
     <!-- 更新阅读材料 -->
     <update id="updateReading" parameterType="com.apps.model.read.Reading">
         UPDATE COL_READING
@@ -43,5 +47,36 @@
     <delete id="deleteReadingById">
         DELETE FROM COL_READING WHERE COL_ID = #{id}
     </delete>
+
+
+    <!-- 插入阅读汇总 -->
+    <insert id="insertReadingSummary" parameterType="com.apps.model.read.ReadingSummary" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO COL_READING_SUMMARY (COL_TITLE, COL_CREATED_AT, COL_UPDATED_AT, COL_ID)
+        VALUES (#{title}, #{createdAt}, #{updatedAt},#{id})
+    </insert>
+
+    <resultMap id="ReadingSummaryResultMap" type="com.apps.model.read.ReadingSummary">
+        <id property="id" column="COL_ID"/>
+        <result property="title" column="COL_TITLE"/>
+        <result property="createdAt" column="COL_CREATED_AT"/>
+        <result property="updatedAt" column="COL_UPDATED_AT"/>
+    </resultMap>
+
+    <!-- 根据 ID 查询阅读汇总 -->
+    <select id="selectReadingSummaryById" resultMap="ReadingSummaryResultMap">
+        SELECT COL_ID, COL_TITLE, COL_CREATED_AT, COL_UPDATED_AT
+        FROM COL_READING_SUMMARY
+        WHERE COL_ID = #{id}
+    </select>
+
+    <!-- 删除阅读汇总 -->
+    <delete id="deleteReadingSummaryById">
+        DELETE FROM COL_READING_SUMMARY WHERE COL_ID = #{id}
+    </delete>
+
+    <!-- 根据阅读汇总 ID 查询关联的阅读材料 -->
+    <select id="selectReadingsBySummaryId" resultMap="ReadingResultMap">
+        SELECT * FROM COL_READING WHERE COL_READING_SUMMARY_ID = #{summaryId}
+    </select>
 
 </mapper>

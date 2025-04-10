@@ -14,12 +14,14 @@
         <result property="placeholderFormat" column="COL_PLACEHOLDER_FORMAT"/>
         <result property="createdAt" column="COL_CREATED_AT"/>
         <result property="updatedAt" column="COL_UPDATED_AT"/>
+        <result property="part" column="COL_PART"/>
+        <result property="serial" column="COL_SERIAL"/>
     </resultMap>
 
     <!-- 插入题目 -->
     <insert id="insertQuestion" parameterType="com.apps.model.read.Question" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO COL_QUESTION (COL_READING_ID, COL_TYPE, COL_CONTENT, COL_PLACEHOLDER_FORMAT)
-        VALUES (#{readingId}, #{type}, #{content}, #{placeholderFormat})
+        INSERT INTO COL_QUESTION (COL_READING_ID, COL_TYPE, COL_CONTENT, COL_PLACEHOLDER_FORMAT,COL_PART, COL_SERIAL,COL_ID)
+        VALUES (#{readingId}, #{type}, #{content}, #{placeholderFormat},#{part}, #{serial},#{id})
     </insert>
 
     <!-- 根据 ID 查询题目 -->
@@ -43,6 +45,11 @@
     <!-- 根据 ID 删除题目 -->
     <delete id="deleteQuestionById" >
         DELETE FROM COL_QUESTION WHERE COL_ID = #{id}
+    </delete>
+
+    <!-- 根据阅读材料 ID 删除题目 -->
+    <delete id="deleteQuestionsByReadingId" >
+        DELETE FROM COL_QUESTION WHERE COL_READING_ID = #{readingId}
     </delete>
 
 </mapper>

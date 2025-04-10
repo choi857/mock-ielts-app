@@ -1,5 +1,6 @@
 package com.apps.service.read;
 
+import com.apps.common.CreateId;
 import com.apps.dto.read.AnswerValidationDTO;
 import com.apps.mapper.read.AnswerMapper;
 import com.apps.mapper.read.UserAnswerDetailMapper;
@@ -32,8 +33,10 @@ public class AnswerService {
     public void saveAnswers(List<Map<String, Object>> answersList) {
         // 从列表的第一个元素中提取 recordId 和 detailId
         Map<String, Object> recordInfo = answersList.get(0);
-        Long recordId = Long.valueOf(String.valueOf(recordInfo.get("COL_Answer_Record_ID")));
-        Long detailId = Long.valueOf(String.valueOf(recordInfo.get("COL_Answer_Record_ID_son")));
+        long recordId = new CreateId().generateId();
+        long recordSonId = new CreateId().generateId();
+    //    Long recordId = Long.valueOf(String.valueOf(recordInfo.get("COL_Answer_Record_ID")));
+    //    Long detailId = Long.valueOf(String.valueOf(recordInfo.get("COL_Answer_Record_ID_son")));
         Long readingId = Long.valueOf(String.valueOf(recordInfo.get("COL_READING")));
         Long userId  = Long.valueOf(String.valueOf(recordInfo.get("UserId")));
         Timestamp creatAt = new Timestamp(System.currentTimeMillis()); // 当前时间的毫秒数
@@ -57,8 +60,8 @@ public class AnswerService {
         List FILL_IN_THE_BLANK_ANSWER = new ArrayList<>();
         // 插入到 COL_USER_ANSWER_DETAIL 表
         for (int i = 1; i < answersList.size(); i++) {
-            Random random = new Random();
-            long randomId = random.nextLong(); // 生成一个随机的 long 值
+
+            long randomId = new CreateId().generateId();; // 生成一个随机的 long 值
             Map<String, Object> answerInfo = answersList.get(i);
             UserAnswerDetail userAnswerDetail = new UserAnswerDetail();
 

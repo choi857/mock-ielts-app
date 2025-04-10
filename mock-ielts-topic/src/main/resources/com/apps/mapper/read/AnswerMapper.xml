@@ -17,8 +17,8 @@
     </resultMap>
     <!-- 插入答案 -->
     <insert id="insertAnswer" parameterType="com.apps.model.read.Answer" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO COL_ANSWER (COL_QUESTION_ID, COL_CONTENT, COL_IS_CORRECT, COL_BLANK_NUMBER, COL_MATCHING_KEY)
-        VALUES (#{questionId}, #{content}, #{isCorrect}, #{blankNumber}, #{matchingKey})
+        INSERT INTO COL_ANSWER (COL_QUESTION_ID, COL_CONTENT, COL_IS_CORRECT, COL_BLANK_NUMBER, COL_MATCHING_KEY,COL_ID)
+        VALUES (#{questionId}, #{content}, #{isCorrect}, #{blankNumber}, #{matchingKey},#{id})
     </insert>
 
     <!-- 根据 ID 查询答案 -->
@@ -46,6 +46,10 @@
         DELETE FROM COL_ANSWER WHERE COL_ID = #{id}
     </delete>
 
+    <!-- 根据题目 ID 删除答案 -->
+    <delete id="deleteAnswersByQuestionId">
+        DELETE FROM COL_ANSWER WHERE COL_QUESTION_ID = #{questionId}
+    </delete>
 
 
 <select id="selectCorrectAnswersByQuestionId" parameterType="java.lang.Long" resultType="java.lang.String">
@@ -61,4 +65,6 @@
     WHERE COL_QUESTION_ID = #{questionId} AND COL_IS_CORRECT = 1
     LIMIT 1
 </select>
+
+
 </mapper>

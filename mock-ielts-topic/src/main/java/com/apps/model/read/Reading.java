@@ -16,6 +16,7 @@ public class Reading {
     private String imageBase64; // 图片的 Base64 编码
     private Date createdAt;     // 创建时间
     private Date updatedAt;     // 更新时间
+    private Long readSummaryId; // 阅读材料的汇总ID
 
     public String getImageBase64() {
         return imageBase64;

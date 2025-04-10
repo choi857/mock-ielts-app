@@ -14,7 +14,7 @@ public class ReadingController {
     private ReadingService readingService;
 
     /**
-     * 获取阅读材料及题目
+     * 前端获取阅读材料及题目
      *
      * @param id
      * @return

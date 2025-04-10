@@ -20,4 +20,6 @@ public interface AnswerMapper {
 
     List<String> selectCorrectAnswersByQuestionId(Long questionId);
     String selectCorrectAnswerByQuestionId(Long questionId);
+
+    void deleteAnswersByQuestionId(Long questionId);
 }

@@ -2,6 +2,7 @@ package com.apps.mapper.read;
 
 import com.apps.model.read.Question;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,6 +19,6 @@ public interface QuestionMapper {
 
     void deleteQuestionById(Long id);
 
-
+    void deleteQuestionsByReadingId(Long readingId);
 
 }

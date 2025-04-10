@@ -10,9 +10,17 @@ CREATE TABLE COL_Users (
                            deleted TINYINT(1) DEFAULT 0 COMMENT '是否删除'
 ) COMMENT='用户表';
 
+# 阅读题汇总表
+CREATE TABLE COL_READING_SUMMARY (
+               COL_ID BIGINT PRIMARY KEY AUTO_INCREMENT, -- 阅读题ID
+               COL_TITLE VARCHAR(255)  ,          -- 阅读题标题
+               COL_CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 创建时间
+               COL_UPDATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP -- 更新时间
+) COMMENT='阅读题汇总表';
 # 阅读材料表
 CREATE TABLE COL_READING (
                              COL_ID BIGINT PRIMARY KEY AUTO_INCREMENT, -- 阅读材料ID
+                             COL_READING_SUMMARY_ID BIGINT, -- 关联的阅读题汇总ID
                              COL_TITLE VARCHAR(255) NOT NULL,          -- 阅读材料标题
                              COL_CONTENT TEXT NOT NULL,                -- 阅读材料内容
                              COL_IMAGE_BASE64 TEXT DEFAULT NULL, -- 存储图片的 Base64 编码
@@ -29,6 +37,8 @@ CREATE TABLE COL_QUESTION (
                               COL_PLACEHOLDER_FORMAT VARCHAR(255) DEFAULT NULL, -- 填空题占位符格式（如 "{{1}} and {{2}}"）
                               COL_CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- 创建时间
                               COL_UPDATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP, -- 更新时间
+                              COL_PART ENUM('Part1', 'Part2', 'Part3', 'Part4') COMMENT '题目所属部分',
+                              COL_SERIAL INT  DEFAULT 0 COMMENT '题目序号',
                               FOREIGN KEY (COL_READING_ID) REFERENCES COL_READING(COL_ID) ON DELETE CASCADE
 )COMMENT='题目表';
 

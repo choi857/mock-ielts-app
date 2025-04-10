@@ -17,6 +17,24 @@ public class Question {
     private Date updatedAt;     // 更新时间
 
     private List<Answer> answers;         // 答案列表,需要新增
+    private String part;    //所属部分
+    private String serial; //题目序号
+
+    public String getPart() {
+        return part;
+    }
+
+    public void setPart(String part) {
+        this.part = part;
+    }
+
+    public String getSerial() {
+        return serial;
+    }
+
+    public void setSerial(String serial) {
+        this.serial = serial;
+    }
 
     public List<Answer> getAnswers() {
         return answers;
