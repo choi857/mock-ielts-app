@@ -1,20 +1,23 @@
 package com.apps.service.read;
 
-import com.apps.dto.read.AnswerDTO;
-import com.apps.dto.read.QuestionDTO;
-import com.apps.dto.read.ReadingWithQuestionsDTO;
-import com.apps.common.ResponseResult;
+import com.apps.common.CreateId;
+import com.apps.dto.read2.*;
 import com.apps.mapper.read.AnswerMapper;
 import com.apps.mapper.read.QuestionMapper;
 import com.apps.mapper.read.ReadingMapper;
 import com.apps.model.read.Answer;
 import com.apps.model.read.Question;
 import com.apps.model.read.Reading;
+import com.apps.model.read.ReadingSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ReadingService {
@@ -28,143 +31,209 @@ public class ReadingService {
     @Autowired
     private AnswerMapper answerMapper;
 
-
-
-
     /**
-     * 根据ID获取阅读材料及其题目
-     * @param readingId
-     * @return
+     * 插入阅读汇总信息、阅读材料及其题目和答案
+     * @param readingInsertDTO 包含阅读汇总信息、阅读材料及其题目和答案的 DTO
      */
-    public ReadingWithQuestionsDTO getReadingWithQuestions(Long readingId) {
-        // 查询阅读材料
-        Reading reading = readingMapper.selectReadingById(readingId);
-        if (reading == null) {
-            throw new RuntimeException("阅读材料未找到");
+    @Transactional
+    public void insertReadingWithQuestions(ReadingInsertDTO readingInsertDTO) {
+        if (readingInsertDTO == null || readingInsertDTO.getReadingSummary() == null) {
+            throw new IllegalArgumentException("阅读汇总信息不能为空");
         }
 
-        // 查询题目
-        List<Question> questions = questionMapper.selectQuestionsByReadingId(readingId);
-        List<QuestionDTO> questionDTOs = new ArrayList<>();
+        // 插入阅读汇总信息
+        ReadingSummaryDTO readingSummaryDTO = readingInsertDTO.getReadingSummary();
+        ReadingSummary readingSummary = new ReadingSummary();
+        readingSummary.setTitle(readingSummaryDTO.getTitle());
+        Long summaryId = new CreateId().generateId();
+        readingSummary.setId(summaryId);
+        LocalDateTime now = LocalDateTime.now();
+        // 转换为 Timestamp
+        Timestamp timestamp = Timestamp.valueOf(now);
+        readingSummary.setCreatedAt(timestamp);//现在的时间
+         readingMapper.insertReadingSummary(readingSummary);
 
-        // 遍历题目列表
-        for (Question question : questions) {
-            // 查询答案
-            List<Answer> answers = answerMapper.selectAnswersByQuestionId(question.getId());
-            List<AnswerDTO> answerDTOs = new ArrayList<>();
+        // 遍历每个 Part，插入对应的阅读材料和题目
+        List<PartDTO> parts = readingInsertDTO.getParts();
+        if (parts != null && !parts.isEmpty()) {
+            for (PartDTO part : parts) {
+                ReadingDTO readingDTO = part.getReading();
+                if (readingDTO == null) {
+                    throw new IllegalArgumentException("阅读材料数据不能为空");
+                }
 
-            // 遍历答案列表
-            for (Answer answer : answers) {
-                AnswerDTO answerDTO = new AnswerDTO(
-                        answer.getId(),
-                        answer.getContent(),
-                        answer.getIsCorrect(),
-                        answer.getBlankNumber(),
-                        answer.getMatchingKey()
-                );
-                answerDTOs.add(answerDTO);
+                // 插入阅读材料
+                Reading reading = new Reading();
+                reading.setTitle(readingDTO.getTitle());
+                reading.setContent(readingDTO.getContent());
+                reading.setImageBase64(readingDTO.getImageBase64());
+                reading.setReadSummaryId(readingSummary.getId()); // 关联阅读汇总 ID
+                Long readingId = new CreateId().generateId();
+                reading.setId(readingId);
+                readingMapper.insertReading(reading);
+
+                // 插入题目和答案
+                List<QuestionWrapperDTO> questions = part.getQuestions();
+                if (questions != null) {
+                    for (QuestionWrapperDTO wrapper : questions) {
+                        QuestionDTO questionDTO = wrapper.getQuestion();
+                        if (questionDTO == null) continue;
+
+                        // 插入题目
+                        Question question = new Question();
+                        question.setReadingId(reading.getId());
+                        question.setType(questionDTO.getType());
+                        question.setContent(questionDTO.getContent());
+                        question.setPlaceholderFormat(questionDTO.getPlaceholderFormat());
+                        question.setSerial(questionDTO.getSerial());
+                        Long questionId = new CreateId().generateId();
+                        question.setId(questionId);
+                        questionMapper.insertQuestion(question);
+
+                        // 插入答案
+                        List<AnswerDTO> answers = questionDTO.getAnswers();
+                        if (answers != null) {
+                            for (AnswerDTO answerDTO : answers) {
+                                Answer answer = new Answer();
+                                answer.setQuestionId(question.getId());
+                                answer.setContent(answerDTO.getContent());
+                                answer.setCorrect(answerDTO.getCorrect());
+                                answer.setBlankNumber(answerDTO.getBlankNumber());
+                                answer.setMatchingKey(answerDTO.getMatchingKey());
+                                Long answerId = new CreateId().generateId();
+                                answer.setId(answerId);
+                                try {
+                                    answerMapper.insertAnswer(answer);
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }
+                    }
+                }
             }
-
-            // 创建 QuestionDTO
-            QuestionDTO questionDTO = new QuestionDTO(
-                    question.getId(),
-                    question.getType(),
-                    question.getContent(),
-                    question.getPlaceholderFormat(),
-                    answerDTOs
-            );
-            questionDTOs.add(questionDTO);
         }
-
-        // 创建并返回 ReadingWithQuestionsDTO
-        return new ReadingWithQuestionsDTO(
-                reading.getId(),
-                reading.getTitle(),
-                reading.getContent(),
-                reading.getImageBase64(),
-                questionDTOs
-        );
     }
 
     /**
-     *  新增阅读材料及其题目和答案
-     * @param reading
+     * 根据阅读汇总 ID 删除阅读汇总、阅读材料及其题目和答案
+     * @param readingSummaryId 阅读汇总 ID
      */
-     public ResponseResult<String> addReadingWithQuestionsAndAnswers(Reading reading) {
-         /**
-          * 阅读材料ID如果存在就 id乘以10成为新的id。前端根据 id 10*id 100*id去查找阅读材料，三个为一组
-          */
-         if(readingMapper.selectReadingById(reading.getId()) != null){
-             Long id = reading.getId();
-             Long readingId = id*10;
-             reading.setId(readingId);
-          }
-         // 插入阅读材料
-        readingMapper.insertReading(reading);
+    @Transactional
+    public void deleteReadingSummaryById(Long readingSummaryId) {
+        if (readingSummaryId == null) {
+            throw new IllegalArgumentException("阅读汇总 ID 不能为空");
+        }
 
-        // 插入题目
-        for (Question question : reading.getQuestions()) {
-            //校验Question.type是否为SINGLE_CHOICE', 'FILL_IN_THE_BLANK', 'MATCHING'之一
-            if(!"SINGLE_CHOICE".equals(question.getType()) && !"FILL_IN_THE_BLANK".equals(question.getType()) && !"MATCHING".equals(question.getType())){
-              return  ResponseResult.fail("阅读题类型不为：SINGLE_CHOICE, FILL_IN_THE_BLANK, 或 MATCHING");
-//                throw new RuntimeException("阅读题类型不为：SINGLE_CHOICE, FILL_IN_THE_BLANK, 或 MATCHING");
-            }
-            question.setReadingId(reading.getId()); // 设置阅读材料ID
-            questionMapper.insertQuestion(question);
+        // 删除关联的阅读材料及其题目和答案
+        List<Reading> readings = readingMapper.selectReadingsBySummaryId(readingSummaryId);
+        if (readings != null) {
+            for (Reading reading : readings) {
+                // 删除题目和答案
+                List<Question> questions = questionMapper.selectQuestionsByReadingId(reading.getId());
+                if (questions != null) {
+                    for (Question question : questions) {
+                        answerMapper.deleteAnswersByQuestionId(question.getId());
+                    }
+                }
+                questionMapper.deleteQuestionsByReadingId(reading.getId());
 
-            // 插入答案
-            for (Answer answer : question.getAnswers()) {
-                answer.setQuestionId(question.getId()); // 设置题目ID
-                answerMapper.insertAnswer(answer);
+                // 删除阅读材料
+                readingMapper.deleteReadingById(reading.getId());
             }
         }
-        return ResponseResult.success("阅读题新增成功");
+
+        // 删除阅读汇总
+        readingMapper.deleteReadingSummaryById(readingSummaryId);
     }
 
     /**
-     * 根据ID获取阅读材料及其题目和答案
-     * @param readingId
-     * @return
+     * 根据阅读汇总 ID 查询阅读汇总、阅读材料及其题目和答案
+     * @param readingSummaryId 阅读汇总 ID
+     * @return 包含阅读汇总、阅读材料及其题目和答案的 DTO
      */
-    public Reading getReadingWithQuestionsAndAnswers(Long readingId) {
-        // 查询阅读材料
-        Reading reading = readingMapper.selectReadingById(readingId);
-        if (reading == null) {
-            throw new RuntimeException("阅读材料未找到");
+    public ReadingInsertDTO getReadingSummaryById(Long readingSummaryId) {
+        if (readingSummaryId == null) {
+            throw new IllegalArgumentException("阅读汇总 ID 不能为空");
         }
 
-        // 查询阅读材料对应的题目
-        List<Question> questions = questionMapper.selectQuestionsByReadingId(readingId);
-        for (Question question : questions) {
-            // 查询题目对应的答案
-            List<Answer> answers = answerMapper.selectAnswersByQuestionId(question.getId());
-            question.setAnswers(answers); // 将答案设置到题目中
+        ReadingSummary readingSummary = readingMapper.selectReadingSummaryById(readingSummaryId);
+        if (readingSummary == null) {
+            throw new NoSuchElementException("未找到对应的阅读汇总");
         }
 
-        reading.setQuestions(questions); // 将题目设置到阅读材料中
-        return reading;
+        // 构建 ReadingInsertDTO
+        ReadingInsertDTO readingInsertDTO = new ReadingInsertDTO();
+        ReadingSummaryDTO readingSummaryDTO = new ReadingSummaryDTO();
+        readingSummaryDTO.setId(readingSummary.getId());
+        readingSummaryDTO.setTitle(readingSummary.getTitle());
+        readingSummaryDTO.setCreatedAt(readingSummary.getCreatedAt());
+        readingSummaryDTO.setUpdatedAt(readingSummary.getUpdatedAt());
+        readingInsertDTO.setReadingSummary(readingSummaryDTO);
+
+        // 查询关联的阅读材料及其题目和答案
+        List<Reading> readings = readingMapper.selectReadingsBySummaryId(readingSummaryId);
+        List<PartDTO> parts = new ArrayList<>();
+        if (readings != null) {
+            for (Reading reading : readings) {
+                PartDTO partDTO = new PartDTO();
+                ReadingDTO readingDTO = new ReadingDTO();
+                readingDTO.setId(reading.getId());
+                readingDTO.setTitle(reading.getTitle());
+                readingDTO.setContent(reading.getContent());
+                readingDTO.setImageBase64(reading.getImageBase64());
+                partDTO.setReading(readingDTO);
+
+                // 查询题目和答案
+                List<Question> questions = questionMapper.selectQuestionsByReadingId(reading.getId());
+                List<QuestionWrapperDTO> questionWrappers = new ArrayList<>();
+                if (questions != null) {
+                    for (Question question : questions) {
+                        QuestionDTO questionDTO = new QuestionDTO();
+                        questionDTO.setId(question.getId());
+                        questionDTO.setType(question.getType());
+                        questionDTO.setContent(question.getContent());
+                        questionDTO.setPlaceholderFormat(question.getPlaceholderFormat());
+                        questionDTO.setSerial(question.getSerial());
+
+                        // 查询答案
+                        List<Answer> answers = answerMapper.selectAnswersByQuestionId(question.getId());
+                        List<AnswerDTO> answerDTOs = new ArrayList<>();
+                        if (answers != null) {
+                            for (Answer answer : answers) {
+                                AnswerDTO answerDTO = new AnswerDTO();
+                                answerDTO.setId(answer.getId());
+                                answerDTO.setContent(answer.getContent());
+                                answerDTO.setCorrect(answer.getCorrect());
+                                answerDTO.setBlankNumber(answer.getBlankNumber());
+                                answerDTO.setMatchingKey(answer.getMatchingKey());
+                                answerDTOs.add(answerDTO);
+                            }
+                        }
+                        questionDTO.setAnswers(answerDTOs);
+
+                        QuestionWrapperDTO wrapperDTO = new QuestionWrapperDTO();
+                        wrapperDTO.setQuestion(questionDTO);
+                        questionWrappers.add(wrapperDTO);
+                    }
+                }
+                partDTO.setQuestions(questionWrappers);
+                parts.add(partDTO);
+            }
+        }
+        readingInsertDTO.setParts(parts);
+
+        return readingInsertDTO;
     }
 
+
     /**
-     * 删除阅读材料及其关联数据
-     * @param readingId
-     * @return
+     * 查询所有阅读汇总，包括阅读汇总ID 和标题
+     * @return 所有阅读汇总及其 ID 和标题
      */
-    public ResponseResult<String> deleteReadingWithQuestionsAndAnswers(Long readingId) {
-
-            // 查询与阅读材料关联的题目
-            List<Question> questions = questionMapper.selectQuestionsByReadingId(readingId);
-            for (Question question : questions) {
-                // 删除与题目关联的答案
-                answerMapper.deleteAnswerById(question.getId());
-            }
-
-            // 删除与阅读材料关联的题目
-            questionMapper.deleteQuestionById(readingId);
-
-            // 删除阅读材料
-            readingMapper.deleteReadingById(readingId);
-
-        return ResponseResult.success("阅读材料及其关联数据删除成功");
+    public List<ReadingSummary> getAllReadingSummary() {
+        // 查询所有阅读汇总
+        List<ReadingSummary> readingSummaries = readingMapper.selectAllReadingSummary();
+        return readingSummaries;
     }
 }

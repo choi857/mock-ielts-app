@@ -18,8 +18,8 @@ public interface AnswerMapper {
 
     void deleteAnswerById(Long id);
 
-    List<String> selectCorrectAnswersByQuestionId(Long questionId);
-    String selectCorrectAnswerByQuestionId(Long questionId);
+    String selectCorrectAnswersByQuestionId(Long questionId);
+    String selectmatchingKeyAnswerByQuestionId(Long questionId);
 
     void deleteAnswersByQuestionId(Long questionId);
 }

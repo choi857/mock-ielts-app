@@ -53,17 +53,15 @@
 
 
 <select id="selectCorrectAnswersByQuestionId" parameterType="java.lang.Long" resultType="java.lang.String">
-    SELECT COL_CONTENT
-    FROM COL_ANSWER
-    WHERE COL_QUESTION_ID = #{questionId}
-    ORDER BY COL_BLANK_NUMBER
+        SELECT COL_CONTENT
+        FROM COL_ANSWER
+        WHERE COL_QUESTION_ID = #{questionId}
 </select>
 
-<select id="selectCorrectAnswerByQuestionId" parameterType="java.lang.Long" resultType="java.lang.String">
+<select id="selectmatchingKeyAnswerByQuestionId" parameterType="java.lang.Long" resultType="java.lang.String">
     SELECT COL_MATCHING_KEY
     FROM COL_ANSWER
     WHERE COL_QUESTION_ID = #{questionId} AND COL_IS_CORRECT = 1
-    LIMIT 1
 </select>
 
 

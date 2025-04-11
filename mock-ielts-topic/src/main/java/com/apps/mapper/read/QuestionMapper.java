@@ -9,6 +9,8 @@ import java.util.List;
 @Mapper
 public interface QuestionMapper {
 
+    Question selectplaceholderFormatAnswersByQuestionId(Long questionId);
+
     void insertQuestion(Question question);
 
     Question selectQuestionById(Long id);

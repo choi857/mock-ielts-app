@@ -33,6 +33,11 @@
     <select id="selectQuestionsByReadingId" resultMap="QuestionResultMap">
         SELECT * FROM COL_QUESTION WHERE COL_READING_ID = #{readingId}
     </select>
+    <select id="selectplaceholderFormatAnswersByQuestionId" resultMap="QuestionResultMap">
+        SELECT COL_PLACEHOLDER_FORMAT
+        FROM COL_QUESTION
+        WHERE COL_ID = #{questionId}
+    </select>
 
     <!-- 更新题目 -->
     <update id="updateQuestion" parameterType="com.apps.model.read.Question">

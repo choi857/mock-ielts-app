@@ -67,8 +67,9 @@ CREATE TABLE COL_ROLE (
 ) COMMENT='用户角色表（通过COL_Users.role字段关联）';
 
 CREATE TABLE COL_USER_ANSWER_RECORD (
-                                        record_id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '唯一答题记录ID',
+                                        record_id BIGINT AUTO_INCREMENT PRIMARY KEY COMMENT '唯一答题记录ID，变成了read_summary_id',
                                         user_id INT NOT NULL COMMENT '关联COL_Users.user_id',
+                                        read_summary_id BIGINT COMMENT '阅读题汇总表id,关联COL_READING_SUMMARY.id',
                                         reading_id BIGINT NOT NULL COMMENT '关联COL_READING.COL_ID',
                                         score DECIMAL(5,2) COMMENT '本次答题得分',
                                         answer_evaluation TEXT COMMENT '答题评价',

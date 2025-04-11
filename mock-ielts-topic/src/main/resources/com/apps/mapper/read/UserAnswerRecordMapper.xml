@@ -5,9 +5,9 @@
     <!-- 插入记录 -->
     <insert id="insert" parameterType="com.apps.model.read.UserAnswerRecord">
         INSERT INTO COL_USER_ANSWER_RECORD (
-            record_id, user_id, reading_id, score, duration_seconds, device_type, created_at, updated_at
+            record_id, user_id, reading_id, score, duration_seconds, device_type, created_at, updated_at, read_summary_id
         ) VALUES (
-                     #{recordId}, #{userId}, #{readingId}, #{score}, #{durationSeconds}, #{deviceType}, #{createdAt}, #{updatedAt}
+                     #{recordId}, #{userId}, #{readingId}, #{score}, #{durationSeconds}, #{deviceType}, #{createdAt}, #{updatedAt}, #{readSummaryId}
                  )
     </insert>
 
@@ -35,18 +35,38 @@
             duration_seconds AS durationSeconds,
             device_type AS deviceType,
             created_at AS createdAt,
-            updated_at AS updatedAt
+            updated_at AS updatedAt,
+            answer_evaluation AS answerEvaluation,
+            read_summary_id AS readSummaryId
         FROM
             COL_USER_ANSWER_RECORD
         WHERE
             record_id = #{recordId}
     </select>
+
+    <!-- 根据主id查多个id -->
+    <select id="selectUserAnswerRecordsByReadSummaryId" resultType="com.apps.model.read.UserAnswerRecord">
+        SELECT
+            record_id AS recordId,
+            user_id AS userId,
+            reading_id AS readingId,
+            score,
+            duration_seconds AS durationSeconds,
+            device_type AS deviceType,
+            created_at AS createdAt,
+            updated_at AS updatedAt,
+            answer_evaluation AS answerEvaluation,
+            read_summary_id AS readSummaryId
+        FROM
+            COL_USER_ANSWER_RECORD
+        WHERE
+            read_summary_id = #{readSummaryId} AND (score is null OR score = 0)
+    </select>
+
     <!-- 删除记录 -->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         DELETE FROM COL_USER_ANSWER_RECORD WHERE record_id = #{recordId}
     </delete>
-
-
 
     <!-- 更新用户答题记录的分数 -->
     <update id="updateScoreByRecordId" parameterType="map">

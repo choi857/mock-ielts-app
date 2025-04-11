@@ -1,5 +1,6 @@
 package com.apps.controller.read;
 
+import com.apps.common.ResponseResult;
 import com.apps.model.read.UserAnswerRecord;
 import com.apps.service.read.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,9 @@ public class AnswerController {
      * @param answersList 前端传过来的答案列表
      */
     @PostMapping("/save")
-    public void saveAnswers(@RequestBody List<Map<String, Object>> answersList) {
-        answerService.saveAnswers(answersList);
+    public ResponseResult<Map> saveAnswers(@RequestBody List<Map<String, Object>> answersList) {
+        Map<String, Long> stringLongMap = answerService.saveAnswers(answersList);
+        return ResponseResult.success(stringLongMap);
     }
 
 
@@ -32,8 +34,8 @@ public class AnswerController {
      */
     @PostMapping("/getscores")
     public void validateAnswers(@RequestBody UserAnswerRecord request) {
-        Long recordId = request.getRecordId();
-        Integer userId = request.getUserId();
-         answerService.validateAnswers(recordId, userId);
+        Long readSummaryId = request.getReadSummaryId();
+        Long userId = Long.valueOf(request.getUserId());
+        answerService.validateAnswers(readSummaryId, userId);
     }
 }

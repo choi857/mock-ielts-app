@@ -12,7 +12,15 @@ public class UserAnswerRecord {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String answerEvaluation;
+    private Long readSummaryId; //阅读题总表id
 
+    public Long getReadSummaryId() {
+        return readSummaryId;
+    }
+
+    public void setReadSummaryId(Long readSummaryId) {
+        this.readSummaryId = readSummaryId;
+    }
     // Getters 和 Setters
 
     public String getAnswerEvaluation() {

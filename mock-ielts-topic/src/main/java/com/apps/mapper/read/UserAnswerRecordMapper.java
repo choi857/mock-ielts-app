@@ -3,6 +3,7 @@ package com.apps.mapper.read;
 
 import com.apps.model.read.UserAnswerRecord;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserAnswerRecordMapper {
@@ -15,5 +16,7 @@ public interface UserAnswerRecordMapper {
     int deleteByPrimaryKey(Long recordId);
 
     int updateScoreByRecordId(Map<String, Object> params);
+
+    List<UserAnswerRecord> selectUserAnswerRecordsByReadSummaryId(Long readSummaryId);
 
 }

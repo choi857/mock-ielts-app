@@ -16,7 +16,8 @@ public class Answer {
     private Date createdAt;     // 创建时间
     private Date updatedAt;     // 更新时间
 
-    // Getters and Setters
+
+// Getters and Setters
 
     public Long getId() {
         return id;
