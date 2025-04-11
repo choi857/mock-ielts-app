@@ -66,7 +66,7 @@ public ResponseResult<List<ReadingSummary>> getAllReadingIDs() {
         return ResponseResult.success("查询成功", readingSummaries);
     } catch (Exception e) {
         // 捕获异常并返回失败信息
-        return ResponseResult.fail("查询所有阅读汇总失败，异常为: " + e.getMessage());
+        return ResponseResult.fail("查询所有阅读汇总失败，异常为:  " + e.getMessage());
     }
 }
 

@@ -2206,3 +2206,24 @@ Unconditional classes:
 2025-04-11 13:18:50 [http-nio-9489-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Found 'Content-Type:image/png' in response
 2025-04-11 13:18:50 [http-nio-9489-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [URL [file:/D:/uploads/aa915988-07aa-4107-b236-dd9a0b4de709.png]]
 2025-04-11 13:18:50 [http-nio-9489-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2025-04-11 13:26:04 [Thread-3] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Start destroying common HttpClient
+2025-04-11 13:26:04 [Thread-19] WARN  c.a.nacos.common.notify.NotifyCenter - [NotifyCenter] Start destroying Publisher
+2025-04-11 13:26:04 [Thread-19] WARN  c.a.nacos.common.notify.NotifyCenter - [NotifyCenter] Destruction of the end
+2025-04-11 13:26:04 [Thread-3] WARN  c.a.n.c.http.HttpClientBeanHolder - [HttpClientBeanHolder] Destruction of the end
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.b.a.ApplicationAvailabilityBean - Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@7fe7c640, started on Fri Apr 11 10:33:55 CST 2025, parent: org.springframework.context.annotation.AnnotationConfigApplicationContext@5c86a017
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483647
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Bean 'webServerGracefulShutdown' completed its stop procedure
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 2147483646
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Bean 'webServerStartStop' completed its stop procedure
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Stopping beans in phase 0
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.s.c.ThreadPoolTaskScheduler - Shutting down ExecutorService 'Nacos-Watch-Task-Scheduler'
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.c.s.DefaultLifecycleProcessor - Bean 'nacosWatch' completed its stop procedure
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans on shutdown
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] DEBUG o.s.j.e.a.AnnotationMBeanExporter - Unregistering JMX-exposed beans
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closing ...
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - De-registering from Nacos Server now...
+2025-04-11 13:26:04 [SpringApplicationShutdownHook] INFO  c.a.c.n.r.NacosServiceRegistry - De-registration finished.
+2025-04-11 13:26:05 [nacos.publisher-com.alibaba.nacos.client.naming.event.InstancesChangeEvent] DEBUG c.a.nacos.common.notify.NotifyCenter - [NotifyCenter] the com.alibaba.nacos.client.naming.event.InstancesChangeEvent@776685fa will received by com.alibaba.nacos.client.naming.event.InstancesChangeNotifier@2f20f7ad
+2025-04-11 13:26:12 [SpringApplicationShutdownHook] DEBUG o.s.s.c.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
