@@ -49,7 +49,7 @@
         SELECT
             record_id AS recordId, task1_id AS task1Id, task2_id AS task2Id, created_at AS createdAt, updated_at AS updatedAt
         FROM
-            COL_WRITING_TASK_RECORD
+                COL_WRITING_TASK_RECORD
         WHERE
             record_id = #{recordId}
     </select>

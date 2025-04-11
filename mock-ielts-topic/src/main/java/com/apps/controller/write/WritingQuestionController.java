@@ -2,6 +2,7 @@ package com.apps.controller.write;
 
      import com.apps.dto.write.WritingQuestionsRequest;
      import com.apps.model.write.WritingQuestion;
+     import com.apps.service.write.WritingAnswerServiceToAi;
      import com.apps.service.write.WritingQuestionService;
      import org.springframework.beans.factory.annotation.Autowired;
      import org.springframework.web.bind.annotation.*;
@@ -38,10 +39,31 @@ package com.apps.controller.write;
              );
          }
 
-
+    /**
+     * 根据题目主ID获取写作题目列表
+     * @param recordId 记录ID
+     * @return 写作题目列表
+     */
     @GetMapping("/get/questions/{recordId}")
     public List<WritingQuestion> getWritingQuestionsByRecordId(@PathVariable Long recordId) {
         return writingQuestionService.getWritingQuestionsByRecordId(recordId);
+    }
+
+    /**
+     * 根据 task_id 获取写作题目详情
+     * @param taskId 写作题目ID
+     * @return 写作题目详情
+     */
+    @GetMapping("/get/question/{taskId}")
+    public WritingQuestion getWritingQuestionById(@PathVariable Long taskId) {
+        return writingQuestionService.getWritingQuestionById(taskId);
+    }
+    @Autowired
+    private WritingAnswerServiceToAi writingAnswerServiceToAi;
+
+    @GetMapping("/update/scores")
+    public void updateScores() {
+        writingAnswerServiceToAi.updateScoresInterface();
     }
 
 }

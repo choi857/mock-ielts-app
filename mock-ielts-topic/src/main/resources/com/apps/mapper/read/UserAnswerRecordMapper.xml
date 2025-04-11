@@ -62,6 +62,24 @@
         WHERE
             read_summary_id = #{readSummaryId} AND (score is null OR score = 0)
     </select>
+    <!-- 根据用户ID查询用户所有的主答案列表 -->
+    <select id="selectUserAnswerRecordsByUserId" resultType="com.apps.model.read.UserAnswerRecord">
+        SELECT
+            record_id AS recordId,
+            user_id AS userId,
+            reading_id AS readingId,
+            score,
+            duration_seconds AS durationSeconds,
+            device_type AS deviceType,
+            created_at AS createdAt,
+            updated_at AS updatedAt,
+            answer_evaluation AS answerEvaluation,
+            read_summary_id AS readSummaryId
+        FROM
+            COL_USER_ANSWER_RECORD
+        WHERE
+            user_id = #{userId}
+    </select>
 
     <!-- 删除记录 -->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

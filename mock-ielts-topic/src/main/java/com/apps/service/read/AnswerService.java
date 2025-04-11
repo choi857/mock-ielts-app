@@ -2,6 +2,8 @@ package com.apps.service.read;
 
 import com.apps.common.CreateId;
 import com.apps.dto.read.AnswerValidationDTO;
+import com.apps.dto.read2.AnswerRecordDTO;
+import com.apps.dto.read2.UserAnswerDetailDTO;
 import com.apps.mapper.read.AnswerMapper;
 import com.apps.mapper.read.QuestionMapper;
 import com.apps.mapper.read.UserAnswerDetailMapper;
@@ -228,6 +230,96 @@ public class AnswerService {
             scoreParams.put("answerEvaluation", evaluation);
             userAnswerRecordMapper.updateScoreByRecordId(scoreParams);
         }
+    }
+
+
+    /**
+     * 查询用户所有的主答案列表
+     * @param userId 用户ID
+     */
+    @Transactional(readOnly = true)
+    public List<AnswerRecordDTO> getUserAnswerRecords(Long userId) {
+        List<UserAnswerRecord> userAnswerRecords = userAnswerRecordMapper.selectUserAnswerRecordsByUserId(userId);
+        List<AnswerRecordDTO> answerRecordDTOs = new ArrayList<>();
+
+        for (UserAnswerRecord record : userAnswerRecords) {
+            AnswerRecordDTO dto = new AnswerRecordDTO();
+            dto.setRecordId(record.getRecordId());
+            dto.setUserId(record.getUserId());
+            dto.setReadingId(record.getReadingId());
+            dto.setScore(record.getScore());
+            dto.setDurationSeconds(record.getDurationSeconds());
+            dto.setDeviceType(record.getDeviceType());
+            dto.setCreatedAt(record.getCreatedAt());
+            dto.setUpdatedAt(record.getUpdatedAt());
+            dto.setAnswerEvaluation(record.getAnswerEvaluation());
+            dto.setReadSummaryId(record.getReadSummaryId());
+
+            // 查询明细答题内容
+            List<UserAnswerDetail> details = userAnswerDetailMapper.selectByRecordId(record.getRecordId());
+            List<UserAnswerDetailDTO> detailDTOs = new ArrayList<>();
+            for (UserAnswerDetail detail : details) {
+                UserAnswerDetailDTO detailDTO = new UserAnswerDetailDTO();
+                detailDTO.setDetailId(detail.getDetailId());
+                detailDTO.setRecordId(detail.getRecordId());
+                detailDTO.setUserId(Long.valueOf(detail.getUserId()));
+                detailDTO.setQuestionId(detail.getQuestionId());
+                detailDTO.setAnswerType(detail.getAnswerType());
+                detailDTO.setSubmittedAnswer(detail.getSubmittedAnswer());
+                detailDTO.setIsCorrect(detail.getIsCorrect());
+                detailDTO.setBlankIndex(detail.getBlankIndex());
+                detailDTO.setCreatedAt(detail.getCreatedAt());
+                detailDTOs.add(detailDTO);
+            }
+            dto.setAnswerDetails(detailDTOs);
+            answerRecordDTOs.add(dto);
+        }
+
+        return answerRecordDTOs;
+    }
+
+    /**
+     * 根据主答案表的ID查询用户明细答题的内容
+     * @param recordId 主答案表的ID
+     */
+    @Transactional(readOnly = true)
+    public AnswerRecordDTO getUserAnswerRecordDetails(Long recordId) {
+        UserAnswerRecord record = userAnswerRecordMapper.selectByPrimaryKey(recordId);
+        if (record == null) {
+            return null;
+        }
+
+        AnswerRecordDTO dto = new AnswerRecordDTO();
+        dto.setRecordId(record.getRecordId());
+        dto.setUserId(record.getUserId());
+        dto.setReadingId(record.getReadingId());
+        dto.setScore(record.getScore());
+        dto.setDurationSeconds(record.getDurationSeconds());
+        dto.setDeviceType(record.getDeviceType());
+        dto.setCreatedAt(record.getCreatedAt());
+        dto.setUpdatedAt(record.getUpdatedAt());
+        dto.setAnswerEvaluation(record.getAnswerEvaluation());
+        dto.setReadSummaryId(record.getReadSummaryId());
+
+        // 查询明细答题内容
+        List<UserAnswerDetail> details = userAnswerDetailMapper.selectByRecordId(record.getRecordId());
+        List<UserAnswerDetailDTO> detailDTOs = new ArrayList<>();
+        for (UserAnswerDetail detail : details) {
+            UserAnswerDetailDTO detailDTO = new UserAnswerDetailDTO();
+            detailDTO.setDetailId(detail.getDetailId());
+            detailDTO.setRecordId(detail.getRecordId());
+            detailDTO.setUserId(Long.valueOf(detail.getUserId()));
+            detailDTO.setQuestionId(detail.getQuestionId());
+            detailDTO.setAnswerType(detail.getAnswerType());
+            detailDTO.setSubmittedAnswer(detail.getSubmittedAnswer());
+            detailDTO.setIsCorrect(detail.getIsCorrect());
+            detailDTO.setBlankIndex(detail.getBlankIndex());
+            detailDTO.setCreatedAt(detail.getCreatedAt());
+            detailDTOs.add(detailDTO);
+        }
+        dto.setAnswerDetails(detailDTOs);
+
+        return dto;
     }
 
 }

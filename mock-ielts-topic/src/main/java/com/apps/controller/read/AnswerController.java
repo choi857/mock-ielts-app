@@ -1,6 +1,7 @@
 package com.apps.controller.read;
 
 import com.apps.common.ResponseResult;
+import com.apps.dto.read2.AnswerRecordDTO;
 import com.apps.model.read.UserAnswerRecord;
 import com.apps.service.read.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,5 +38,26 @@ public class AnswerController {
         Long readSummaryId = request.getReadSummaryId();
         Long userId = Long.valueOf(request.getUserId());
         answerService.validateAnswers(readSummaryId, userId);
+    }
+
+
+    /**
+     * 查询用户所有的主答案列表
+     * @param userId 用户ID
+     */
+    @GetMapping("/user/{userId}")
+    public ResponseResult<List<AnswerRecordDTO>> getUserAnswerRecords(@PathVariable Long userId) {
+        List<AnswerRecordDTO> answerRecords = answerService.getUserAnswerRecords(userId);
+        return ResponseResult.success(answerRecords);
+    }
+
+    /**
+     * 根据主答案表的ID查询用户明细答题的内容
+     * @param recordId 主答案表的ID
+     */
+    @GetMapping("/record/{recordId}")
+    public ResponseResult<AnswerRecordDTO> getUserAnswerRecordDetails(@PathVariable Long recordId) {
+        AnswerRecordDTO answerRecordDTO = answerService.getUserAnswerRecordDetails(recordId);
+        return ResponseResult.success(answerRecordDTO);
     }
 }

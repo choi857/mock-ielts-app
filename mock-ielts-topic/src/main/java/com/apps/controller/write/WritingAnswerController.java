@@ -14,6 +14,10 @@ public class WritingAnswerController {
     @Autowired
     private WritingAnswerService writingAnswerService;
 
+    /**
+     * 保存用户答案列表
+     * @param answersList
+     */
     @PostMapping("/save")
     public void saveWritingAnswers(@RequestBody List<Map<String, Object>> answersList) {
         writingAnswerService.saveWritingAnswers(answersList);

@@ -9,6 +9,24 @@ public class WritingAnswerDetail {
     private String taskType;
     private String answerContent;
     private Timestamp createdAt;
+    private String answerEvaluation;
+    private Double score;
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+
+    public String getAnswerEvaluation() {
+        return answerEvaluation;
+    }
+
+    public void setAnswerEvaluation(String answerEvaluation) {
+        this.answerEvaluation = answerEvaluation;
+    }
 
     // Getters and Setters
     public Long getDetailId() {

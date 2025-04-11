@@ -80,4 +80,17 @@ package com.apps.service.write;
                  List<Long> taskIds = Arrays.asList(record.getTask1Id(), record.getTask2Id());
                  return writingQuestionMapper.selectByTaskIds(taskIds);
              }
+
+             /**
+              * 根据 task_id 获取写作题目详情
+              * @param taskId 写作题目ID
+              * @return 写作题目详情
+              */
+             public WritingQuestion getWritingQuestionById(Long taskId) {
+                 WritingQuestion question = writingQuestionMapper.selectById(taskId);
+                 if (question == null) {
+                     throw new IllegalArgumentException("Writing question not found for id: " + taskId);
+                 }
+                 return question;
+             }
           }

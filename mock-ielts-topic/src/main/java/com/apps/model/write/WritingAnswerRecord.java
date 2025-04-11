@@ -9,6 +9,15 @@ public class WritingAnswerRecord {
     private Long task2Id;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private Double totalScore;
+
+    public Double getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(Double totalScore) {
+        this.totalScore = totalScore;
+    }
 
     // Getters and Setters
     public Long getRecordId() {

@@ -61,5 +61,22 @@
         WHERE
             d.record_id = #{recordId} AND d.user_id = #{userId}
     </select>
+    <!-- 根据主答案表的ID查询用户明细答题的内容 -->
+    <select id="selectByRecordId" resultType="com.apps.model.read.UserAnswerDetail">
+        SELECT
+            detail_id AS detailId,
+            record_id AS recordId,
+            user_id AS userId,
+            question_id AS questionId,
+            answer_type AS answerType,
+            submitted_answer AS submittedAnswer,
+            is_correct AS isCorrect,
+            blank_index AS blankIndex,
+            created_at AS createdAt
+        FROM
+            COL_USER_ANSWER_DETAIL
+        WHERE
+            record_id = #{recordId}
+    </select>
 
 </mapper>
