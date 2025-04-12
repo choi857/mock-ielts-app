@@ -2,6 +2,7 @@ package com.apps.controller.write;
 
      import com.apps.dto.write.WritingQuestionsRequest;
      import com.apps.model.write.WritingQuestion;
+     import com.apps.model.write.WritingTaskRecord;
      import com.apps.service.write.WritingAnswerServiceToAi;
      import com.apps.service.write.WritingQuestionService;
      import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,22 @@ package com.apps.controller.write;
              String task1Requirements = Optional.ofNullable(request.getTask1Requirements()).orElse("");
              String task2Title = Optional.ofNullable(request.getTask2Title()).orElse("");
              String task2Requirements = Optional.ofNullable(request.getTask2Requirements()).orElse("");
+             String colTitle = Optional.ofNullable(request.getColTitle()).orElse("");
+             String taskDescription1 = Optional.ofNullable(request.getTaskDescription1()).orElse("");
+             String taskDescription2 = Optional.ofNullable(request.getTaskDescription2()).orElse("");
              return writingQuestionService.addWritingQuestions(
                         task1Title,
                         task1Requirements,
+                        taskDescription1,
                         task2Title,
-                        task2Requirements
+                        task2Requirements,
+                         taskDescription2,
+                         colTitle
              );
          }
 
     /**
-     * 根据题目主ID获取写作题目列表
+     * 根据题目主ID获取写作题目详情
      * @param recordId 记录ID
      * @return 写作题目列表
      */
@@ -64,6 +71,15 @@ package com.apps.controller.write;
     @GetMapping("/update/scores")
     public void updateScores() {
         writingAnswerServiceToAi.updateScoresInterface();
+    }
+
+    /**
+     * 获取所有 WritingTaskRecord 记录
+     * @return 所有 WritingTaskRecord 记录
+     */
+    @GetMapping("/all")
+    public List<WritingTaskRecord> getAllWritingTaskRecords() {
+        return writingQuestionService.getAllWritingTaskRecords();
     }
 
 }

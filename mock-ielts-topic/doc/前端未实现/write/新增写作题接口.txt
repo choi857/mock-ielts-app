@@ -1,0 +1,79 @@
+好的，以下是更新后的`addWritingQuestions`接口的详细接口文档，包括数据结构和示例。
+
+### 接口概述
+- **接口名称**: 新增写作题
+- **请求方法**: POST
+- **URL路径**: `/topic/writing/save`
+- **功能描述**: 用于新增两个写作题目，分别是Task1和Task2，并关联一个标题
+
+### 请求参数
+- **请求格式**: JSON
+- **请求体结构**:
+    ```json
+    {
+        "task1Title": "String",
+        "task1Requirements": "String",
+        "taskDescription1": "String",
+        "task2Title": "String",
+        "task2Requirements": "String",
+        "taskDescription2": "String",
+        "colTitle": "String"
+    }
+    ```
+
+- **参数说明**:
+    - `task1Title`: Task1的标题，非空字符串
+    - `task1Requirements`: Task1的具体内容，非空字符串
+    - `taskDescription1`: Task1的描述，非空字符串
+    - `task2Title`: Task2的标题，非空字符串
+    - `task2Requirements`: Task2的具体内容，非空字符串
+    - `taskDescription2`: Task2的描述，非空字符串
+    - `colTitle`: 标题，非空字符串
+
+### 响应结果
+- **返回类型**: Boolean
+- **成功响应**:
+    - 返回值: `true`
+    - 含义: 写作题目添加成功
+- **失败响应**:
+    - 抛出异常: `IllegalArgumentException`
+    - 异常信息: 当输入参数中有null或空字符串时抛出，提示"写作题目标题和内容,标题不能为null，可以为空字符"
+
+### 示例
+#### 请求示例
+```http
+POST /topic/writing/save HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{
+    "task1Title": "Describe a place you have visited",
+    "task1Requirements": "Write about your experience in at least 150 words.",
+    "taskDescription1": "Provide a detailed description of a place you have visited, including its location, attractions, and your personal experiences there.",
+    "task2Title": "Discuss the advantages and disadvantages of online learning",
+    "task2Requirements": "Provide examples to support your argument.",
+    "taskDescription2": "Write a well-structured essay discussing both the benefits and drawbacks of online learning.",
+    "colTitle": "IELTS Writing Task Set 1"
+}
+```
+
+
+#### 成功响应示例
+```json
+true
+```
+
+
+#### 失败响应示例
+```json
+{
+    "error": "IllegalArgumentException: 写作题目标题和内容,标题不能为null，可以为空字符"
+}
+```
+
+
+### 注意事项
+- 确保请求体中的所有字段都按照要求填写，避免传入null值。
+- 该接口会自动处理任务ID的生成，并将新题目插入数据库中。
+
+通过以上文档，客户端可以清楚地了解如何调用该接口以及如何处理返回的数据。

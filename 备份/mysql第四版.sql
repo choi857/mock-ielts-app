@@ -109,6 +109,7 @@ CREATE TABLE COL_WRITING_TASK (
                                   task_type VARCHAR(255) COMMENT '写作题目类型ENUM(''TASK1'', ''TASK2'')',
                                   task_requirements LONGTEXT COMMENT '写作要求',
                                   word_limit INT COMMENT '字数限制',
+                                  COL_TITLE VARCHAR(255) COMMENT '写作题标题',
                                   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                                   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) COMMENT='雅思机考写作题目表';
@@ -123,6 +124,7 @@ CREATE TABLE COL_WRITE_USER_ANSWER_RECORD (
                                               total_score DECIMAL(5,2) COMMENT '总得分',
                                               duration_seconds INT COMMENT '答题总耗时（秒）',
                                               device_type ENUM('WEB','MOBILE','TABLET') COMMENT '作答设备类型',
+                                              COL_TITLE VARCHAR(255) COMMENT '写作题标题',
                                               created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '答题开始时间',
                                               updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后更新时间'
 ) COMMENT='用户写作答题记录表';

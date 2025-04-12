@@ -5,9 +5,9 @@
     <!-- 插入记录 -->
     <insert id="insert" parameterType="com.apps.model.write.WritingTaskRecord">
         INSERT INTO COL_WRITING_TASK_RECORD (
-            task1_id, task2_id, created_at, updated_at
+            task1_id, task2_id, created_at, updated_at,COL_TITLE
         ) VALUES (
-            #{task1Id}, #{task2Id}, #{createdAt}, #{updatedAt}
+            #{task1Id}, #{task2Id}, #{createdAt}, #{updatedAt},#{colTitle}
         )
     </insert>
 
@@ -18,6 +18,7 @@
             task1_id = #{task1Id},
             task2_id = #{task2Id},
             updated_at = #{updatedAt}
+            COL_TITLE = #{colTitle}
         </set>
         WHERE record_id = #{recordId}
     </update>
@@ -25,7 +26,7 @@
     <!-- 根据ID查询记录 -->
     <select id="selectById" parameterType="java.lang.Long" resultType="com.apps.model.write.WritingTaskRecord">
         SELECT
-            record_id AS recordId, task1_id AS task1Id, task2_id AS task2Id, created_at AS createdAt, updated_at AS updatedAt
+            record_id AS recordId, task1_id AS task1Id, task2_id AS task2Id, created_at AS createdAt, updated_at AS updatedAt,COL_TITLE AS colTitle
         FROM
             COL_WRITING_TASK_RECORD
         WHERE
@@ -40,14 +41,14 @@
     <!-- 查询所有记录 -->
     <select id="selectAll" resultType="com.apps.model.write.WritingTaskRecord">
         SELECT
-            record_id AS recordId, task1_id AS task1Id, task2_id AS task2Id, created_at AS createdAt, updated_at AS updatedAt
+            record_id AS recordId, task1_id AS task1Id, task2_id AS task2Id, created_at AS createdAt, updated_at AS updatedAt,COL_TITLE AS colTitle
         FROM
             COL_WRITING_TASK_RECORD
     </select>
 
     <select id="selectByRecordId" parameterType="java.lang.Long" resultType="com.apps.model.write.WritingTaskRecord">
         SELECT
-            record_id AS recordId, task1_id AS task1Id, task2_id AS task2Id, created_at AS createdAt, updated_at AS updatedAt
+            record_id AS recordId, task1_id AS task1Id, task2_id AS task2Id, created_at AS createdAt, updated_at AS updatedAt,COL_TITLE AS colTitle
         FROM
                 COL_WRITING_TASK_RECORD
         WHERE

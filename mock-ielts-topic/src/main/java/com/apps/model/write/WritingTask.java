@@ -4,6 +4,15 @@ public class WritingTask {
     private Long taskId;
     private String taskTitle;
     private String taskDescription;
+    private String colTitle;
+
+    public String getColTitle() {
+        return colTitle;
+    }
+
+    public void setColTitle(String colTitle) {
+        this.colTitle = colTitle;
+    }
 
     // Getters and Setters
     public Long getTaskId() {

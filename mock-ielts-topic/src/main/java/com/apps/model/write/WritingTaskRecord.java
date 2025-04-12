@@ -8,6 +8,15 @@ public class WritingTaskRecord {
     private Long task2Id; // 关联Task2的题目ID
     private Timestamp createdAt; // 创建时间
     private Timestamp updatedAt; // 更新时间
+    private String colTitle;
+
+    public String getColTitle() {
+        return colTitle;
+    }
+
+    public void setColTitle(String colTitle) {
+        this.colTitle = colTitle;
+    }
 
     // Getters and Setters
     public Long getRecordId() {

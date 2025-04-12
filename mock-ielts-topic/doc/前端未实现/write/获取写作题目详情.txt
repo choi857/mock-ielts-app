@@ -1,0 +1,110 @@
+以下是针对`getWritingQuestionsByRecordId`接口的详细接口文档，包括数据结构和示例。
+
+### 接口概述
+- **接口名称**: 根据题目主ID获取写作题目详情
+- **请求方法**: GET
+- **URL路径**: `http://localhost:9485/topic/writing/get/questions/{{recordId}}`
+- **功能描述**: 根据给定的`recordId`获取关联的写作题目列表
+
+### 请求参数
+- **请求格式**: 无
+- **路径参数**:
+    - `recordId`: 记录ID
+        - 类型: `Long`
+        - 示例: `1`
+
+### 响应结果
+- **返回类型**: JSON数组
+- **成功响应**:
+    - 返回值: `List<WritingQuestion>`
+    - 含义: 返回指定`recordId`关联的所有写作题目详情
+- **失败响应**:
+    - HTTP状态码: 400
+    - 含义: 请求参数错误（例如，`recordId`不存在）
+    - HTTP状态码: 500
+    - 含义: 服务器内部错误
+
+### 数据结构
+#### WritingQuestion
+- **taskId**: 写作题目ID
+    - 类型: `Long`
+    - 示例: `101`
+- **taskTitle**: 写作题目标题
+    - 类型: `String`
+    - 示例: `"Describe a place you have visited"`
+- **taskDescription**: 写作题目描述
+    - 类型: `String`
+    - 示例: `"Write about your experience in at least 150 words."`
+- **taskType**: 写作题目类型
+    - 类型: `String`
+    - 示例: `"TASK1"`
+- **taskRequirements**: 写作要求
+    - 类型: `String`
+    - 示例: `"Provide a detailed description of a place you have visited, including its location, attractions, and your personal experiences there."`
+- **wordLimit**: 字数限制
+    - 类型: `Integer`
+    - 示例: `150`
+- **createdAt**: 创建时间
+    - 类型: `Timestamp`
+    - 示例: `"2023-10-01T12:00:00Z"`
+- **updatedAt**: 更新时间
+    - 类型: `Timestamp`
+    - 示例: `"2023-10-01T12:00:00Z"`
+
+### 示例
+#### 请求示例
+```http
+GET /topic/writing/get/questions/1 HTTP/1.1
+Host: example.com
+Content-Type: application/json
+```
+
+
+#### 成功响应示例
+```json
+[
+    {
+        "taskId": 101,
+        "taskTitle": "Describe a place you have visited",
+        "taskDescription": "Write about your experience in at least 150 words.",
+        "taskType": "TASK1",
+        "taskRequirements": "Provide a detailed description of a place you have visited, including its location, attractions, and your personal experiences there.",
+        "wordLimit": 150,
+        "createdAt": "2023-10-01T12:00:00Z",
+        "updatedAt": "2023-10-01T12:00:00Z"
+    },
+    {
+        "taskId": 102,
+        "taskTitle": "Discuss the advantages and disadvantages of online learning",
+        "taskDescription": "Provide examples to support your argument.",
+        "taskType": "TASK2",
+        "taskRequirements": "Write a well-structured essay discussing both the benefits and drawbacks of online learning.",
+        "wordLimit": 250,
+        "createdAt": "2023-10-01T12:00:00Z",
+        "updatedAt": "2023-10-01T12:00:00Z"
+    }
+]
+```
+
+
+#### 失败响应示例
+- **请求参数错误**
+    ```json
+    {
+        "error": "IllegalArgumentException: Record not found for id: 1"
+    }
+    ```
+
+- **服务器内部错误**
+    ```json
+    {
+        "error": "Internal Server Error"
+    }
+    ```
+
+
+### 注意事项
+- 确保提供的`recordId`是有效的，否则接口将返回400错误。
+- 该接口返回的是与指定`recordId`关联的所有写作题目详情。
+
+通过以上文档，客户端可以清楚地了解如何调用该接口以及如何处理返回的数据。

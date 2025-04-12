@@ -5,6 +5,34 @@ public class WritingQuestionsRequest {
     private String task1Requirements;
     private String task2Title;
     private String task2Requirements;
+    private  String colTitle;
+
+    private String taskDescription1;
+    private String taskDescription2;
+
+    public String getTaskDescription1() {
+        return taskDescription1;
+    }
+
+    public void setTaskDescription1(String taskDescription1) {
+        this.taskDescription1 = taskDescription1;
+    }
+
+    public String getTaskDescription2() {
+        return taskDescription2;
+    }
+
+    public void setTaskDescription2(String taskDescription2) {
+        this.taskDescription2 = taskDescription2;
+    }
+
+    public String getColTitle() {
+        return colTitle;
+    }
+
+    public void setColTitle(String colTitle) {
+        this.colTitle = colTitle;
+    }
 
     // Getters and Setters
     public String getTask1Title() {

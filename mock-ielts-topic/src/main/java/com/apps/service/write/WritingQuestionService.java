@@ -28,10 +28,10 @@ package com.apps.service.write;
               * @param task2Requirements Task2的具体内容
               * @return 插入结果
               */
-             public boolean addWritingQuestions(String task1Title, String task1Requirements, String task2Title, String task2Requirements) {
+             public boolean addWritingQuestions(String task1Title, String task1Requirements, String taskDescription1, String task2Title, String task2Requirements,String taskDescription2, String colTitle) {
                  if (task1Title == null || task1Title.isEmpty() || task1Requirements == null || task1Requirements.isEmpty() ||
-                     task2Title == null || task2Title.isEmpty() || task2Requirements == null || task2Requirements.isEmpty()) {
-                     throw new IllegalArgumentException("写作题目标题和内容不能为null，可以为空字符");
+                     task2Title == null || task2Title.isEmpty() || task2Requirements == null || task2Requirements.isEmpty() ||colTitle.isEmpty() || colTitle == null ) {
+                     throw new IllegalArgumentException("写作题目标题和内容,标题不能为null，可以为空字符");
                  }
 
                  Timestamp currentTime = new Timestamp(System.currentTimeMillis());
@@ -47,6 +47,7 @@ package com.apps.service.write;
                  task1.setTaskRequirements(task1Requirements);
                  task1.setCreatedAt(currentTime);
                  task1.setUpdatedAt(currentTime);
+                 task1.setTaskDescription(taskDescription1);
 
                  WritingQuestion task2 = new WritingQuestion();
                  task2.setTaskId(task2Id);
@@ -55,6 +56,7 @@ package com.apps.service.write;
                  task2.setTaskRequirements(task2Requirements);
                  task2.setCreatedAt(currentTime);
                  task2.setUpdatedAt(currentTime);
+                 task2.setTaskDescription(taskDescription2);
 
                  writingQuestionMapper.insert(task1);
                  writingQuestionMapper.insert(task2);
@@ -64,6 +66,7 @@ package com.apps.service.write;
                  record.setTask2Id(task2Id);
                  record.setCreatedAt(currentTime);
                  record.setUpdatedAt(currentTime);
+                 record.setColTitle(colTitle);
 
                  writingTaskRecordMapper.insert(record);
 
@@ -93,4 +96,12 @@ package com.apps.service.write;
                  }
                  return question;
              }
+             /**
+              * 获取所有 WritingTaskRecord 记录
+              * @return 所有 WritingTaskRecord 记录
+              */
+             public List<WritingTaskRecord> getAllWritingTaskRecords() {
+                 return writingTaskRecordMapper.selectAll();
+             }
+
           }

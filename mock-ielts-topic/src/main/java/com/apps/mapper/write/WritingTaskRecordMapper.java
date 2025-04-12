@@ -19,6 +19,8 @@ package com.apps.mapper.write;
         // Add this method
         WritingTaskRecord selectByRecordId(Long recordId);
 
+
+
         // 根据 task_id 查询对应的 col_writing_task 数据
         @Select("SELECT task_id AS taskId, task_title AS taskTitle, task_description AS taskDescription " +
                 "FROM COL_WRITING_TASK " +
