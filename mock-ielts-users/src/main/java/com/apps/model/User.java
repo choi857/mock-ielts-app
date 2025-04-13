@@ -17,10 +17,18 @@ public class User {
 
     private String email;
 
-
+    private String image;
     private String role;
 
     // Getters and Setters
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     public Long getId() {
         return id;

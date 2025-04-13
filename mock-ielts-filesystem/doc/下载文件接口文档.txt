@@ -1,0 +1,17 @@
+
+### 3. 下载文件
+
+- **URL**: `GET http://localhost:9489/files/{fileName}`
+- **Description**: 下载指定文件。
+- **Method**: `GET`
+- **Path Parameters**:
+  - `fileName` (required): 文件名，类型为 `String`。
+- **Response**:
+  - **Status Code**: `200 OK`
+    - **Description**: 文件下载成功。
+    - **Response Headers**:
+      - `Content-Disposition`: `attachment; filename="filename.ext"`
+    - **Response Body**: 文件内容（二进制流）。
+  - **Status Code**: `404 Not Found`
+    - **Description**: 文件不存在。
+    - **Response Body**: 无。

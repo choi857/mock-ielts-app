@@ -5,6 +5,7 @@ CREATE TABLE COL_Users (
                            password VARCHAR(255) NOT NULL COMMENT '密码',
                            email VARCHAR(255) NOT NULL COMMENT '电子邮件',
                            role VARCHAR(50) NOT NULL COMMENT '用户角色',
+                           image VARCHAR(255) COMMENT '头像地址',
                            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
                            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
                            deleted TINYINT(1) DEFAULT 0 COMMENT '是否删除'

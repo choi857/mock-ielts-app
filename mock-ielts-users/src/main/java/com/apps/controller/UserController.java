@@ -77,7 +77,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/reset-password/{userId}")
+    @PostMapping("/reset/password/{userId}")
     public ResponseEntity<ResponseResult<String>> resetPassword(@PathVariable Long userId) {
         try {
             userService.resetPassword(userId);
@@ -88,5 +88,37 @@ public class UserController {
                     .body(ResponseResult.fail("Failed to reset password: " + e.getMessage()));
         }
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<ResponseResult<User>> getUserInfo(@PathVariable Long userId) {
+        try {
+            User user = userService.getUserInfo(userId);
+            if (user != null) {
+                return ResponseEntity.ok(ResponseResult.success("查询成功", 200, user));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(ResponseResult.fail("用户不存在"));
+            }
+        } catch (Exception e) {
+            logger.error("查询用户信息失败: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ResponseResult.fail("查询用户信息失败: " + e.getMessage()));
+        }
+    }
+
+
+    @PutMapping("/update")
+    public ResponseEntity<ResponseResult<String>> updateUserInfo(@RequestBody User user) {
+        try {
+            userService.updateUserInfo(user);
+            return ResponseEntity.ok(ResponseResult.success("更新成功", 200, null));
+        } catch (Exception e) {
+            logger.error("更新用户信息失败: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ResponseResult.fail("更新用户信息失败: " + e.getMessage()));
+        }
+    }
+
+
 
 }

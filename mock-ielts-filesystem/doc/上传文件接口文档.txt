@@ -1,0 +1,45 @@
+好的，以下是根据你提供的代码生成的接口文档，地址前缀为 `http://localhost:9489/files`。每个接口的详细文档如下：
+
+### 1. 上传文件
+
+- **URL**: `POST http://localhost:9489/files/upload`
+- **Description**: 上传文件到服务器。
+- **Method**: `POST`
+- **Request Parameters**:
+  - `file` (required): 文件对象，类型为 `MultipartFile`。
+- **Response**:
+  - **Status Code**: `200 OK`
+    - **Description**: 文件上传成功。
+    - **Response Body**:
+      ```json
+      {
+        "status": "success",
+        "message": "文件上传成功",
+        "code": 200,
+        "data": "http://localhost:9489/files/filename.ext"
+      }
+      ```
+
+  - **Status Code**: `400 Bad Request`
+    - **Description**: 请选择要上传的文件。
+    - **Response Body**:
+      ```json
+      {
+        "status": "error",
+        "message": "请选择要上传的文件",
+        "code": 400,
+        "data": null
+      }
+      ```
+
+  - **Status Code**: `500 Internal Server Error`
+    - **Description**: 文件上传失败。
+    - **Response Body**:
+      ```json
+      {
+        "status": "error",
+        "message": "文件上传失败: 错误信息",
+        "code": 500,
+        "data": null
+      }
+      ```

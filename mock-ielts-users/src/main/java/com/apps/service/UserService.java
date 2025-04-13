@@ -63,4 +63,27 @@ public class UserService {
         }
     }
 
+    /**
+     * 查询用户全部信息
+     * @param userId
+     * @return
+     */
+    public User getUserInfo(Long userId) {
+        return userMapper.selectUserById(userId);
+    }
+    /**
+     * 更新用户信息
+     * @param user
+     */
+    public void updateUserInfo(User user) {
+
+        // 检查是否提供了新的密码
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            // 加密密码
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
+        userMapper.updateUser(user);
+    }
+
+
 }

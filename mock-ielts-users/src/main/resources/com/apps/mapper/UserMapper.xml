@@ -12,12 +12,13 @@
         <result property="password" column="password"/>
         <result property="email" column="email"/>
         <result property="role" column="role"/>
+        <result property="image" column="image"/>
     </resultMap>
 
     <!-- 插入用户 -->
     <insert id="insertUser" parameterType="com.apps.model.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO COL_Users (username, password, email, role)
-        VALUES (#{username}, #{password}, #{email}, #{role})
+        INSERT INTO COL_Users (username, password, email, role,image)
+        VALUES (#{username}, #{password}, #{email}, #{role},#{image})
     </insert>
 
     <!-- 更新用户 -->
@@ -26,7 +27,8 @@
         SET username = #{username},
             password = #{password},
             email = #{email},
-            role = #{role}
+            role = #{role},
+            image = #{image}
         WHERE user_id = #{id}
     </update>
 
