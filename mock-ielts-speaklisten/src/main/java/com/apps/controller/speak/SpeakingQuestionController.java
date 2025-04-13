@@ -67,7 +67,7 @@ public class SpeakingQuestionController {
      * 获取所有口语题目
      * @return 包裹在ResponseResult中的口语题目DTO列表
      */
-    @GetMapping
+    @GetMapping("/all")
     public ResponseResult<List<SpeakingQuestionDTO>> getAllSpeakingQuestions() {
         List<SpeakingQuestionDTO> questions = speakingQuestionService.getAllSpeakingQuestions();
         return ResponseResult.success("所有口语题目获取成功", questions);

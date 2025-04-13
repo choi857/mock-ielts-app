@@ -1,0 +1,98 @@
+以下是针对`getAllListenings`接口的详细接口文档，包括数据结构和示例。
+
+### 接口概述
+- **接口名称**: 查询所有听力材料
+- **请求方法**: GET
+- **URL路径**: `/listening/all`
+- **功能描述**: 用于获取`col_listening`表中的所有听力材料
+
+### 请求参数
+- **请求格式**: 无
+
+### 响应结果
+- **返回类型**: JSON对象
+- **成功响应**:
+    - 返回值: `ResponseResult<List<Listening>>`
+    - 含义: 返回所有听力材料
+- **失败响应**:
+    - HTTP状态码: 500
+    - 含义: 服务器内部错误
+
+### 数据结构
+#### ResponseResult
+- **code**: 状态码
+    - 类型: `Integer`
+    - 示例: `200`
+- **message**: 消息描述
+    - 类型: `String`
+    - 示例: `"查询成功"`
+- **data**: 数据部分
+    - 类型: `List<Listening>`
+    - 示例: 见下方`Listening`数据结构
+
+#### Listening
+- **id**: 听力材料ID
+    - 类型: `Long`
+    - 示例: `1`
+- **title**: 听力材料标题
+    - 类型: `String`
+    - 示例: `"IELTS Listening Passage 1"`
+- **audioUrl**: 音频文件URL
+    - 类型: `String`
+    - 示例: `"http://example.com/audio1.mp3"`
+- **createdAt**: 创建时间
+    - 类型: `String`
+    - 示例: `"2023-10-01T12:00:00Z"`
+- **updatedAt**: 更新时间
+    - 类型: `String`
+    - 示例: `"2023-10-01T12:00:00Z"`
+
+### 示例
+#### 请求示例
+```http
+GET /listening/all HTTP/1.1
+Host: example.com
+Content-Type: application/json
+```
+
+
+#### 成功响应示例
+```json
+{
+    "code": 200,
+    "message": "查询成功",
+    "data": [
+        {
+            "id": 1,
+            "title": "IELTS Listening Passage 1",
+            "audioUrl": "http://example.com/audio1.mp3",
+            "createdAt": "2023-10-01T12:00:00Z",
+            "updatedAt": "2023-10-01T12:00:00Z"
+        },
+        {
+            "id": 2,
+            "title": "IELTS Listening Passage 2",
+            "audioUrl": "http://example.com/audio2.mp3",
+            "createdAt": "2023-10-02T12:00:00Z",
+            "updatedAt": "2023-10-02T12:00:00Z"
+        }
+    ]
+}
+```
+
+
+#### 失败响应示例
+```json
+{
+    "code": 500,
+    "message": "查询所有听力材料失败，异常为:  服务器内部错误",
+    "data": null
+}
+```
+
+
+### 注意事项
+- 该接口不接受任何请求参数，直接返回数据库中的所有听力材料。
+- 确保客户端能够处理可能返回的大量数据。
+
+通过以上文档，客户端可以清楚地了解如何调用该接口以及如何处理返回的数据。

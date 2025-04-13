@@ -1,0 +1,108 @@
+以下是针对`getAllSpeakings`接口的详细接口文档，包括数据结构和示例。
+
+### 接口概述
+- **接口名称**: 获取所有口语材料
+- **请求方法**: GET
+- **URL路径**: `/speaking/all`
+- **功能描述**: 用于获取所有口语材料及其相关题目
+
+### 请求参数
+- **请求格式**: 无
+
+### 响应结果
+- **返回类型**: JSON对象
+- **成功响应**:
+    - 返回值: `ResponseResult<List<Speaking>>`
+    - 含义: 返回所有口语材料及其相关题目
+- **失败响应**:
+    - HTTP状态码: 500
+    - 含义: 服务器内部错误
+
+### 数据结构
+#### ResponseResult
+- **status**: 状态
+    - 类型: `String`
+    - 示例: `"success"`
+- **message**: 消息描述
+    - 类型: `String`
+    - 示例: `"所有口语材料获取成功"`
+- **code**: HTTP状态码
+    - 类型: `Integer`
+    - 示例: `200`
+- **data**: 数据部分
+    - 类型: `List<Speaking>`
+    - 示例: 见下方`Speaking`数据结构
+
+#### Speaking
+- **id**: 口语材料ID
+    - 类型: `Long`
+    - 示例: `1`
+- **title**: 口语材料标题
+    - 类型: `String`
+    - 示例: `"IELTS Speaking Part 1"`
+- **imageUrl**: 音频文件URL
+    - 类型: `String`
+    - 示例: `"http://example.com/audio1.mp3"`
+- **transcript**: 文字稿
+    - 类型: `String`
+    - 示例: `"This is the transcript of the speaking part."`
+- **createdAt**: 创建时间
+    - 类型: `String`
+    - 示例: `"2023-10-01T12:00:00Z"`
+- **updatedAt**: 更新时间
+    - 类型: `String`
+    - 示例: `"2023-10-01T12:00:00Z"`
+
+### 示例
+#### 请求示例
+```http
+GET /speaking/all HTTP/1.1
+Host: example.com
+Content-Type: application/json
+```
+
+
+#### 成功响应示例
+```json
+{
+    "status": "success",
+    "message": "所有口语材料获取成功",
+    "code": 200,
+    "data": [
+        {
+            "id": 1,
+            "title": "IELTS Speaking Part 1",
+            "imageUrl": "http://example.com/audio1.mp3",
+            "transcript": "This is the transcript of the speaking part.",
+            "createdAt": "2023-10-01T12:00:00Z",
+            "updatedAt": "2023-10-01T12:00:00Z"
+        },
+        {
+            "id": 2,
+            "title": "IELTS Speaking Part 2",
+            "imageUrl": "http://example.com/audio2.mp3",
+            "transcript": "This is the transcript of another speaking part.",
+            "createdAt": "2023-10-02T12:00:00Z",
+            "updatedAt": "2023-10-02T12:00:00Z"
+        }
+    ]
+}
+```
+
+
+#### 失败响应示例
+```json
+{
+    "status": "error",
+    "message": "获取所有口语材料失败，异常为:  服务器内部错误",
+    "code": 500,
+    "data": null
+}
+```
+
+
+### 注意事项
+- 该接口不接受任何请求参数，直接返回数据库中的所有口语材料。
+- 确保客户端能够处理可能返回的大量数据。
+
+通过以上文档，客户端可以清楚地了解如何调用该接口以及如何处理返回的数据。

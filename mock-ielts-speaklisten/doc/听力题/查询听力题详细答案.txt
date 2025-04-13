@@ -1,0 +1,240 @@
+以下是针对`getQuestionsByListeningId`接口的详细接口文档，包括数据结构和示例。
+
+### 接口概述
+- **接口名称**: 查询听力题目部分
+- **请求方法**: GET
+- **URL路径**: `/listening/getQuestions/{listeningId}`
+- **功能描述**: 根据给定的听力材料ID获取该材料的所有题目及其部分
+
+### 请求参数
+- **请求格式**: 无
+- **路径参数**:
+    - `listeningId`: 听力材料ID
+        - 类型: `Long`
+        - 示例: `1`
+
+### 响应结果
+- **返回类型**: JSON对象
+- **成功响应**:
+    - 返回值: `ResponseResult<ListeningWithQuestionsDTO>`
+    - 含义: 返回指定听力材料ID的所有题目及其部分
+- **失败响应**:
+    - HTTP状态码: 404
+    - 含义: 听力材料不存在
+    - HTTP状态码: 500
+    - 含义: 服务器内部错误
+
+### 数据结构
+#### ResponseResult
+- **code**: 状态码
+    - 类型: `Integer`
+    - 示例: `200`
+- **message**: 消息描述
+    - 类型: `String`
+    - 示例: `"查询成功"`
+- **data**: 数据部分
+    - 类型: `ListeningWithQuestionsDTO`
+    - 示例: 见下方`ListeningWithQuestionsDTO`数据结构
+
+#### ListeningWithQuestionsDTO
+- **listening**: 听力材料信息
+    - 类型: `Listening`
+    - 示例: 见下方`Listening`数据结构
+- **parts**: 题目部分映射
+    - 类型: `Map<String, List<ListeningQuestion>>`
+    - 示例: 见下方`ListeningQuestion`数据结构
+
+#### Listening
+- **id**: 听力材料ID
+    - 类型: `Long`
+    - 示例: `1`
+- **title**: 听力材料标题
+    - 类型: `String`
+    - 示例: `"IELTS Listening Passage 1"`
+- **audioUrl**: 音频文件URL
+    - 类型: `String`
+    - 示例: `"http://example.com/audio1.mp3"`
+- **createdAt**: 创建时间
+    - 类型: `String`
+    - 示例: `"2023-10-01T12:00:00Z"`
+- **updatedAt**: 更新时间
+    - 类型: `String`
+    - 示例: `"2023-10-01T12:00:00Z"`
+
+#### ListeningQuestion
+- **id**: 题目ID
+    - 类型: `Long`
+    - 示例: `101`
+- **listeningId**: 听力材料ID
+    - 类型: `Long`
+    - 示例: `1`
+- **type**: 题目类型
+    - 类型: `String`
+    - 示例: `"SINGLE_CHOICE"`
+- **content**: 题目内容
+    - 类型: `String`
+    - 示例: `"What is the main purpose of the passage?"`
+- **placeholderFormat**: 占位符格式（可选）
+    - 类型: `String`
+    - 示例: `"____"`
+- **answers**: 答案列表
+    - 类型: `List<ListeningAnswer>`
+    - 示例: 见下方`ListeningAnswer`数据结构
+- **createdAt**: 创建时间
+    - 类型: `String`
+    - 示例: `"2023-10-01T12:00:00Z"`
+- **updatedAt**: 更新时间
+    - 类型: `String`
+    - 示例: `"2023-10-01T12:00:00Z"`
+- **part**: 题目部分
+    - 类型: `String`
+    - 示例: `"Part 1"`
+- **colImageUrl**: 图片URL（可选）
+    - 类型: `String`
+    - 示例: `"http://example.com/image1.jpg"`
+- **serial**: 序列号（可选）
+    - 类型: `Integer`
+    - 示例: `1`
+
+#### ListeningAnswer
+- **id**: 答案ID
+    - 类型: `Long`
+    - 示例: `201`
+- **questionId**: 题目ID
+    - 类型: `Long`
+    - 示例: `101`
+- **content**: 答案内容
+    - 类型: `String`
+    - 示例: `"A"`
+- **isCorrect**: 是否正确
+    - 类型: `Boolean`
+    - 示例: `true`
+- **blankNumber**: 填空题顺序（可选）
+    - 类型: `Integer`
+    - 示例: `1`
+- **matchingKey**: 匹配键（可选）
+    - 类型: `String`
+    - 示例: `"A"`
+- **createdAt**: 创建时间
+    - 类型: `String`
+    - 示例: `"2023-10-01T12:00:00Z"`
+- **updatedAt**: 更新时间
+    - 类型: `String`
+    - 示例: `"2023-10-01T12:00:00Z"`
+
+### 示例
+#### 请求示例
+```http
+GET /listening/getQuestions/1 HTTP/1.1
+Host: example.com
+Content-Type: application/json
+```
+
+
+#### 成功响应示例
+```json
+{
+    "code": 200,
+    "message": "查询成功",
+    "data": {
+        "listening": {
+            "id": 1,
+            "title": "IELTS Listening Passage 1",
+            "audioUrl": "http://example.com/audio1.mp3",
+            "createdAt": "2023-10-01T12:00:00Z",
+            "updatedAt": "2023-10-01T12:00:00Z"
+        },
+        "parts": {
+            "Part 1": [
+                {
+                    "id": 101,
+                    "listeningId": 1,
+                    "type": "SINGLE_CHOICE",
+                    "content": "What is the main purpose of the passage?",
+                    "placeholderFormat": null,
+                    "answers": [
+                        {
+                            "id": 201,
+                            "questionId": 101,
+                            "content": "A",
+                            "isCorrect": true,
+                            "blankNumber": null,
+                            "matchingKey": null,
+                            "createdAt": "2023-10-01T12:00:00Z",
+                            "updatedAt": "2023-10-01T12:00:00Z"
+                        },
+                        {
+                            "id": 202,
+                            "questionId": 101,
+                            "content": "B",
+                            "isCorrect": false,
+                            "blankNumber": null,
+                            "matchingKey": null,
+                            "createdAt": "2023-10-01T12:00:00Z",
+                            "updatedAt": "2023-10-01T12:00:00Z"
+                        }
+                    ],
+                    "createdAt": "2023-10-01T12:00:00Z",
+                    "updatedAt": "2023-10-01T12:00:00Z",
+                    "part": "Part 1",
+                    "colImageUrl": null,
+                    "serial": 1
+                }
+            ],
+            "Part 2": [
+                {
+                    "id": 102,
+                    "listeningId": 1,
+                    "type": "FILL_IN_THE_BLANK",
+                    "content": "The main idea of the passage is ________.",
+                    "placeholderFormat": "______",
+                    "answers": [
+                        {
+                            "id": 203,
+                            "questionId": 102,
+                            "content": "to introduce a new product",
+                            "isCorrect": true,
+                            "blankNumber": 1,
+                            "matchingKey": null,
+                            "createdAt": "2023-10-01T12:00:00Z",
+                            "updatedAt": "2023-10-01T12:00:00Z"
+                        }
+                    ],
+                    "createdAt": "2023-10-01T12:00:00Z",
+                    "updatedAt": "2023-10-01T12:00:00Z",
+                    "part": "Part 2",
+                    "colImageUrl": null,
+                    "serial": 2
+                }
+            ]
+        }
+    }
+}
+```
+
+
+#### 失败响应示例
+- **听力材料不存在**
+    ```json
+    {
+        "code": 404,
+        "message": "听力材料不存在",
+        "data": null
+    }
+    ```
+
+- **服务器内部错误**
+    ```json
+    {
+        "code": 500,
+        "message": "查询题目出错:  服务器内部错误",
+        "data": null
+    }
+    ```
+
+
+### 注意事项
+- 确保提供的`listeningId`是有效的，否则接口将返回404错误。
+- 该接口返回的是指定ID的听力材料及其关联的所有题目和答案。
+
+通过以上文档，客户端可以清楚地了解如何调用该接口以及如何处理返回的数据。

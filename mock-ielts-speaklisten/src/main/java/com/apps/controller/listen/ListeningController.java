@@ -3,11 +3,14 @@ package com.apps.controller.listen;
 import com.apps.dto.listen.ListeningAnswerSubmissionDTO;
 import com.apps.dto.listen.ListeningWithQuestionsAndAnswersDTO;
 import com.apps.dto.listen.ListeningWithQuestionsDTO;
+import com.apps.model.listen.Listening;
 import com.apps.service.listen.ListeningAnswerService;
 import com.apps.service.listen.ListeningService;
 import com.apps.common.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/listening")
@@ -57,7 +60,14 @@ public class ListeningController {
         return listeningService.getQuestionsByListeningIdAndPart(listeningId);
     }
 
-
+    /**
+     * 查询所有听力材料
+     * @return 所有听力材料
+     */
+    @GetMapping("/all")
+    public ResponseResult<List<Listening>> getAllListenings() {
+        return listeningService.getAllListenings();
+    }
 
 
     /**

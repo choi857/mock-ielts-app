@@ -204,4 +204,13 @@ public class ListeningService {
             return ResponseResult.fail("查询题目出错: " + e.getMessage());
         }
     }
+
+    /**
+     * 查询所有听力材料
+     * @return 所有听力材料
+     */
+    public ResponseResult<List<Listening>> getAllListenings() {
+        List<Listening> listenings = listeningMapper.selectAll();
+        return ResponseResult.success("查询成功", listenings);
+    }
 }

@@ -2,6 +2,7 @@ package com.apps.controller.speak;
 
 import com.apps.common.ResponseResult;
 import com.apps.dto.speak.SpeakingDTO;
+import com.apps.model.speak.Speaking;
 import com.apps.service.speak.impl.SpeakingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -68,8 +69,8 @@ public class SpeakingController {
      * @return 包裹在ResponseResult中的口语材料DTO列表
      */
     @GetMapping("/all")
-    public ResponseResult<List<SpeakingDTO>> getAllSpeakings() {
-        List<SpeakingDTO> speakings = speakingService.getAllSpeakings();
+    public ResponseResult<List<Speaking>> getAllSpeakings() {
+        List<Speaking> speakings = speakingService.getAllSpeakings();
         return ResponseResult.success("所有口语材料获取成功", speakings);
     }
 }

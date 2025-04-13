@@ -146,11 +146,12 @@ public class SpeakingServiceImpl implements SpeakingService {
     }
 
     @Override
-    public List<SpeakingDTO> getAllSpeakings() {
+    public List<Speaking> getAllSpeakings() {
         // 获取所有口语材料记录
         List<Speaking> speakings = speakingMapper.findAllSpeakings();
 
         // 将每个口语材料记录转换为DTO
-        return speakings.stream().map(speaking -> getSpeakingById(speaking.getId())).collect(Collectors.toList());
+      //  return speakings.stream().map(speaking -> getSpeakingById(speaking.getId())).collect(Collectors.toList());
+        return speakings;
     }
 }

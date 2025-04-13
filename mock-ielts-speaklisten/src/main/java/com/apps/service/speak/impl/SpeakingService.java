@@ -1,6 +1,8 @@
 package com.apps.service.speak.impl;
 
 import com.apps.dto.speak.SpeakingDTO;
+import com.apps.model.speak.Speaking;
+
 import java.util.List;
 
 /**
@@ -39,5 +41,5 @@ public interface SpeakingService {
      * 获取所有口语材料
      * @return 口语材料DTO列表
      */
-    List<SpeakingDTO> getAllSpeakings();
+    List<Speaking> getAllSpeakings();
 }
