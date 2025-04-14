@@ -92,7 +92,7 @@ package com.apps.service.write;
              public WritingQuestion getWritingQuestionById(Long taskId) {
                  WritingQuestion question = writingQuestionMapper.selectById(taskId);
                  if (question == null) {
-                     throw new IllegalArgumentException("Writing question not found for id: " + taskId);
+                     throw new IllegalArgumentException("没找到这个id: " + taskId);
                  }
                  return question;
              }

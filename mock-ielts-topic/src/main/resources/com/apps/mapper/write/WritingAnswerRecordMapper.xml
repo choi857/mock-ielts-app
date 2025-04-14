@@ -20,4 +20,34 @@
         WHERE
             record_id = #{recordId}
     </select>
+    <!-- 查询用户ID对应的答题主记录 -->
+    <select id="selectUserWritingAnswerRecordsByUserId" parameterType="Long" resultType="com.apps.dto.write.WritingAnswerRecordDTO">
+        SELECT
+            user.record_id AS recordId,
+            user.user_id AS userId,
+            user.task1_id AS task1Id,
+            user.task2_id AS task2Id,
+            user.duration_seconds AS durationSeconds,
+            user.device_type AS deviceType,
+            user.created_at AS createdAt,
+            user.updated_at AS updatedAt,
+            user.total_score AS totalScore,
+            w.COL_TITLE AS title
+        FROM COL_WRITE_USER_ANSWER_RECORD user LEFT JOIN col_writing_task_record w ON user.task1_id = w.task1_id and user.task2_id = w.task2_id
+        WHERE user.user_id = #{userId}
+    </select>
+
+    <select id="selectByUserIdAndRecordId" resultType="com.apps.model.write.WritingAnswerRecord">
+        SELECT   record_id AS recordId,
+                 user_id AS userId,
+                 task1_id AS task1Id,
+                 task2_id AS task2Id,
+                 duration_seconds AS durationSeconds,
+                 device_type AS deviceType,
+                 created_at AS createdAt,
+                 updated_at AS updatedAt,
+                 total_score AS totalScore FROM col_write_user_answer_record
+        WHERE user_id = #{userId}
+          AND record_id = #{recordId}
+    </select>
 </mapper>

@@ -1,0 +1,144 @@
+
+GET http://localhost:9486/speak/userAnswer/user/{{userId}}/record/{{recordId}}/details
+
+
+
+#### 4. **请求方法**
+`GET`
+
+#### 5. **请求参数**
+
+| 参数名    | 类型   | 必填 | 描述           |
+|-----------|--------|------|----------------|
+| `userId`  | `Long` | 是   | 用户 ID        |
+| `recordId`| `Long` | 是   | 答题记录 ID    |
+
+#### 6. **响应数据结构**
+
+##### 成功响应
+- **状态码**: `200`
+- **响应体**:
+  ```json
+  {
+    "status": "success",
+    "message": "操作成功",
+    "code": 200,
+    "data": {
+      "SpeakUserAnswerRecord": null,
+      "parts": {
+        "Part3": [
+          {
+            "answer": {
+              "detailId": "600496878155353570",
+              "recordId": "600496877858529945",
+              "userId": 26,
+              "questionId": "599592616841752980",
+              "userAudioUrl": "http://localhost:9489/files/stream/b69675ea-a97d-4fd2-a45c-7bf14f7168b7.wav",
+              "userTranscript": "",
+              "score": "0.00",
+              "feedback": null,
+              "createdAt": null,
+              "part": "Part3",
+              "questionContent": "What are the characteristics that good co-workers need?"
+            }
+          }
+        ],
+        "Part2": [
+          {
+            "answer": {
+              "detailId": "600496878121010922",
+              "recordId": "600496877858529945",
+              "userId": 26,
+              "questionId": "599592616831682240",
+              "userAudioUrl": "http://localhost:9489/files/stream/591a2566-7a83-48a1-a597-b7d3631c18f2.wav",
+              "userTranscript": "",
+              "score": "0.00",
+              "feedback": null,
+              "createdAt": null,
+              "part": "Part2",
+              "questionContent": "Describe a person you like to work or study with"
+            }
+          }
+        ],
+        "Part1": [
+          {
+            "answer": {
+              "detailId": "600496878109467002",
+              "recordId": "600496877858529945",
+              "userId": 26,
+              "questionId": "599592616674979648",
+              "userAudioUrl": "http://localhost:9489/files/stream/23848cdb-9fdf-4de3-aa3d-80322af30134.wav",
+              "userTranscript": "",
+              "score": "0.00",
+              "feedback": null,
+              "createdAt": null,
+              "part": "Part1",
+              "questionContent": "What is your full name?"
+            }
+          }
+        ]
+      }
+    }
+  }
+  ```
+
+
+##### 失败响应
+- **状态码**: `404` 或其他错误状态码
+- **响应体**:
+  ```json
+  {
+    "status": "fail",
+    "message": "未找到对应的答题记录",
+    "code": 404,
+    "data": null
+  }
+  ```
+
+
+#### 7. **响应字段说明**
+
+| 字段名                     | 类型      | 描述                     |
+|----------------------------|-----------|--------------------------|
+| `status`                   | `String`  | 请求状态（`success` 或 `fail`） |
+| `message`                  | `String`  | 响应消息                 |
+| `code`                     | `Integer` | 状态码                   |
+| `data`                     | `Object`  | 返回的答题详细信息       |
+| `data.SpeakUserAnswerRecord`| `Object`  | 答题主记录（当前为 `null`） |
+| `data.parts`               | `Map`     | 按部分分类的答题明细     |
+| `data.parts.Part1`         | `List`    | Part1 的答题明细列表     |
+| `data.parts.Part2`         | `List`    | Part2 的答题明细列表     |
+| `data.parts.Part3`         | `List`    | Part3 的答题明细列表     |
+| `data.parts.PartX.answer`  | `Object`  | 单个答题明细             |
+| `answer.detailId`          | `String`  | 答案明细 ID              |
+| `answer.recordId`          | `String`  | 关联的答题记录 ID        |
+| `answer.userId`            | `Integer` | 用户 ID                  |
+| `answer.questionId`        | `String`  | 关联的题目 ID            |
+| `answer.userAudioUrl`      | `String`  | 用户回答的音频 URL       |
+| `answer.userTranscript`    | `String`  | 用户回答的文本转录       |
+| `answer.score`             | `String`  | 用户回答的得分           |
+| `answer.feedback`          | `String`  | 用户回答的评价和反馈     |
+| `answer.createdAt`         | `String`  | 答题提交时间             |
+| `answer.part`              | `String`  | 题目所属部分             |
+| `answer.questionContent`   | `String`  | 题目内容                 |
+
+#### 8. **示例**
+
+##### 请求示例
+```
+GET /speak/userAnswer/user/26/record/600496877858529945/details
+```
+
+
+##### 成功响应示例
+```json
+{
+  "status": "success",
+  "message": "操作成功",
+  "code": 200,
+  "data": {
+    "SpeakUserAnswerRecord": null,
+    "parts": {
+      "Part3": [
+        {
+          ```

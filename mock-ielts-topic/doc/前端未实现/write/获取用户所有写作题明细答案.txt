@@ -1,0 +1,202 @@
+好的，根据你提供的代码，以下是 `getWritingAnswerRecordByUserIdAndRecordId` 方法的接口文档：
+
+### 接口文档：获取用户答题详细信息
+
+#### 1. **接口描述**
+根据 `userId` 和 `record_id` 查询用户的答题详细信息，包括答题记录的明细内容。
+
+#### 2. **请求方式**
+`GET`
+
+#### 3. **接口路径**
+```
+http://localhost:9485/topic/writing/answers/user/{{userId}}/record/{{recordId}}
+```
+
+
+#### 4. **请求参数**
+| 参数名   | 类型   | 是否必填 | 描述         |
+|----------|--------|----------|--------------|
+| userId   | Long   | 是       | 用户ID       |
+| recordId | Long   | 是       | 答题记录ID   |
+
+#### 5. **返回结果**
+- **成功时**：
+  - 状态码：`200 OK`
+  - 返回数据结构：`ResponseResult<List<WritingAnswerDetail>>`
+
+##### `ResponseResult` 数据结构
+```json
+{
+  "status": "success", // 成功或失败状态
+  "message": "操作成功", // 返回消息
+  "code": 200, // HTTP 状态码
+  "data": [ // 返回数据
+    {
+      "detailId": 1, // 明细记录ID
+      "recordId": 101, // 答题记录ID
+      "userId": 201, // 用户ID
+      "taskType": "TASK1", // 任务类型
+      "answerContent": "这是用户提交的答案内容", // 用户提交的答案内容
+      "createdAt": "2023-10-01T12:00:00Z", // 创建时间
+      "answerEvaluation": "答案评价", // 答案评价
+      "score": 8.5 // 答案分数
+    },
+    {
+      "detailId": 2, // 明细记录ID
+      "recordId": 101, // 答题记录ID
+      "userId": 201, // 用户ID
+      "taskType": "TASK2", // 任务类型
+      "answerContent": "这是用户提交的答案内容", // 用户提交的答案内容
+      "createdAt": "2023-10-01T12:05:00Z", // 创建时间
+      "answerEvaluation": "答案评价", // 答案评价
+      "score": 7.5 // 答案分数
+    }
+  ]
+}
+```
+
+
+##### `WritingAnswerDetail` 数据结构
+```java
+public class WritingAnswerDetail {
+    private Long detailId; // 明细记录ID
+    private Long recordId; // 答题记录ID
+    private Long userId; // 用户ID
+    private String taskType; // 任务类型
+    private String answerContent; // 用户提交的答案内容
+    private Timestamp createdAt; // 创建时间
+    private String answerEvaluation; // 答案评价
+    private Double score; // 答案分数
+
+    // Getters and Setters
+
+    public Long getDetailId() {
+        return detailId;
+    }
+
+    public void setDetailId(Long detailId) {
+        this.detailId = detailId;
+    }
+
+    public Long getRecordId() {
+        return recordId;
+    }
+
+    public void setRecordId(Long recordId) {
+        this.recordId = recordId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
+    }
+
+    public String getAnswerContent() {
+        return answerContent;
+    }
+
+    public void setAnswerContent(String answerContent) {
+        this.answerContent = answerContent;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Timestamp createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getAnswerEvaluation() {
+        return answerEvaluation;
+    }
+
+    public void setAnswerEvaluation(String answerEvaluation) {
+        this.answerEvaluation = answerEvaluation;
+    }
+
+    public Double getScore() {
+        return score;
+    }
+
+    public void setScore(Double score) {
+        this.score = score;
+    }
+}
+```
+
+
+- **失败时**：
+  - 状态码：`500 Internal Server Error`
+  - 返回数据结构：`ResponseResult<T>`
+  ```json
+  {
+    "status": "error",
+    "message": "未找到对应的答题记录",
+    "code": 500,
+    "data": null
+  }
+  ```
+
+
+#### 6. **示例请求**
+```
+GET /topic/writing/answers/user/123/record/456
+```
+
+
+#### 7. **示例响应**
+- **成功响应**：
+```json
+{
+  "status": "success",
+  "message": "操作成功",
+  "code": 200,
+  "data": [
+    {
+      "detailId": 789,
+      "recordId": 456,
+      "userId": 123,
+      "taskType": "TASK1",
+      "answerContent": "这是用户提交的答案内容1",
+      "createdAt": "2023-10-01T10:00:00Z",
+      "answerEvaluation": "答案评价1",
+      "score": 8.5
+    },
+    {
+      "detailId": 101,
+      "recordId": 456,
+      "userId": 123,
+      "taskType": "TASK2",
+      "answerContent": "这是用户提交的答案内容2",
+      "createdAt": "2023-10-01T10:05:00Z",
+      "answerEvaluation": "答案评价2",
+      "score": 7.5
+    }
+  ]
+}
+```
+
+
+- **失败响应**：
+```json
+{
+  "status": "error",
+  "message": "未找到对应的答题记录",
+  "code": 500,
+  "data": null
+}
+```
+

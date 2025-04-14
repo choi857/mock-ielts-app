@@ -1,5 +1,6 @@
 package com.apps.mapper.speak;
 
+import com.apps.dto.speak.SpeakingAnswerRecordDTO;
 import com.apps.model.speak.SpeakUserAnswerRecord;
 import org.apache.ibatis.annotations.*;
 
@@ -31,6 +32,8 @@ public interface SpeakUserAnswerRecordMapper {
     })
     SpeakUserAnswerRecord findById(Long recordId);
 
+
+
     @Select("SELECT * FROM COL_SPEAK_USER_ANSWER_RECORD WHERE USER_ID = #{userId}")
     @Results({
             @Result(column = "RECORD_ID", property = "recordId"),
@@ -48,5 +51,24 @@ public interface SpeakUserAnswerRecordMapper {
 
     @Update("UPDATE COL_SPEAK_USER_ANSWER_RECORD SET SCORE = #{score} WHERE RECORD_ID = #{recordId}")
     void updateScoreById(@Param("recordId") Long recordId, @Param("score") double score);
+    /**
+     * 查询用户ID对应的口语答题主记录
+     * @param userId 用户ID
+     */
+    @Select("SELECT " +
+            "user.record_id AS recordId, " +
+            "user.user_id AS userId, " +
+            "user.speaking_id AS speakingId, " +
+            "user.score AS score, " +
+            "user.duration_seconds AS durationSeconds, " +
+            "user.device_type AS deviceType, " +
+            "user.created_at AS createdAt, " +
+            "user.updated_at AS updatedAt, " +
+            "user.answer_evaluation AS answerEvaluation, " +
+            "user.col_part AS part, " +
+            "spe.COL_TITLE AS title " +
+            "FROM COL_SPEAK_USER_ANSWER_RECORD user LEFT JOIN col_speaking spe ON user.SPEAKING_ID = spe.COL_ID" +
+            " WHERE user.USER_ID = #{userId}")
+    List<SpeakingAnswerRecordDTO> selectUserSpeakingAnswerRecordsByUserId(@Param("userId") Long userId);
 
 }

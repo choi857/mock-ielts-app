@@ -17,6 +17,15 @@ public class AnswerRecordDTO {
     private String answerEvaluation;
     private Long readSummaryId;
     private List<UserAnswerDetailDTO> answerDetails;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     // Getters and Setters
     public Long getRecordId() {

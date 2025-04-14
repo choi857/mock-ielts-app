@@ -2,6 +2,7 @@ package com.apps.service.write;
 
           import com.apps.common.CreateId;
           import com.apps.common.SparkModelUtil;
+          import com.apps.dto.write.WritingAnswerRecordDTO;
           import com.apps.mapper.write.WritingAnswerDetailMapper;
           import com.apps.mapper.write.WritingAnswerRecordMapper;
           import com.apps.mapper.write.WritingTaskRecordMapper;
@@ -10,6 +11,7 @@ package com.apps.service.write;
           import com.apps.model.write.WritingTaskRecord;
           import org.springframework.beans.factory.annotation.Autowired;
           import org.springframework.stereotype.Service;
+          import org.springframework.transaction.annotation.Transactional;
 
           import java.sql.Timestamp;
           import java.util.HashMap;
@@ -120,6 +122,50 @@ package com.apps.service.write;
                   }
 
                   return result;
+              }
+
+
+
+              /**
+               * 查询用户ID对应的答题主记录
+               * @param userId 用户ID
+               */
+              @Transactional(readOnly = true)
+              public List<WritingAnswerRecordDTO> getUserWritingAnswerRecords(Long userId) {
+                  return writingAnswerRecordMapper.selectUserWritingAnswerRecordsByUserId(userId);
+              }
+
+
+              /**
+               * 根据 userId 和 record_id 查询答题详细信息
+               * @param userId 用户ID
+               * @param recordId 记录ID
+               * @return WritingAnswerRecordDTO 对象
+               */
+              @Transactional(readOnly = true)
+              public List<WritingAnswerDetail> getWritingAnswerRecordByUserIdAndRecordId(Long userId, Long recordId) {
+                  WritingAnswerRecord record = writingAnswerRecordMapper.selectByUserIdAndRecordId(userId, recordId);
+                  if (record == null) {
+                      return null;
+                  }
+
+                  WritingAnswerRecordDTO dto = new WritingAnswerRecordDTO();
+                  dto.setRecordId(record.getRecordId());
+                  dto.setUserId(record.getUserId());
+                  dto.setTask1Id(record.getTask1Id());
+                  dto.setTask2Id(record.getTask2Id());
+
+                  dto.setCreatedAt(record.getCreatedAt());
+                  dto.setUpdatedAt(record.getUpdatedAt());
+                  dto.setTotalScore(record.getTotalScore());
+
+
+                  // 查询明细答题内容
+                  List<WritingAnswerDetail> details = writingAnswerDetailMapper.selectByRecordId(record.getRecordId());
+                  // 如果需要将明细内容也封装到 DTO 中，可以进一步处理
+                  // 这里假设不需要明细内容，如果需要可以添加到 DTO 中
+
+                  return details;
               }
 
           }

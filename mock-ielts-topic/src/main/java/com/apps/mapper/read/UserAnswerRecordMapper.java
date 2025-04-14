@@ -14,6 +14,9 @@ public interface UserAnswerRecordMapper {
 
     UserAnswerRecord selectByPrimaryKey(Long recordId);
 
+
+    UserAnswerRecord selectByPrimaryKeyAndUserId(Long recordId,Long userId);
+
     int deleteByPrimaryKey(Long recordId);
 
     int updateScoreByRecordId(Map<String, Object> params);

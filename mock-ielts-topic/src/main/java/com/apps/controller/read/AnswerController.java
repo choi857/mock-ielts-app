@@ -46,7 +46,7 @@ public class AnswerController {
      * @param userId 用户ID
      */
     @GetMapping("/user/{userId}")
-    public ResponseResult<List<AnswerRecordDTO>> getUserAnswerRecords(@PathVariable Long userId) {
+    public ResponseResult<List<AnswerRecordDTO>> getUserAnswerRecordsALL(@PathVariable Long userId) {
         List<AnswerRecordDTO> answerRecords = answerService.getUserAnswerRecords(userId);
         return ResponseResult.success(answerRecords);
     }
@@ -55,9 +55,10 @@ public class AnswerController {
      * 根据主答案表的ID查询用户明细答题的内容
      * @param recordId 主答案表的ID
      */
-    @GetMapping("/record/{recordId}")
-    public ResponseResult<AnswerRecordDTO> getUserAnswerRecordDetails(@PathVariable Long recordId) {
-        AnswerRecordDTO answerRecordDTO = answerService.getUserAnswerRecordDetails(recordId);
+    @GetMapping("/record/{recordId}/{userId}")
+    public ResponseResult<AnswerRecordDTO> getUserAnswerRecordDetails(  @PathVariable("recordId") Long recordId,
+                                                                        @PathVariable("userId") Long userId) {
+        AnswerRecordDTO answerRecordDTO = answerService.getUserAnswerRecordDetails(recordId,userId);
         return ResponseResult.success(answerRecordDTO);
     }
 }

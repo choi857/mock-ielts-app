@@ -1,10 +1,8 @@
 package com.apps.mapper.write;
 
+import com.apps.dto.write.WritingAnswerRecordDTO;
 import com.apps.model.write.WritingAnswerRecord;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -32,6 +30,19 @@ public interface WritingAnswerRecordMapper {
             "SET total_score = #{totalScore}, updated_at = #{updatedAt} " +
             "WHERE record_id = #{recordId}")
     int updateByPrimaryKey(WritingAnswerRecord record);
+    /**
+     * 查询用户ID对应的答题主记录
+     * @param userId 用户ID
+     */
+    List<WritingAnswerRecordDTO> selectUserWritingAnswerRecordsByUserId(@Param("userId") Long userId);
+
+    /**
+     * 根据 userId 和 record_id 查询答题记录
+     * @param userId 用户ID
+     * @param recordId 记录ID
+     * @return WritingAnswerRecord 对象
+     */
+    WritingAnswerRecord selectByUserIdAndRecordId(@Param("userId") Long userId, @Param("recordId") Long recordId);
 
 
 }

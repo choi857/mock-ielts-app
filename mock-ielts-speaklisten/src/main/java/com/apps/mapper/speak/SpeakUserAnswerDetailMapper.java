@@ -13,7 +13,7 @@ public interface SpeakUserAnswerDetailMapper {
     @Options(useGeneratedKeys = true, keyProperty = "detailId")
     void insert(SpeakUserAnswerDetail detail);
 
-    @Select("SELECT * FROM COL_SPEAK_USER_ANSWER_DETAIL WHERE RECORD_ID = #{recordId}")
+    @Select("SELECT * FROM COL_SPEAK_USER_ANSWER_DETAIL WHERE RECORD_ID = #{recordId} AND (SCORE IS NULL OR SCORE = 0.00 )")
     @Results({
             @Result(column = "DETAIL_ID", property = "detailId"),
             @Result(column = "RECORD_ID", property = "recordId"),
@@ -32,5 +32,33 @@ public interface SpeakUserAnswerDetailMapper {
 
     @Update("UPDATE COL_SPEAK_USER_ANSWER_DETAIL SET SCORE = #{score} WHERE DETAIL_ID = #{detailId}")
     void updateScoreById(@Param("detailId") Long detailId, @Param("score") double score);
+    @Select("SELECT " +
+            "DETAIL_ID AS detailId, " +
+            "RECORD_ID AS recordId, " +
+            "USER_ID AS userId, " +
+            "QUESTION_ID AS questionId, " +
+            "USER_AUDIO_URL AS userAudioUrl, " +
+            "USER_TRANSCRIPT AS userTranscript, " +
+            "SCORE AS score, " +
+            "FEEDBACK AS feedback, " +
+            "CREATED_AT AS createdAt, " +
+            "COL_PART AS part, " +
+            "QUESTION_CONTENT AS questionContent " +
+            "FROM COL_SPEAK_USER_ANSWER_DETAIL " +
+            "WHERE RECORD_ID = #{recordId} AND USER_ID = #{userId}")
+    @Results({
+            @Result(property = "detailId", column = "detailId"),
+            @Result(property = "recordId", column = "recordId"),
+            @Result(property = "userId", column = "userId"),
+            @Result(property = "questionId", column = "questionId"),
+            @Result(property = "userAudioUrl", column = "userAudioUrl"),
+            @Result(property = "userTranscript", column = "userTranscript"),
+            @Result(property = "score", column = "score"),
+            @Result(property = "feedback", column = "feedback"),
+            @Result(property = "createdAt", column = "createdAt"),
+            @Result(property = "part", column = "part"),
+            @Result(property = "questionContent", column = "questionContent")
+    })
+    List<SpeakUserAnswerDetail> findByRecordIdAndUserId(@Param("recordId") Long recordId, @Param("userId") Long userId);
 
 }

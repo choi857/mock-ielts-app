@@ -1,6 +1,8 @@
 package com.apps.service.listen;
 
+import com.apps.dto.listen.ListeningAnswerRecordDTO;
 import com.apps.dto.listen.ListeningAnswerSubmissionDTO;
+import com.apps.dto.speak.SpeakingAnswerRecordDTO;
 import com.apps.mapper.listen.ListeningAnswerMapper;
 import com.apps.mapper.listen.ListeningUserAnswerMapper;
 import com.apps.model.listen.ListeningAnswer;
@@ -55,7 +57,7 @@ public class ListeningAnswerService {
             for (ListeningAnswerSubmissionDTO.QuestionWrapperDTO question : questions) {
                 ListeningUserAnswerDetail detail = new ListeningUserAnswerDetail();
                 detail.setRecordId(record.getId());
-                detail.setUserId(submission.getListening().getUserId());
+                detail.setUserId(Long.valueOf(submission.getListening().getUserId()));
                 detail.setQuestionId(question.getQuestion().getId());
                 detail.setAnswerType(question.getQuestion().getType());
                 detail.setSubmittedAnswer(question.getQuestion().getAnswers());
@@ -90,10 +92,10 @@ public class ListeningAnswerService {
             // 获取正确答案
             ListeningAnswer correctAnswer = listeningAnswerMapper.findCorrectAnswerByQuestionId(detail.getQuestionId());
             if (correctAnswer != null && correctAnswer.getContent().equals(detail.getSubmittedAnswer())) {
-                detail.setIsCorrect(true);
+                detail.setCorrect(true);
                 correctAnswers++;
             } else {
-                detail.setIsCorrect(false);
+                detail.setCorrect(false);
                 // Count errors based on question type
                 switch (detail.getAnswerType()) {
                     case "FILL_IN_THE_BLANK":
@@ -127,4 +129,25 @@ public class ListeningAnswerService {
         record.setAnswerEvaluation(evaluation);
         listeningUserAnswerMapper.updateUserAnswerRecord(record);
     }
+
+
+    /**
+     * 查询用户ID对应的听力答题主记录
+     * @param userId 用户ID
+     */
+    @Transactional(readOnly = true)
+    public List<ListeningAnswerRecordDTO> getUserListeningAnswerRecords(Long userId) {
+        return listeningAnswerMapper.selectUserListeningAnswerRecordsByUserId(userId);
+    }
+
+    /**
+     * 根据 recordId 和 userId 查询答题详细信息
+     * @param userId 用户ID
+     * @param recordId 记录ID
+     * @return 答题详细信息
+     */
+    @Transactional
+    public List<ListeningUserAnswerDetail> getListeningAnswerDetailsByRecordIdAndUserId(Long userId, Long recordId) {
+        return listeningUserAnswerMapper.findUserAnswerDetailsByRecordIdAndUserId(userId, recordId);
+     }
 }

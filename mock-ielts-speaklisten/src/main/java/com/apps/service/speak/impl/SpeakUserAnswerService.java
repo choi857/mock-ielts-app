@@ -1,6 +1,9 @@
 package com.apps.service.speak.impl;
 
 import com.apps.dto.speak.SpeakUserAnswerDTO;
+import com.apps.dto.speak.SpeakingAnswerRecordDTO;
+
+import java.util.List;
 
 /**
  * 用户口语答题服务接口
@@ -21,10 +24,22 @@ public interface SpeakUserAnswerService {
      */
     SpeakUserAnswerDTO getUserAnswerByRecordId(Long recordId);
 
+
+    
+
     /**
      * 根据记录ID设置用户答题评分
      * @param recordId 答题记录ID
      * @return 用户答题数据传输对象
      */
     void setUserAnswerScoreByRecordId(Long recordId);
+
+    /**
+     * 根据用户id查询用户答题主记录
+     * @param userId
+     * @return
+     */
+    List<SpeakingAnswerRecordDTO> getUserSpeakingAnswerRecords(Long userId);
+
+    SpeakUserAnswerDTO getUserAnswerDetailsByRecordIdAndUserId(Long userId, Long recordId);
 }

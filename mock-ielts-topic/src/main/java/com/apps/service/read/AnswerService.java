@@ -254,24 +254,10 @@ public class AnswerService {
             dto.setUpdatedAt(record.getUpdatedAt());
             dto.setAnswerEvaluation(record.getAnswerEvaluation());
             dto.setReadSummaryId(record.getReadSummaryId());
+            dto.setTitle(record.getTitle());
 
-            // 查询明细答题内容
-            List<UserAnswerDetail> details = userAnswerDetailMapper.selectByRecordId(record.getRecordId());
-            List<UserAnswerDetailDTO> detailDTOs = new ArrayList<>();
-            for (UserAnswerDetail detail : details) {
-                UserAnswerDetailDTO detailDTO = new UserAnswerDetailDTO();
-                detailDTO.setDetailId(detail.getDetailId());
-                detailDTO.setRecordId(detail.getRecordId());
-                detailDTO.setUserId(Long.valueOf(detail.getUserId()));
-                detailDTO.setQuestionId(detail.getQuestionId());
-                detailDTO.setAnswerType(detail.getAnswerType());
-                detailDTO.setSubmittedAnswer(detail.getSubmittedAnswer());
-                detailDTO.setIsCorrect(detail.getIsCorrect());
-                detailDTO.setBlankIndex(detail.getBlankIndex());
-                detailDTO.setCreatedAt(detail.getCreatedAt());
-                detailDTOs.add(detailDTO);
-            }
-            dto.setAnswerDetails(detailDTOs);
+
+
             answerRecordDTOs.add(dto);
         }
 
@@ -283,8 +269,8 @@ public class AnswerService {
      * @param recordId 主答案表的ID
      */
     @Transactional(readOnly = true)
-    public AnswerRecordDTO getUserAnswerRecordDetails(Long recordId) {
-        UserAnswerRecord record = userAnswerRecordMapper.selectByPrimaryKey(recordId);
+    public AnswerRecordDTO  getUserAnswerRecordDetails(Long recordId,Long userId) {
+        UserAnswerRecord record = userAnswerRecordMapper.selectByPrimaryKeyAndUserId(recordId,userId);
         if (record == null) {
             return null;
         }

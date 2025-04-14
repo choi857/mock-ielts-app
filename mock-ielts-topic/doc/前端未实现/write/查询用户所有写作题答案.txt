@@ -1,0 +1,119 @@
+
+### 接口文档：查询用户所有的答题主记录
+
+#### 1. 接口描述
+该接口用于根据用户ID查询用户所有的答题主记录，包括答题的详细信息（如答题时间、得分、设备类型等）。
+
+---
+
+#### 2. 请求信息
+
+- **请求方法**: `GET`
+- **请求路径**: `http://localhost:9485/topic/writing/answers/user/{{userId}}`
+userId来自 localStorage.getItem('userId')
+- **接口功能**: 查询指定用户的答题主记录。
+
+---
+
+#### 3. 请求参数
+
+| 参数名称 | 类型   | 是否必填 | 描述           |
+|----------|--------|----------|----------------|
+| userId   | Long   | 是       | 用户的唯一标识 |
+
+**示例请求路径**:
+```
+GET /topic/writing/answers/user/12345
+```
+
+
+---
+
+#### 4. 响应信息
+
+##### 4.1 响应格式
+- **Content-Type**: `application/json`
+
+##### 4.2 响应参数
+
+响应数据为一个包含用户答题主记录的列表，每个答题主记录包含以下字段：
+
+| 字段名称         | 类型                | 描述                                                                 |
+|------------------|---------------------|----------------------------------------------------------------------|
+| recordId         | Long                | 答题主记录的唯一标识                                                |
+| userId           | Long                | 用户ID                                                              |
+| task1Id          | Long                | 关联Task1的题目ID                                                   |
+| task2Id          | Long                | 关联Task2的题目ID                                                   |
+| score            | Double              | 用户得分                                                            |
+| durationSeconds  | Integer             | 答题耗时（秒）                                                      |
+| deviceType       | String              | 用户答题时使用的设备类型（如WEB、MOBILE、TABLET）                   |
+| createdAt        | Timestamp           | 答题主记录创建时间                                                  |
+| updatedAt        | Timestamp           | 答题主记录更新时间                                                  |
+| answerEvaluation | String              | 答题评语                                                            |
+| totalScore       | Double              | 总得分                                                              |
+
+##### 4.3 响应示例
+
+```json
+{
+  "code": 200,
+  "message": "success",
+  "data": [
+    {
+      "recordId": 1,
+      "userId": 12345,
+      "task1Id": 1001,
+      "task2Id": 1002,
+      "score": 35.0,
+      "durationSeconds": 1200,
+      "deviceType": "WEB",
+      "createdAt": "2023-10-01T10:00:00Z",
+      "updatedAt": "2023-10-01T10:05:00Z",
+      "answerEvaluation": "答题情况良好，继续保持！",
+      "totalScore": 35.0
+    },
+    {
+      "recordId": 2,
+      "userId": 12345,
+      "task1Id": 1003,
+      "task2Id": 1004,
+      "score": 40.0,
+      "durationSeconds": 1500,
+      "deviceType": "MOBILE",
+      "createdAt": "2023-10-02T11:00:00Z",
+      "updatedAt": "2023-10-02T11:05:00Z",
+      "answerEvaluation": "很棒，居然全对！",
+      "totalScore": 40.0
+    }
+  ]
+}
+```
+
+
+---
+
+#### 5. 错误响应
+
+| HTTP状态码 | 错误码 | 错误信息                     | 描述                           |
+|------------|--------|------------------------------|--------------------------------|
+| 400        | 400    | Invalid user ID             | 用户ID无效或未提供             |
+| 404        | 404    | User not found              | 指定用户不存在                 |
+| 500        | 500    | Internal server error       | 服务器内部错误                 |
+
+##### 错误响应示例
+
+```json
+{
+  "code": 404,
+  "message": "User not found",
+  "data": null
+}
+```
+
+
+---
+
+#### 6. 注意事项
+- 如果用户没有任何答题记录，返回的`data`字段将是一个空列表。
+- 答题评语（`answerEvaluation`）会根据答题结果动态生成，可能包含多部分内容。
+- `score` 字段表示用户的得分，`answerEvaluation` 字段包含对用户答题的评语。

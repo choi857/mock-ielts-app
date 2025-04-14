@@ -1,19 +1,18 @@
-package com.apps.model.read;
+package com.apps.dto.write;
 
 import java.sql.Timestamp;
 
-public class UserAnswerRecord {
+public class WritingAnswerRecordDTO {
     private Long recordId;
-    private Integer userId;
-    private Long readingId;
-    private Double score;
+    private Long userId;
+    private Long task1Id;
+    private Long task2Id;
     private Integer durationSeconds;
     private String deviceType;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private String answerEvaluation;
-    private Long readSummaryId; //阅读题总表id
 
+    private Double totalScore;
     private String title;
 
     public String getTitle() {
@@ -24,22 +23,8 @@ public class UserAnswerRecord {
         this.title = title;
     }
 
-    public Long getReadSummaryId() {
-        return readSummaryId;
-    }
+// Getters and Setters
 
-    public void setReadSummaryId(Long readSummaryId) {
-        this.readSummaryId = readSummaryId;
-    }
-    // Getters 和 Setters
-
-    public String getAnswerEvaluation() {
-        return answerEvaluation;
-    }
-
-    public void setAnswerEvaluation(String answerEvaluation) {
-        this.answerEvaluation = answerEvaluation;
-    }
     public Long getRecordId() {
         return recordId;
     }
@@ -48,29 +33,31 @@ public class UserAnswerRecord {
         this.recordId = recordId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Long getReadingId() {
-        return readingId;
+    public Long getTask1Id() {
+        return task1Id;
     }
 
-    public void setReadingId(Long readingId) {
-        this.readingId = readingId;
+    public void setTask1Id(Long task1Id) {
+        this.task1Id = task1Id;
     }
 
-    public Double getScore() {
-        return score;
+    public Long getTask2Id() {
+        return task2Id;
     }
 
-    public void setScore(Double score) {
-        this.score = score;
+    public void setTask2Id(Long task2Id) {
+        this.task2Id = task2Id;
     }
+
+
 
     public Integer getDurationSeconds() {
         return durationSeconds;
@@ -102,5 +89,15 @@ public class UserAnswerRecord {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+
+
+    public Double getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(Double totalScore) {
+        this.totalScore = totalScore;
     }
 }

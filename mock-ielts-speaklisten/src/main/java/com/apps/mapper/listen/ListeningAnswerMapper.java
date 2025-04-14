@@ -1,5 +1,6 @@
 package com.apps.mapper.listen;
 
+import com.apps.dto.listen.ListeningAnswerRecordDTO;
 import com.apps.model.listen.ListeningAnswer;
 import org.apache.ibatis.annotations.*;
 
@@ -46,4 +47,27 @@ public interface ListeningAnswerMapper {
         @Result(property = "part", column = "COL_PART")
 })
 ListeningAnswer findCorrectAnswerByQuestionId(Long questionId);
+
+
+    /**
+     * 查询用户ID对应的听力答题主记录
+     * @param userId 用户ID
+     */
+    @Select("SELECT " +
+            "user.record_id AS recordId, " +
+            "user.user_id AS userId, " +
+            "user.listening_id AS listeningId, " +
+            "user.score AS score, " +
+            "user.duration_seconds AS durationSeconds, " +
+            "user.device_type AS deviceType, " +
+            "user.created_at AS createdAt, " +
+            "user.updated_at AS updatedAt, " +
+            "user.answer_evaluation AS answerEvaluation, " +
+            "user.col_part AS part, " +
+            "lis.COL_TITLE AS title " +
+            "FROM COL_LISTEN_USER_ANSWER_RECORD user LEFT JOIN col_listening lis ON lis.COL_ID = user.LISTENING_ID where" +
+            " user.user_id = #{userId}")
+    List<ListeningAnswerRecordDTO> selectUserListeningAnswerRecordsByUserId(@Param("userId") Long userId);
+
+
 }

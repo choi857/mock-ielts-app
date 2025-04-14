@@ -1,0 +1,164 @@
+
+
+### 接口文档
+
+#### 1. **接口名称**
+根据 `recordId` 和 `userId` 查询答题详细信息
+
+#### 2. **接口描述**
+根据用户 ID (`userId`) 和答题记录 ID (`recordId`)，查询对应的答题详细信息。如果未找到记录，返回错误信息。
+
+#### 3. **请求 URL**
+```
+GET  http://localhost:9486/topic/listening/answers/user/{{userId}}/record/{{recordId}}
+```
+
+
+#### 4. **请求方法**
+`GET`
+
+#### 5. **请求参数**
+
+| 参数名    | 类型   | 必填 | 描述           |
+|-----------|--------|------|----------------|
+| `userId`  | `Long` | 是   | 用户 ID        |
+| `recordId`| `Long` | 是   | 答题记录 ID    |
+
+#### 6. **响应数据结构**
+
+##### 成功响应
+- **状态码**: `200`
+- **响应体**:
+  ```json
+  {
+    "code": 200,
+    "message": "成功",
+    "data": [
+      {
+        "id": 1,
+        "recordId": 123,
+        "userId": 456,
+        "questionId": 789,
+        "answerType": "FILL_IN_THE_BLANK",
+        "submittedAnswer": "example answer",
+        "isCorrect": true,
+        "blankIndex": 1,
+        "createdAt": "2023-10-01 12:34:56",
+        "part": "Part1"
+      }
+    ]
+  }
+  ```
+
+
+##### 失败响应
+- **状态码**: `404`
+- **响应体**:
+  ```json
+  {
+    "code": 404,
+    "message": "未找到对应的答题记录",
+    "data": null
+  }
+  ```
+
+
+#### 7. **响应字段说明**
+
+| 字段名           | 类型      | 描述                     |
+|------------------|-----------|--------------------------|
+| `code`           | `Integer` | 状态码                   |
+| `message`        | `String`  | 响应消息                 |
+| `data`           | `Array`   | 返回的答题详细信息列表   |
+| `data.id`        | `Long`    | 答案明细 ID              |
+| `data.recordId`  | `Long`    | 关联的答题记录 ID        |
+| `data.userId`    | `Long`    | 用户 ID                  |
+| `data.questionId`| `Long`    | 关联的题目 ID            |
+| `data.answerType`| `String`  | 题目类型                 |
+| `data.submittedAnswer`| `String` | 用户提交的答案         |
+| `data.isCorrect` | `Boolean` | 答案是否正确             |
+| `data.blankIndex`| `Integer` | 填空题的空白索引         |
+| `data.createdAt` | `String`  | 答题提交时间             |
+| `data.part`      | `String`  | 题目所属部分             |
+
+#### 8. **示例**
+
+##### 请求示例
+```
+GET /topic/listening/answers/user/456/record/123
+```
+
+
+##### 成功响应示例
+```json
+{
+  "code": 200,
+  "message": "成功",
+  "data": [
+    {
+      "id": 1,
+      "recordId": 123,
+      "userId": 456,
+      "questionId": 789,
+      "answerType": "FILL_IN_THE_BLANK",
+      "submittedAnswer": "example answer",
+      "isCorrect": true,
+      "blankIndex": 1,
+      "createdAt": "2023-10-01 12:34:56",
+      "part": "Part1"
+    }
+  ]
+}
+```
+
+
+##### 失败响应示例
+```json
+{
+  "code": 404,
+  "message": "未找到对应的答题记录",
+  "data": null
+}
+```
+
+
+---
+
+### 9. **注意事项**
+- 确保 `userId` 和 `recordId` 在数据库中存在对应的记录。
+- 如果查询结果为空，接口会返回 `404` 状态码和错误信息。
+- 响应中的 `createdAt` 字段格式为 `yyyy-MM-dd HH:mm:ss`。
+
+---
+
+### 10. **相关数据结构**
+#### `ListeningUserAnswerDetail` 实体类
+```java
+public class ListeningUserAnswerDetail {
+    private Long id; // 答案明细 ID
+    private Long recordId; // 关联的答题记录 ID
+    private Long userId; // 用户 ID
+    private Long questionId; // 关联的题目 ID
+    private String answerType; // 题目类型
+    private String submittedAnswer; // 用户提交的答案
+    private Boolean isCorrect; // 答案是否正确
+    private Integer blankIndex; // 填空题的空白索引
+    private String createdAt; // 答题提交时间
+    private String part; // 题目所属部分
+}
+```
+
+
+#### `ResponseResult` 响应封装类
+```java
+public class ResponseResult<T> {
+    private Integer code; // 状态码
+    private String message; // 响应消息
+    private T data; // 响应数据
+}
+```
+
+
+---
+
+通过以上文档，开发者可以清晰地了解接口的使用方法、请求参数、响应数据结构以及示例。

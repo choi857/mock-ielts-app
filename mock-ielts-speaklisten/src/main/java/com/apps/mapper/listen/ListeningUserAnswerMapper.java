@@ -1,13 +1,9 @@
 package com.apps.mapper.listen;
 
+import com.apps.dto.listen.ListeningAnswerRecordDTO;
 import com.apps.model.listen.ListeningUserAnswerDetail;
 import com.apps.model.listen.ListeningUserAnswerRecord;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -54,4 +50,24 @@ public interface ListeningUserAnswerMapper {
 
     @Update("UPDATE COL_LISTEN_USER_ANSWER_DETAIL SET IS_CORRECT = #{isCorrect} WHERE DETAIL_ID = #{id}")
     void updateUserAnswerDetail(ListeningUserAnswerDetail detail);
-}
+
+    @Select("SELECT " +
+            "DETAIL_ID AS id, " +
+            "RECORD_ID AS recordId, " +
+            "USER_ID AS userId, " +
+            "QUESTION_ID AS questionId, " +
+            "CREATED_AT AS createdAt, " +
+            "COL_PART AS part " +
+            "FROM COL_LISTEN_USER_ANSWER_DETAIL " +
+            "WHERE RECORD_ID = #{recordId} AND USER_ID = #{userId}")
+    @Results({
+            @Result(property = "id", column = "id"),
+            @Result(property = "recordId", column = "recordId"),
+            @Result(property = "userId", column = "userId"),
+            @Result(property = "questionId", column = "questionId"),
+            @Result(property = "createdAt", column = "createdAt"),
+            @Result(property = "part", column = "part")
+    })
+    List<ListeningUserAnswerDetail> findUserAnswerDetailsByRecordIdAndUserId(@Param("userId") Long userId, @Param("recordId") Long recordId);
+
+ }

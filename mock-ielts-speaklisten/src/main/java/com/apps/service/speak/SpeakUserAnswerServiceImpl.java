@@ -3,6 +3,7 @@ package com.apps.service.speak;
 import com.apps.common.CreateId;
 import com.apps.common.SpeakToAiUtil;
 import com.apps.dto.speak.SpeakUserAnswerDTO;
+import com.apps.dto.speak.SpeakingAnswerRecordDTO;
 import com.apps.mapper.speak.SpeakUserAnswerDetailMapper;
 import com.apps.mapper.speak.SpeakUserAnswerRecordMapper;
 import com.apps.model.speak.SpeakUserAnswerDetail;
@@ -202,6 +203,51 @@ public class SpeakUserAnswerServiceImpl implements SpeakUserAnswerService {
         setUserAnswerScoreByRecordId(recordId);
         return dto;
     }
+
+
+    @Transactional(readOnly = true)
+    public SpeakUserAnswerDTO getUserAnswerDetailsByRecordIdAndUserId(Long userId, Long recordId) {
+        if (recordId == null || userId == null) {
+            throw new IllegalArgumentException("记录ID和用户ID不能为空");
+        }
+
+        // 查询答题明细
+        List<SpeakUserAnswerDetail> details = detailMapper.findByRecordIdAndUserId(recordId, userId);
+        if (details == null || details.isEmpty()) {
+            throw new RuntimeException("未找到对应的答题明细");
+        }
+
+        // 构建返回的DTO
+        SpeakUserAnswerDTO dto = new SpeakUserAnswerDTO();
+
+        Map<String, List<SpeakUserAnswerDTO.AnswerWrapper>> parts = new HashMap<>();
+
+        for (SpeakUserAnswerDetail detail : details) {
+            String part = detail.getPart();
+            SpeakUserAnswerDTO.AnswerWrapper wrapper = new SpeakUserAnswerDTO.AnswerWrapper();
+            SpeakUserAnswerDTO.SpeakUserAnswerDetail dtoDetail = new SpeakUserAnswerDTO.SpeakUserAnswerDetail();
+
+            dtoDetail.setDetailId(detail.getDetailId());
+            dtoDetail.setRecordId(detail.getRecordId());
+            dtoDetail.setUserId(detail.getUserId());
+            dtoDetail.setQuestionId(detail.getQuestionId());
+            dtoDetail.setUserAudioUrl(detail.getUserAudioUrl());
+            dtoDetail.setUserTranscript(detail.getUserTranscript());
+            dtoDetail.setScore(detail.getScore() != null ? detail.getScore().toString() : null);
+            dtoDetail.setFeedback(detail.getFeedback());
+            dtoDetail.setPart(part);
+            dtoDetail.setQuestionContent(detail.getQuestionContent());
+            wrapper.setAnswer(dtoDetail);
+
+            if (!parts.containsKey(part)) {
+                parts.put(part, new ArrayList<>());
+            }
+            parts.get(part).add(wrapper);
+        }
+
+        dto.setParts(parts);
+        return dto;
+    }
     @Async
     @Override
     public void setUserAnswerScoreByRecordId(Long recordId) {
@@ -245,5 +291,15 @@ public class SpeakUserAnswerServiceImpl implements SpeakUserAnswerService {
         // 更新主记录表中的分数
         record.setScore(new java.math.BigDecimal(totalScore));
         recordMapper.updateScoreById(recordId, totalScore);
+    }
+
+
+    /**
+     * 查询用户ID对应的口语答题主记录
+     * @param userId 用户ID
+     */
+    @Transactional(readOnly = true)
+    public List<SpeakingAnswerRecordDTO> getUserSpeakingAnswerRecords(Long userId) {
+        return recordMapper.selectUserSpeakingAnswerRecordsByUserId(userId);
     }
 }

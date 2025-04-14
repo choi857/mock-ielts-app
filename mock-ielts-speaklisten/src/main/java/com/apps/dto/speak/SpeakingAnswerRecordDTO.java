@@ -1,19 +1,18 @@
-package com.apps.model.read;
+package com.apps.dto.speak;
 
 import java.sql.Timestamp;
 
-public class UserAnswerRecord {
+public class SpeakingAnswerRecordDTO {
     private Long recordId;
-    private Integer userId;
-    private Long readingId;
+    private Long userId;
+    private Long speakingId;
     private Double score;
     private Integer durationSeconds;
     private String deviceType;
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String answerEvaluation;
-    private Long readSummaryId; //阅读题总表id
-
+    private String part;
     private String title;
 
     public String getTitle() {
@@ -23,23 +22,8 @@ public class UserAnswerRecord {
     public void setTitle(String title) {
         this.title = title;
     }
+// Getters and Setters
 
-    public Long getReadSummaryId() {
-        return readSummaryId;
-    }
-
-    public void setReadSummaryId(Long readSummaryId) {
-        this.readSummaryId = readSummaryId;
-    }
-    // Getters 和 Setters
-
-    public String getAnswerEvaluation() {
-        return answerEvaluation;
-    }
-
-    public void setAnswerEvaluation(String answerEvaluation) {
-        this.answerEvaluation = answerEvaluation;
-    }
     public Long getRecordId() {
         return recordId;
     }
@@ -48,20 +32,20 @@ public class UserAnswerRecord {
         this.recordId = recordId;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public Long getReadingId() {
-        return readingId;
+    public Long getSpeakingId() {
+        return speakingId;
     }
 
-    public void setReadingId(Long readingId) {
-        this.readingId = readingId;
+    public void setSpeakingId(Long speakingId) {
+        this.speakingId = speakingId;
     }
 
     public Double getScore() {
@@ -102,5 +86,21 @@ public class UserAnswerRecord {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getAnswerEvaluation() {
+        return answerEvaluation;
+    }
+
+    public void setAnswerEvaluation(String answerEvaluation) {
+        this.answerEvaluation = answerEvaluation;
+    }
+
+    public String getPart() {
+        return part;
+    }
+
+    public void setPart(String part) {
+        this.part = part;
     }
 }
