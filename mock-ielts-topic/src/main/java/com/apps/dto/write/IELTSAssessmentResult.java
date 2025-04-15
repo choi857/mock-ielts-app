@@ -1,7 +1,9 @@
 package com.apps.dto.write;
 
 
-public class IELTSAssessmentResult {
+import java.io.Serializable;
+
+public class IELTSAssessmentResult   implements Serializable {
     private double score;
     private String answerEvaluation;
 

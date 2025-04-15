@@ -4,12 +4,13 @@ package com.apps.model.read;
 import com.apps.model.read.Question;
 import lombok.Data;
 
- import java.util.Date;
+import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 
 @Data
-public class Reading {
+public class Reading implements Serializable {
     private Long id;            // 阅读材料ID
     private String title;       // 阅读材料标题
     private String content;     // 阅读材料内容

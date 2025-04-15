@@ -4,9 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 @Data
-public class Listening {
+public class Listening  implements Serializable {
     @JsonProperty("id")
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;

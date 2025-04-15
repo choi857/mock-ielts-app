@@ -8,6 +8,9 @@ import com.apps.service.listen.ListeningAnswerService;
 import com.apps.service.listen.ListeningService;
 import com.apps.common.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +30,7 @@ public class ListeningController {
      * @return ResponseResult<String> 响应结果
      */
     @PostMapping("admin/add")
+    @CacheEvict(value = "allListenings", key = "'all'")
     public ResponseResult<Object> addListeningWithQuestionsAndAnswers(@RequestBody ListeningWithQuestionsAndAnswersDTO dto) {
         return listeningService.addListeningWithQuestionsAndAnswers(dto);
     }
@@ -37,6 +41,7 @@ public class ListeningController {
      * @return
      */
     @GetMapping("admin/getListeningWithQuestionsAndAnswers/{listeningId}")
+    @Cacheable(value = "getListeningWithQuestionsAndAnswers", key = "#listeningId")
     public ResponseResult<Object> getListeningWithQuestionsAndAnswers(@PathVariable Long listeningId) {
         return listeningService.getListeningWithQuestionsAndAnswers(listeningId);
     }
@@ -46,9 +51,14 @@ public class ListeningController {
      * @return ResponseResult<String> 响应结果
      */
     @PostMapping("admin/update")
+    @Caching(evict = {
+            @CacheEvict(value = "getListeningWithQuestionsAndAnswers", key = "#listeningId"),
+            @CacheEvict(value = "getQuestionsByListeningId", key = "#listeningId")
+    })
     public ResponseResult<Object> updateQuestion(@RequestBody ListeningWithQuestionsAndAnswersDTO dto) {
         return listeningService.updateListeningWithQuestionsAndAnswers(dto);
     }
+
 
     /**
      * 查询听力题目部分
@@ -56,19 +66,21 @@ public class ListeningController {
      * @return ResponseResult<ListeningWithQuestionsDTO> 响应结果
      */
     @GetMapping("/getQuestions/{listeningId}")
+    @Cacheable(value = "getQuestionsByListeningId", key = "#listeningId")
     public ResponseResult<ListeningWithQuestionsDTO> getQuestionsByListeningId(@PathVariable Long listeningId) {
         return listeningService.getQuestionsByListeningIdAndPart(listeningId);
     }
+
 
     /**
      * 查询所有听力材料
      * @return 所有听力材料
      */
     @GetMapping("/all")
+    @Cacheable(value = "allListenings", key = "'all'")
     public ResponseResult<List<Listening>> getAllListenings() {
         return listeningService.getAllListenings();
     }
-
 
     /**
      * 提交听力题答案
@@ -76,6 +88,10 @@ public class ListeningController {
      * @return ResponseResult<String> 响应结果
      */
     @PostMapping("/submit/answers")
+    @Caching(evict = {
+            @CacheEvict(value = "listeningAnswerRecords", key = "#userId"),
+            @CacheEvict(value = "getUserAnswerRecordDetails", key = "#userId + '-' + #recordId")
+    })
     public ResponseResult<String> submitAnswers(@RequestBody ListeningAnswerSubmissionDTO submission) {
         listeningAnswerService.submitAnswers(submission);
         return ResponseResult.success("答案提交成功");

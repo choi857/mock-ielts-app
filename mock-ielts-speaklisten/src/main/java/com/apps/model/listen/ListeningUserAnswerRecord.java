@@ -2,8 +2,10 @@ package com.apps.model.listen;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
-public class ListeningUserAnswerRecord {
+public class ListeningUserAnswerRecord  implements Serializable {
     private Long id;
     private String userId;
     private Long listeningId;

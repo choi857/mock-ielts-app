@@ -7,10 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseResult<T> {
+public class ResponseResult<T>  implements Serializable {
     // 获取日志记录器
     private static final Logger logger = LoggerFactory.getLogger(ResponseResult.class);
 

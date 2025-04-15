@@ -3,7 +3,9 @@ package com.apps.dto.listen;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ListeningUserAnswerCorrectDetail {
+import java.io.Serializable;
+
+public class ListeningUserAnswerCorrectDetail  implements Serializable {
 
 
         @JsonProperty("id")

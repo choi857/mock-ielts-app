@@ -7,6 +7,7 @@ import com.apps.service.speak.impl.SpeakUserAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/speak/userAnswer")
-public class SpeakUserAnswerController {
+public class SpeakUserAnswerController  implements Serializable {
 
     @Autowired
     private SpeakUserAnswerService speakUserAnswerService;

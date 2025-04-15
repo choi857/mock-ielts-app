@@ -4,10 +4,11 @@ package com.apps.model.read;
 
 import com.apps.model.read.Answer;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Question {
+public class Question  implements Serializable {
     private Long id;            // 题目ID
     private Long readingId;     // 关联的阅读材料ID
     private String type;        // 题目类型（SINGLE_CHOICE, FILL_IN_THE_BLANK, MATCHING）

@@ -1,8 +1,9 @@
 package com.apps.model.read;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class UserAnswerDetail {
+public class UserAnswerDetail  implements Serializable {
     private Long detailId;
     private Long recordId;
     private Integer userId;

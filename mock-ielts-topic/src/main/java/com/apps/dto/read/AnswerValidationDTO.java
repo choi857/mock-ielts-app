@@ -1,6 +1,8 @@
 package com.apps.dto.read;
 
-    public class AnswerValidationDTO {
+import java.io.Serializable;
+
+public class AnswerValidationDTO  implements Serializable {
         private Long recordId;
         private Integer userId;
         private Long questionId;

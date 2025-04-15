@@ -7,6 +7,7 @@ import com.apps.dto.speak.SpeakingAnswerRecordDTO;
 import com.apps.model.listen.ListeningUserAnswerDetail;
 import com.apps.service.listen.ListeningAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,11 +23,13 @@ public class ListeningAnswerController {
     private ListeningAnswerService listeningAnswerService;
 
 
+
     /**
      * 查询用户ID对应的听力答题主记录
      * @param userId 用户ID
      */
     @GetMapping("/user/{userId}")
+    @Cacheable(value = "listeningAnswerRecords", key = "#userId")
     public ResponseResult<List<ListeningAnswerRecordDTO>> getUserListeningAnswerRecords(@PathVariable Long userId) {
         List<ListeningAnswerRecordDTO> answerRecords = listeningAnswerService.getUserListeningAnswerRecords(userId);
         return ResponseResult.success(answerRecords);
@@ -40,6 +43,7 @@ public class ListeningAnswerController {
      * @return 答题详细信息
      */
     @GetMapping("/user/{userId}/record/{recordId}")
+    @Cacheable(value = "listeningAnswerDetails", key = "#userId + '-' + #recordId")
     public ResponseResult<List<ListeningUserAnswerCorrectDetail>> getListeningAnswerDetailsByRecordIdAndUserId(
             @PathVariable Long userId, @PathVariable Long recordId) {
         List<ListeningUserAnswerCorrectDetail> answerDetails = listeningAnswerService.getListeningAnswerDetailsByRecordIdAndUserId(userId, recordId);
@@ -49,7 +53,11 @@ public class ListeningAnswerController {
         return ResponseResult.success(answerDetails);
     }
 
-
+    /**
+     *
+     * @param recordId
+     * @return
+     */
     @GetMapping("/score/record/{recordId}")
     public ResponseResult getUserAnswerScoreByRecordId(@PathVariable Long recordId) {
         listeningAnswerService.calculateScoreAndEvaluation(recordId);

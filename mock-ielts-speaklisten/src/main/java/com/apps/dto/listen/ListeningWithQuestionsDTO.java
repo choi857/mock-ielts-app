@@ -3,13 +3,14 @@ package com.apps.dto.listen;
 import com.apps.model.listen.Listening;
 import com.apps.model.listen.ListeningQuestion;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 插入听力题的dto
  */
-public class ListeningWithQuestionsDTO {
+public class ListeningWithQuestionsDTO  implements Serializable {
     private Listening listening;
     private Map<String, List<ListeningQuestion>> parts;
 

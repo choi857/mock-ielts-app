@@ -1,6 +1,8 @@
 package com.apps.dto.read;
 
-public class AnswerDTO {
+import java.io.Serializable;
+
+public class AnswerDTO  implements Serializable {
     private Long id;                      // 答案ID
     private String content;               // 答案内容
     private Boolean isCorrect;            // 是否为正确答案

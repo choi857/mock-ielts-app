@@ -2,10 +2,11 @@ package com.apps.dto.write;
 
 import com.apps.model.write.WritingAnswerDetail;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class WritingAnswerRecordDetailDTO {
+public class WritingAnswerRecordDetailDTO  implements Serializable {
     private Long recordId;
     private Long userId;
     private Long task1Id;

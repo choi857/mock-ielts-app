@@ -6,6 +6,9 @@ import com.apps.mapper.read.ReadingMapper;
 import com.apps.model.read.ReadingSummary;
 import com.apps.service.read.ReadingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +29,7 @@ public class ReadingController {
      * @return 插入结果
      */
     @PostMapping("/add")
+    @CacheEvict(value = "getAllReadingIDs", key = "'getAllReadingIDsall'")
     public ResponseResult<Void> addReadingWithQuestionsAndAnswers(@RequestBody ReadingInsertDTO readingInsertDTO) {
         try {
             // 调用服务层方法插入阅读材料及其题目和答案
@@ -43,6 +47,7 @@ public class ReadingController {
      * @return 阅读材料及其题目和答案
      */
     @GetMapping("/{id}")
+    @Cacheable(value = "getReadingWithQuestionsAndAnswers", key = "#id")
     public ResponseResult<ReadingInsertDTO> getReadingWithQuestionsAndAnswers(@PathVariable Long id) {
         try {
             // 调用服务层方法根据 ID 获取阅读材料及其题目和答案
@@ -59,6 +64,7 @@ public class ReadingController {
  * @return 所有阅读汇总及其 ID 和标题
  */
 @GetMapping("/all")
+@Cacheable(value = "getAllReadingIDs", key = "'getAllReadingIDsall'")
 public ResponseResult<List<ReadingSummary>> getAllReadingIDs() {
     try {
         // 调用服务层方法获取所有阅读汇总
@@ -76,6 +82,10 @@ public ResponseResult<List<ReadingSummary>> getAllReadingIDs() {
      * @return 删除结果
      */
     @DeleteMapping("/{id}")
+    @Caching(evict = {
+            @CacheEvict(value = "getAllReadingIDs", key = "'getAllReadingIDsall'"),
+            @CacheEvict(value = "getReadingWithQuestionsAndAnswers", key = "#id")
+    })
     public ResponseResult<Void> deleteReadingAndQuestions(@PathVariable Long id) {
         try {
             // 调用服务层方法根据 ID 删除阅读材料及其题目和答案

@@ -1,8 +1,9 @@
 package com.apps.dto.listen;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class ListeningAnswerRecordDTO {
+public class ListeningAnswerRecordDTO   implements Serializable {
     private Long recordId;
     private Long userId;
     private Long listeningId;

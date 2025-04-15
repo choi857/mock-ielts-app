@@ -2,10 +2,11 @@ package com.apps.dto.read2;
 
 
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class AnswerRecordDTO {
+public class AnswerRecordDTO  implements Serializable {
     private Long recordId;
     private Integer userId;
     private Long readingId;

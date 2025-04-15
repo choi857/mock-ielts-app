@@ -6,6 +6,9 @@ package com.apps.controller.write;
      import com.apps.service.write.WritingAnswerServiceToAi;
      import com.apps.service.write.WritingQuestionService;
      import org.springframework.beans.factory.annotation.Autowired;
+     import org.springframework.cache.annotation.CacheEvict;
+     import org.springframework.cache.annotation.Cacheable;
+     import org.springframework.cache.annotation.Caching;
      import org.springframework.web.bind.annotation.*;
 
      import java.util.List;
@@ -27,6 +30,9 @@ package com.apps.controller.write;
           * @return 新增结果
           */
          @PostMapping("/save")
+         @Caching(evict = {
+                 @CacheEvict(value = "getAllWritingTaskRecords", key = "'all'")
+         })
          public boolean addWritingQuestions(@RequestBody WritingQuestionsRequest request) {
              String task1Title = Optional.ofNullable(request.getTask1Title()).orElse("");
              String task1Requirements = Optional.ofNullable(request.getTask1Requirements()).orElse("");
@@ -52,6 +58,7 @@ package com.apps.controller.write;
      * @return 写作题目列表
      */
     @GetMapping("/get/questions/{recordId}")
+    @Cacheable(value = "getWritingQuestionsByRecordId", key = "#recordId")
     public List<WritingQuestion> getWritingQuestionsByRecordId(@PathVariable Long recordId) {
         return writingQuestionService.getWritingQuestionsByRecordId(recordId);
     }
@@ -62,12 +69,16 @@ package com.apps.controller.write;
      * @return 写作题目详情
      */
     @GetMapping("/get/question/{taskId}")
+    @Cacheable(value = "getWritingQuestionById", key = "#taskId")
     public WritingQuestion getWritingQuestionById(@PathVariable Long taskId) {
         return writingQuestionService.getWritingQuestionById(taskId);
     }
     @Autowired
     private WritingAnswerServiceToAi writingAnswerServiceToAi;
 
+    /**
+     * 更新所有 WritingTaskRecord 记录的分数
+     */
     @GetMapping("/update/scores")
     public void updateScores() {
         writingAnswerServiceToAi.updateScoresInterface();
@@ -78,6 +89,7 @@ package com.apps.controller.write;
      * @return 所有 WritingTaskRecord 记录
      */
     @GetMapping("/all")
+    @Cacheable(value = "getAllWritingTaskRecords", key = "'all'")
     public List<WritingTaskRecord> getAllWritingTaskRecords() {
         return writingQuestionService.getAllWritingTaskRecords();
     }

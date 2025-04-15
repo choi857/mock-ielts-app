@@ -1,8 +1,9 @@
 package com.apps.model.write;
 
+    import java.io.Serializable;
     import java.sql.Timestamp;
 
-    public class WritingQuestion {
+    public class WritingQuestion  implements Serializable {
         private Long taskId; // 写作题目ID
         private String taskTitle; // 写作题目标题
         private String taskDescription; // 写作题目描述

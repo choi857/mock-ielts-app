@@ -2,10 +2,11 @@ package com.apps.dto.listen;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.List;
 
-public class ListeningAnswerSubmissionDTO {
+public class ListeningAnswerSubmissionDTO  implements Serializable {
     @JsonProperty("listening")
     private ListeningDTO listening;
 

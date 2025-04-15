@@ -1,8 +1,9 @@
 package com.apps.dto.speak;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class SpeakingAnswerRecordDTO {
+public class SpeakingAnswerRecordDTO  implements Serializable {
     private Long recordId;
     private Long userId;
     private Long speakingId;

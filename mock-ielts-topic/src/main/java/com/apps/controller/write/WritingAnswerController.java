@@ -6,6 +6,9 @@ import com.apps.dto.write.WritingAnswerRecordDetailDTO;
 import com.apps.model.write.WritingAnswerDetail;
 import com.apps.service.write.WritingAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,6 +26,10 @@ public class WritingAnswerController {
      * @param answersList
      */
     @PostMapping("/save")
+    @Caching(evict = {
+            @CacheEvict(value = "getUserWritingAnswerRecords", key = "#userId"),
+            @CacheEvict(value = "getAllWritingTaskRecords", key = "'all'")
+    })
     public void saveWritingAnswers(@RequestBody List<Map<String, Object>> answersList) {
         writingAnswerService.saveWritingAnswers(answersList);
     }
@@ -33,6 +40,7 @@ public class WritingAnswerController {
      * @param userId 用户ID
      */
     @GetMapping("/user/{userId}")
+    @Cacheable(value = "getUserWritingAnswerRecords", key = "#userId")
     public ResponseResult<List<WritingAnswerRecordDTO>> getUserWritingAnswerRecords(@PathVariable Long userId) {
         List<WritingAnswerRecordDTO> answerRecords = writingAnswerService.getUserWritingAnswerRecords(userId);
         return ResponseResult.success(answerRecords);
@@ -46,6 +54,7 @@ public class WritingAnswerController {
      * @return 答题详细信息
      */
     @GetMapping("/user/{userId}/record/{recordId}")
+    @Cacheable(value = "getWritingAnswerRecordByUserIdAndRecordId", key = "#userId + '-' + #recordId")
     public ResponseResult<WritingAnswerRecordDetailDTO> getWritingAnswerRecordByUserIdAndRecordId(@PathVariable Long userId, @PathVariable Long recordId) {
         WritingAnswerRecordDetailDTO answerRecordDetail = writingAnswerService.getWritingAnswerRecordByUserIdAndRecordId(userId, recordId);
         if (answerRecordDetail == null) {

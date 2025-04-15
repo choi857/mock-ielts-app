@@ -1,8 +1,9 @@
 package com.apps.dto.read;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class QuestionDTO {
+public class QuestionDTO  implements Serializable {
     private Long id;                      // 题目ID
     private String type;                  // 题目类型（SINGLE_CHOICE, FILL_IN_THE_BLANK, MATCHING）
     private String content;               // 题目内容

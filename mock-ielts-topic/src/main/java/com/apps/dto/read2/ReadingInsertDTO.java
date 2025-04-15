@@ -1,11 +1,12 @@
 package com.apps.dto.read2;
 
+import java.io.Serializable;
 import java.util.List;
 /**
  * ReadingInsertDTO 表示用户插入阅读题的顶层数据传输对象
  */
 
-public class ReadingInsertDTO {
+public class ReadingInsertDTO  implements Serializable {
     private ReadingSummaryDTO readingSummary; // Reading summary
     private List<PartDTO> parts; // List of parts, each with its own reading and questions
 

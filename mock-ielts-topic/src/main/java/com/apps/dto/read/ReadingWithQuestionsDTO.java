@@ -1,8 +1,9 @@
 package com.apps.dto.read;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ReadingWithQuestionsDTO {
+public class ReadingWithQuestionsDTO  implements Serializable {
     private Long id;                      // 阅读材料ID
     private String title;                 // 阅读材料标题
     private String content;               // 阅读材料内容

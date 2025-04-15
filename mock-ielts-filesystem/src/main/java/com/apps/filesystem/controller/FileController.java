@@ -4,6 +4,9 @@ import com.apps.common.ResponseResult;
 import com.apps.filesystem.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -54,6 +57,10 @@ public class FileController {
      * @return
      */
     @DeleteMapping("/{fileName}")
+    @Caching(evict = {
+            @CacheEvict(value = "downloadFile", key = "#fileName"),
+            @CacheEvict(value = "streamFile", key = "#fileName")
+    })
     public ResponseResult<Void> deleteFile(@PathVariable String fileName) {
         try {
             fileService.deleteFile(fileName);
@@ -69,6 +76,7 @@ public class FileController {
      * @return
      */
     @GetMapping("/{fileName}")
+    @Cacheable(value = "downloadFile", key = "#fileName")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
         try {
             Path filePath = Paths.get(baseDir).resolve(fileName);
@@ -93,6 +101,7 @@ public class FileController {
      * @return
      */
     @GetMapping("/stream/{fileName}")
+    @Cacheable(value = "streamFile", key = "#fileName")
     public ResponseEntity<Resource> streamFile(@PathVariable String fileName) {
         try {
             Path filePath = Paths.get(baseDir).resolve(fileName);

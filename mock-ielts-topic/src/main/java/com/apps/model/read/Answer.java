@@ -2,11 +2,12 @@ package com.apps.model.read;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Data
-public class Answer {
+public class Answer  implements Serializable {
     private Long id;            // 答案ID
     private Long questionId;    // 关联的题目ID
     private String content;     // 答案内容

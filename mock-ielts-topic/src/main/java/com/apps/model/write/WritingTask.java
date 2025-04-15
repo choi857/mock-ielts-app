@@ -1,6 +1,8 @@
 package com.apps.model.write;
 
-public class WritingTask {
+import java.io.Serializable;
+
+public class WritingTask  implements Serializable {
     private Long taskId;
     private String taskTitle;
     private String taskDescription;

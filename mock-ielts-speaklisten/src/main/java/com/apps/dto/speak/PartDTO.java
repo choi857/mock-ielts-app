@@ -2,12 +2,13 @@ package com.apps.dto.speak;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * 口语材料部分DTO类
  */
-public class PartDTO {
+public class PartDTO implements Serializable {
     @JsonProperty("part")
     private String part;
 

@@ -1,8 +1,9 @@
 package com.apps.dto.write;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class WritingAnswerRecordDTO {
+public class WritingAnswerRecordDTO  implements Serializable {
     private Long recordId;
     private Long userId;
     private Long task1Id;

@@ -1,6 +1,8 @@
 package com.apps.dto.write;
 
-public class WritingQuestionsRequest {
+import java.io.Serializable;
+
+public class WritingQuestionsRequest  implements Serializable {
     private String task1Title;
     private String task1Requirements;
     private String task2Title;

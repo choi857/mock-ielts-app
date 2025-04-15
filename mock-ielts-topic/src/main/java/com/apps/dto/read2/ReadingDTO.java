@@ -1,9 +1,11 @@
 package com.apps.dto.read2;
 
+import java.io.Serializable;
+
 /**
  * ReadingDTO 表示阅读材料的基本信息
  */
-public class ReadingDTO {
+public class ReadingDTO  implements Serializable {
     private Long id; // 阅读材料ID
     private String title; // 阅读材料标题
     private String content; // 阅读材料内容

@@ -1,8 +1,9 @@
 package com.apps.model.write;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class WritingAnswerRecord {
+public class WritingAnswerRecord  implements Serializable {
     private Long recordId;
     private Long userId;
     private Long task1Id;

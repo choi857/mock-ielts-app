@@ -1,8 +1,9 @@
 package com.apps.model.read;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class ReadingSummary {
+public class ReadingSummary  implements Serializable {
 
     private Long id; // 阅读题ID
 

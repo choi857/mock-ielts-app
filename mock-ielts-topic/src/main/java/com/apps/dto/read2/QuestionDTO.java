@@ -1,11 +1,12 @@
 package com.apps.dto.read2;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * QuestionDTO 表示单个题目的数据传输对象
  */
-public class QuestionDTO {
+public class QuestionDTO  implements Serializable {
     private Long id; // 题目ID
     private String type; // 题目类型（如：单选题、填空题、配对题等）
     private String content; // 题目内容

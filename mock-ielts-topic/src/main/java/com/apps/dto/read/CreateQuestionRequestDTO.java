@@ -2,9 +2,10 @@ package com.apps.dto.read;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 @Data
-public class CreateQuestionRequestDTO {
+public class CreateQuestionRequestDTO   implements Serializable {
 
 
     private Long readingId;                  // 关联的阅读材料ID

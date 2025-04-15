@@ -1,8 +1,9 @@
 package com.apps.dto.read2;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ReadingSummaryDTO {
+public class ReadingSummaryDTO  implements Serializable {
     private Long id; // 阅读题汇总ID
     private String title; // 阅读题标题
     private Date createdAt; // 创建时间

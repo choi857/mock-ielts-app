@@ -6,10 +6,11 @@ import com.apps.model.listen.ListeningQuestion;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-public class ListeningWithQuestionsAndAnswersDTO {
+public class ListeningWithQuestionsAndAnswersDTO   implements Serializable {
     @JsonProperty("listening")
     private Listening listening;
 
@@ -32,7 +33,7 @@ public class ListeningWithQuestionsAndAnswersDTO {
         this.parts = parts;
     }
 
-    public static class QuestionWithAnswers {
+    public static class QuestionWithAnswers implements Serializable{
         @JsonProperty("question")
         private ListeningQuestion question;
 

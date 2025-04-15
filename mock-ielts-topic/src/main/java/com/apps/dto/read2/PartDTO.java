@@ -1,8 +1,9 @@
 package com.apps.dto.read2;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class PartDTO {
+public class PartDTO  implements Serializable {
     private ReadingDTO reading; // Each part has its own reading
     private List<QuestionWrapperDTO> questions; // Questions associated with this part
 

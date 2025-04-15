@@ -2,6 +2,7 @@ package com.apps.dto.speak;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
 /**
  * 口语题目DTO类
  */
-public class SpeakingQuestionDTO {
+public class SpeakingQuestionDTO  implements Serializable {
     @JsonProperty("id")
     private Long id;
 

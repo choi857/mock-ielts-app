@@ -7,6 +7,9 @@ import com.apps.dto.read2.UserAnswerCorrectRecordDTO;
 import com.apps.model.read.UserAnswerRecord;
 import com.apps.service.read.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +27,10 @@ public class AnswerController {
      * @param answersList 前端传过来的答案列表
      */
     @PostMapping("/save")
+    @Caching(evict = {
+            @CacheEvict(value = "getUserAnswerRecordsALL", key = "#userId"),
+            @CacheEvict(value = "getUserAnswerRecordDetails", key = "#userId + '-' + #recordId")
+    })
     public ResponseResult<Map> saveAnswers(@RequestBody List<Map<String, Object>> answersList) {
         Map<String, Long> stringLongMap = answerService.saveAnswers(answersList);
         return ResponseResult.success(stringLongMap);
@@ -36,6 +43,10 @@ public class AnswerController {
      *   userId 用户ID
      */
     @PostMapping("/getscores")
+    @Caching(evict = {
+            @CacheEvict(value = "getUserAnswerRecordsALL", key = "#userId"),
+            @CacheEvict(value = "getUserAnswerRecordDetails", key = "#userId + '-' + #recordId")
+    })
     public void validateAnswers(@RequestBody UserAnswerRecord request) {
         Long readSummaryId = request.getReadSummaryId();
         Long userId = Long.valueOf(request.getUserId());
@@ -48,6 +59,7 @@ public class AnswerController {
      * @param userId 用户ID
      */
     @GetMapping("/user/{userId}")
+    @Cacheable(value = "getUserAnswerRecordsALL", key = "#userId")
     public ResponseResult<List<AnswerRecordDTO>> getUserAnswerRecordsALL(@PathVariable Long userId) {
         List<AnswerRecordDTO> answerRecords = answerService.getUserAnswerRecords(userId);
         return ResponseResult.success(answerRecords);
@@ -58,6 +70,7 @@ public class AnswerController {
      * @param recordId 主答案表的ID
      */
     @GetMapping("/user/{userId}/record/{recordId}")
+    @Cacheable(value = "getUserAnswerRecordDetails", key = "#userId + '-' + #recordId")
     public ResponseResult<UserAnswerCorrectRecordDTO> getUserAnswerRecordDetails(@PathVariable("recordId") Long recordId,
                                                                            @PathVariable("userId") Long userId) {
         UserAnswerCorrectRecordDTO answerRecordDTO = answerService.getUserAnswerRecordDetails(recordId,userId);

@@ -1,8 +1,9 @@
 package com.apps.model.write;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class WritingTaskRecord {
+public class WritingTaskRecord  implements Serializable {
     private Long recordId; // 记录ID
     private Long task1Id; // 关联Task1的题目ID
     private Long task2Id; // 关联Task2的题目ID

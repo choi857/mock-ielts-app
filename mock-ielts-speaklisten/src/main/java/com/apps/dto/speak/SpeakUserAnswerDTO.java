@@ -2,13 +2,14 @@ package com.apps.dto.speak;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 用户口语答题DTO类
  */
-public class SpeakUserAnswerDTO {
+public class SpeakUserAnswerDTO  implements Serializable {
     @JsonProperty("SpeakUserAnswerRecord")
     private SpeakUserAnswerRecord speakUserAnswerRecord;
 
