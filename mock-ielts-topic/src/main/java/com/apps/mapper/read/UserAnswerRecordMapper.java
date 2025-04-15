@@ -1,6 +1,7 @@
 package com.apps.mapper.read;
 
 
+import com.apps.dto.read2.UserAnswerCorrectDTO;
 import com.apps.model.read.UserAnswerRecord;
 import org.springframework.data.repository.query.Param;
 
@@ -28,6 +29,5 @@ public interface UserAnswerRecordMapper {
      * @param userId 用户ID
      */
     List<UserAnswerRecord> selectUserAnswerRecordsByUserId(@Param("userId") Long userId);
-
 
 }

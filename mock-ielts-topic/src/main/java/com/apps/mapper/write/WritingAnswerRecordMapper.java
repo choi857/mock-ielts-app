@@ -44,5 +44,4 @@ public interface WritingAnswerRecordMapper {
      */
     WritingAnswerRecord selectByUserIdAndRecordId(@Param("userId") Long userId, @Param("recordId") Long recordId);
 
-
 }

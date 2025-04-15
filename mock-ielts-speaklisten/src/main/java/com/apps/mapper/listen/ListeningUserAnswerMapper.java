@@ -1,6 +1,7 @@
 package com.apps.mapper.listen;
 
 import com.apps.dto.listen.ListeningAnswerRecordDTO;
+import com.apps.dto.listen.ListeningUserAnswerCorrectDetail;
 import com.apps.model.listen.ListeningUserAnswerDetail;
 import com.apps.model.listen.ListeningUserAnswerRecord;
 import org.apache.ibatis.annotations.*;
@@ -46,19 +47,20 @@ public interface ListeningUserAnswerMapper {
 
     @Update("UPDATE COL_LISTEN_USER_ANSWER_RECORD SET SCORE = #{score}, ANSWER_EVALUATION = #{answerEvaluation}, DURATION_SECONDS = #{durationSeconds}, DEVICE_TYPE = #{deviceType}, UPDATED_AT = CURRENT_TIMESTAMP WHERE RECORD_ID = #{id}")
     void updateUserAnswerRecord(ListeningUserAnswerRecord record);
-
+    @Update("UPDATE COL_LISTEN_USER_ANSWER_RECORD SET SCORE = #{score}, ANSWER_EVALUATION = #{answerEvaluation},UPDATED_AT = CURRENT_TIMESTAMP WHERE RECORD_ID = #{id}")
+    void updateUserAnswerScoreRecord(ListeningUserAnswerRecord record);
 
     @Update("UPDATE COL_LISTEN_USER_ANSWER_DETAIL SET IS_CORRECT = #{isCorrect} WHERE DETAIL_ID = #{id}")
     void updateUserAnswerDetail(ListeningUserAnswerDetail detail);
 
-    @Select("SELECT " +
-            "DETAIL_ID AS id, " +
-            "RECORD_ID AS recordId, " +
-            "USER_ID AS userId, " +
-            "QUESTION_ID AS questionId, " +
-            "CREATED_AT AS createdAt, " +
-            "COL_PART AS part " +
-            "FROM COL_LISTEN_USER_ANSWER_DETAIL " +
+    @Select("SELECT DETAIL_ID AS id, RECORD_ID AS recordId, USER_ID AS userId, QUESTION_ID AS questionId, CREATED_AT AS createdAt, COL_PART AS part,SUBMITTED_ANSWER AS submittedAnswer,IS_CORRECT AS correct, \n" +
+            "    COALESCE(\n" +
+            "            (SELECT COL_PLACEHOLDER_FORMAT FROM col_listening_question WHERE col_id = user.question_id AND COL_TYPE = 'FILL_IN_THE_BLANK'  LIMIT 1),\n" +
+            "            (SELECT COL_CONTENT FROM col_listening_answer WHERE COL_QUESTION_ID = user.question_id AND COL_IS_CORRECT = TRUE LIMIT 1),\n" +
+            "            (SELECT COL_MATCHING_KEY FROM col_listening_answer WHERE COL_QUESTION_ID = user.question_id AND COL_IS_CORRECT = TRUE LIMIT 1)\n" +
+            "        ) AS mergedColumn, " +
+            "(SELECT score FROM col_listen_user_answer_record WHERE  record_id = user.RECORD_ID) AS score \n"+
+            "FROM COL_LISTEN_USER_ANSWER_DETAIL user " +
             "WHERE RECORD_ID = #{recordId} AND USER_ID = #{userId}")
     @Results({
             @Result(property = "id", column = "id"),
@@ -66,8 +68,12 @@ public interface ListeningUserAnswerMapper {
             @Result(property = "userId", column = "userId"),
             @Result(property = "questionId", column = "questionId"),
             @Result(property = "createdAt", column = "createdAt"),
-            @Result(property = "part", column = "part")
+            @Result(property = "part", column = "part"),
+            @Result(property = "submittedAnswer", column = "submittedAnswer"),
+            @Result(property = "mergedColumn", column = "mergedColumn"),
+            @Result(property = "correct", column = "correct"),
+            @Result(property = "score", column = "score")
     })
-    List<ListeningUserAnswerDetail> findUserAnswerDetailsByRecordIdAndUserId(@Param("userId") Long userId, @Param("recordId") Long recordId);
+    List<ListeningUserAnswerCorrectDetail> findUserAnswerDetailsByRecordIdAndUserId(@Param("userId") Long userId, @Param("recordId") Long recordId);
 
  }

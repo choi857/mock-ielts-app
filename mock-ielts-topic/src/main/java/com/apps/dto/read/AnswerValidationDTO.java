@@ -9,6 +9,15 @@ package com.apps.dto.read;
         private String correctAnswer;
         private Boolean isCorrect;
         private String answerEvaluation;
+        private Long detailId;
+
+        public Long getDetailId() {
+            return detailId;
+        }
+
+        public void setDetailId(Long detailId) {
+            this.detailId = detailId;
+        }
 
         public Long getRecordId() {
             return recordId;

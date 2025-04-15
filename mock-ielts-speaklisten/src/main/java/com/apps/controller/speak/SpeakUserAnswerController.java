@@ -55,6 +55,14 @@ public class SpeakUserAnswerController {
             return ResponseResult.fail("获取失败: " + e.getMessage());
         }
     }
+/**
+ * 根据recordId进行ai评分
+ */
+@GetMapping("/score/{recordId}")
+public ResponseResult<SpeakUserAnswerDTO> getUserAnswerScoreByRecordId(@PathVariable Long recordId) {
+    speakUserAnswerService.setUserAnswerScoreByRecordId(recordId);
+    return ResponseResult.success("评分成功");
+}
 
     /**
      * 根据用户id和记录id获取用户答题详情

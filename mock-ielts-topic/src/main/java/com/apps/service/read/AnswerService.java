@@ -3,6 +3,8 @@ package com.apps.service.read;
 import com.apps.common.CreateId;
 import com.apps.dto.read.AnswerValidationDTO;
 import com.apps.dto.read2.AnswerRecordDTO;
+import com.apps.dto.read2.UserAnswerCorrectDTO;
+import com.apps.dto.read2.UserAnswerCorrectRecordDTO;
 import com.apps.dto.read2.UserAnswerDetailDTO;
 import com.apps.mapper.read.AnswerMapper;
 import com.apps.mapper.read.QuestionMapper;
@@ -142,6 +144,8 @@ public class AnswerService {
                     if(correctAnswers == null || correctAnswers.isEmpty()){
                         isCorrect = true;
                         totalScoreTemporary += 1.0;
+                        userAnswerDetailMapper.updatecCrrectByPrimaryKey(detail.getDetailId(), isCorrect);
+
                     }
                     else {
                         // 去掉首尾的花括号
@@ -184,8 +188,10 @@ public class AnswerService {
                 }
                 detail.setIsCorrect(isCorrect);
                 if (isCorrect) {
+                    userAnswerDetailMapper.updatecCrrectByPrimaryKey(detail.getDetailId(), isCorrect);
                     totalScore += totalScoreTemporary; // 累加临时分数
                 } else {
+                    userAnswerDetailMapper.updatecCrrectByPrimaryKey(detail.getDetailId(), isCorrect);
                     errorCountByType.put(detail.getAnswerType(), errorCountByType.getOrDefault(detail.getAnswerType(), 0) + 1);
                 }
             }
@@ -268,14 +274,58 @@ public class AnswerService {
      * 根据主答案表的ID查询用户明细答题的内容
      * @param recordId 主答案表的ID
      */
+//    @Transactional(readOnly = true)
+//    public AnswerRecordDTO  getUserAnswerRecordDetails(Long recordId,Long userId) {
+//        UserAnswerRecord record = userAnswerRecordMapper.selectByPrimaryKeyAndUserId(recordId,userId);
+//        if (record == null) {
+//            return null;
+//        }
+//
+//        AnswerRecordDTO dto = new AnswerRecordDTO();
+//        dto.setRecordId(record.getRecordId());
+//        dto.setUserId(record.getUserId());
+//        dto.setReadingId(record.getReadingId());
+//        dto.setScore(record.getScore());
+//        dto.setDurationSeconds(record.getDurationSeconds());
+//        dto.setDeviceType(record.getDeviceType());
+//        dto.setCreatedAt(record.getCreatedAt());
+//        dto.setUpdatedAt(record.getUpdatedAt());
+//        dto.setAnswerEvaluation(record.getAnswerEvaluation());
+//        dto.setReadSummaryId(record.getReadSummaryId());
+//
+//        // 查询明细答题内容
+//        List<UserAnswerDetail> details = userAnswerDetailMapper.selectByRecordId(record.getRecordId());
+//        List<UserAnswerDetailDTO> detailDTOs = new ArrayList<>();
+//        for (UserAnswerDetail detail : details) {
+//            UserAnswerDetailDTO detailDTO = new UserAnswerDetailDTO();
+//            detailDTO.setDetailId(detail.getDetailId());
+//            detailDTO.setRecordId(detail.getRecordId());
+//            detailDTO.setUserId(Long.valueOf(detail.getUserId()));
+//            detailDTO.setQuestionId(detail.getQuestionId());
+//            detailDTO.setAnswerType(detail.getAnswerType());
+//            detailDTO.setSubmittedAnswer(detail.getSubmittedAnswer());
+//            detailDTO.setIsCorrect(detail.getIsCorrect());
+//            detailDTO.setBlankIndex(detail.getBlankIndex());
+//            detailDTO.setCreatedAt(detail.getCreatedAt());
+//            detailDTOs.add(detailDTO);
+//        }
+//        dto.setAnswerDetails(detailDTOs);
+//
+//        return dto;
+//    }
+
+    /**
+     * 根据主答案表的ID查询用户明细答题的内容
+     * @param recordId 主答案表的ID
+     */
     @Transactional(readOnly = true)
-    public AnswerRecordDTO  getUserAnswerRecordDetails(Long recordId,Long userId) {
+    public UserAnswerCorrectRecordDTO  getUserAnswerRecordDetails(Long recordId,Long userId) {
         UserAnswerRecord record = userAnswerRecordMapper.selectByPrimaryKeyAndUserId(recordId,userId);
         if (record == null) {
             return null;
         }
 
-        AnswerRecordDTO dto = new AnswerRecordDTO();
+        UserAnswerCorrectRecordDTO dto = new UserAnswerCorrectRecordDTO();
         dto.setRecordId(record.getRecordId());
         dto.setUserId(record.getUserId());
         dto.setReadingId(record.getReadingId());
@@ -288,19 +338,20 @@ public class AnswerService {
         dto.setReadSummaryId(record.getReadSummaryId());
 
         // 查询明细答题内容
-        List<UserAnswerDetail> details = userAnswerDetailMapper.selectByRecordId(record.getRecordId());
-        List<UserAnswerDetailDTO> detailDTOs = new ArrayList<>();
-        for (UserAnswerDetail detail : details) {
-            UserAnswerDetailDTO detailDTO = new UserAnswerDetailDTO();
+        List<UserAnswerCorrectDTO> details = userAnswerDetailMapper.selectUserAnswerCorrectDTOByRecordId(record.getRecordId());
+        List<UserAnswerCorrectDTO> detailDTOs = new ArrayList<>();
+        for (UserAnswerCorrectDTO detail : details) {
+            UserAnswerCorrectDTO detailDTO = new UserAnswerCorrectDTO();
             detailDTO.setDetailId(detail.getDetailId());
             detailDTO.setRecordId(detail.getRecordId());
             detailDTO.setUserId(Long.valueOf(detail.getUserId()));
             detailDTO.setQuestionId(detail.getQuestionId());
             detailDTO.setAnswerType(detail.getAnswerType());
             detailDTO.setSubmittedAnswer(detail.getSubmittedAnswer());
-            detailDTO.setIsCorrect(detail.getIsCorrect());
+            detailDTO.setCorrect(detail.getCorrect());
             detailDTO.setBlankIndex(detail.getBlankIndex());
             detailDTO.setCreatedAt(detail.getCreatedAt());
+            detailDTO.setMergedColumn(detail.getMergedColumn());
             detailDTOs.add(detailDTO);
         }
         dto.setAnswerDetails(detailDTOs);

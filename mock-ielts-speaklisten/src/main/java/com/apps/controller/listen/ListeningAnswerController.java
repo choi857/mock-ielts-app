@@ -2,6 +2,7 @@ package com.apps.controller.listen;
 
 import com.apps.common.ResponseResult;
 import com.apps.dto.listen.ListeningAnswerRecordDTO;
+import com.apps.dto.listen.ListeningUserAnswerCorrectDetail;
 import com.apps.dto.speak.SpeakingAnswerRecordDTO;
 import com.apps.model.listen.ListeningUserAnswerDetail;
 import com.apps.service.listen.ListeningAnswerService;
@@ -39,12 +40,19 @@ public class ListeningAnswerController {
      * @return 答题详细信息
      */
     @GetMapping("/user/{userId}/record/{recordId}")
-    public ResponseResult<List<ListeningUserAnswerDetail>> getListeningAnswerDetailsByRecordIdAndUserId(
+    public ResponseResult<List<ListeningUserAnswerCorrectDetail>> getListeningAnswerDetailsByRecordIdAndUserId(
             @PathVariable Long userId, @PathVariable Long recordId) {
-        List<ListeningUserAnswerDetail> answerDetails = listeningAnswerService.getListeningAnswerDetailsByRecordIdAndUserId(userId, recordId);
+        List<ListeningUserAnswerCorrectDetail> answerDetails = listeningAnswerService.getListeningAnswerDetailsByRecordIdAndUserId(userId, recordId);
         if (answerDetails == null || answerDetails.isEmpty()) {
             return ResponseResult.fail("未找到对应的答题记录");
         }
         return ResponseResult.success(answerDetails);
+    }
+
+
+    @GetMapping("/score/record/{recordId}")
+    public ResponseResult getUserAnswerScoreByRecordId(@PathVariable Long recordId) {
+        listeningAnswerService.calculateScoreAndEvaluation(recordId);
+        return ResponseResult.success("评分成功");
     }
 }

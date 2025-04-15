@@ -27,6 +27,16 @@
         WHERE detail_id = #{detailId}
     </update>
 
+
+    <!-- 更新记录 -->
+    <update id="updatecCrrectByPrimaryKey" parameterType="com.apps.model.read.UserAnswerDetail">
+        UPDATE COL_USER_ANSWER_DETAIL
+        <set>
+            is_correct = #{isCorrect}
+        </set>
+        WHERE detail_id = #{detailId}
+    </update>
+
     <!-- 查询记录 -->
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.apps.model.read.UserAnswerDetail">
         SELECT
@@ -51,7 +61,8 @@
             d.answer_type AS answerType,
             d.submitted_answer AS submittedAnswer,
             q.col_content AS correctAnswer,
-            r.answer_evaluation AS answerEvaluation
+            r.answer_evaluation AS answerEvaluation,
+            d.detail_id AS detailId
         FROM
             COL_USER_ANSWER_DETAIL d
                 JOIN
@@ -75,6 +86,26 @@
             created_at AS createdAt
         FROM
             COL_USER_ANSWER_DETAIL
+        WHERE
+            record_id = #{recordId}
+    </select>
+    <select id="selectUserAnswerCorrectDTOByRecordId" resultType="com.apps.dto.read2.UserAnswerCorrectDTO">
+        SELECT DISTINCT
+            user.detail_id AS detailId,
+            user.record_id AS recordId,
+            user.user_id AS userId,
+            user.question_id AS questionId,
+            user.answer_type AS answerType,
+            user.submitted_answer AS submittedAnswer,
+            user.is_correct AS isCorrect,
+            user.blank_index AS blankIndex,
+            user.created_at AS createdAt,
+            COALESCE(
+                    (SELECT COL_PLACEHOLDER_FORMAT FROM COL_QUESTION WHERE col_id = user.question_id AND COL_TYPE = 'FILL_IN_THE_BLANK' LIMIT 1),
+                    (SELECT COL_MATCHING_KEY FROM col_answer WHERE COL_QUESTION_ID = user.question_id AND COL_IS_CORRECT = TRUE LIMIT 1)
+                ) AS mergedColumn
+        FROM
+            COL_USER_ANSWER_DETAIL user
         WHERE
             record_id = #{recordId}
     </select>

@@ -252,12 +252,12 @@ public class SpeakUserAnswerServiceImpl implements SpeakUserAnswerService {
     @Override
     public void setUserAnswerScoreByRecordId(Long recordId) {
         if (recordId == null) {
-            throw new IllegalArgumentException("Record ID cannot be null");
+            throw new IllegalArgumentException("Record ID 不能为空");
         }
 
         SpeakUserAnswerRecord record = recordMapper.findById(recordId);
         if (record == null) {
-            throw new RuntimeException("No corresponding answer record found");
+            throw new RuntimeException("查不到对应的问题内容");
         }
 
         List<SpeakUserAnswerDetail> details = detailMapper.findByRecordId(recordId);
@@ -276,7 +276,7 @@ public class SpeakUserAnswerServiceImpl implements SpeakUserAnswerService {
                 if(resultScore < 10) {
                     Random random = new Random();
                     double randomNumber = random.nextDouble()* 10; // 生成0到10的随机数
-                    totalScore = randomNumber;
+                    resultScore = randomNumber;
                 }
                 totalScore += resultScore; // 增加总分数
 

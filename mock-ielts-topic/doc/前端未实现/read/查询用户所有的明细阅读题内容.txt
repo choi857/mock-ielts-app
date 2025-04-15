@@ -1,159 +1,122 @@
-
-
 ### 接口文档：获取用户明细答题内容
 
-#### 1. **接口描述**
-根据主答案表的ID (`recordId`) 和用户ID (`userId`) 查询用户详细的答题内容。
+#### 接口描述
+根据主答案表的ID和用户ID，查询用户明细答题的内容，包括答题记录的基本信息和每个题目的详细答题情况。
 
-#### 2. **请求方式**
+#### 请求方法
 `GET`
 
-#### 3. **接口路径**
+#### 请求路径
+`http://localhost:9485/topic/answers/user/{{userId}}/record/{{recordId}}`
+
+#### 请求参数
+| 参数名    | 类型   | 必填 | 描述               |
+|-----------|--------|------|--------------------|
+| `userId`  | Long   | 是   | 用户ID             |
+| `recordId`| Long   | 是   | 主答案表的ID       |
+
+#### 响应示例
+**请求：**
 ```
-GET http://localhost:9485/topic/answers/record/{{recordId}}/{{userId}}
-```
-
-
-#### 4. **请求参数**
-| 参数名   | 类型   | 是否必填 | 描述                     |
-|----------|--------|----------|--------------------------|
-| recordId | Long   | 是       | 主答案表的ID             |
-| userId   | Long   | 是       | 用户ID                   |
-
-#### 5. **返回结果**
-- **成功时**：
-  - 状态码：`200 OK`
-  - 返回数据结构：`ResponseResult<AnswerRecordDTO>`
-
-##### `ResponseResult` 数据结构
-```json
-{
-  "status": "success", // 成功或失败状态
-  "message": "操作成功", // 返回消息
-  "code": 200, // HTTP 状态码
-  "data": { // 返回数据
-    "recordId": 1, // 主答案表的ID
-    "userId": 101, // 用户ID
-    "readingId": 201, // 阅读题目的ID
-    "score": 8.5, // 分数
-    "durationSeconds": 120, // 答题时长（秒）
-    "deviceType": "PC", // 设备类型
-    "createdAt": "2023-10-01T12:00:00Z", // 创建时间
-    "updatedAt": "2023-10-01T12:05:00Z", // 更新时间
-    "answerEvaluation": "良好", // 答案评价
-    "readSummaryId": 301, // 阅读摘要ID
-    "answerDetails": [ // 答题明细
-      {
-        "questionId": 401, // 问题ID
-        "userAnswer": "正确答案", // 用户答案
-        "correctAnswer": "正确答案", // 正确答案
-        "isCorrect": true // 是否正确
-      }
-    ],
-    "title": "阅读理解题目标题" // 题目标题
-  }
-}
+GET http://localhost:9485/topic/answers/user/26/record/602442757554639803
 ```
 
 
-##### `AnswerRecordDTO` 数据结构
-```java
-public class AnswerRecordDTO {
-    private Long recordId; // 主答案表的ID
-    private Integer userId; // 用户ID
-    private Long readingId; // 阅读题目的ID
-    private Double score; // 分数
-    private Integer durationSeconds; // 答题时长（秒）
-    private String deviceType; // 设备类型
-    private Timestamp createdAt; // 创建时间
-    private Timestamp updatedAt; // 更新时间
-    private String answerEvaluation; // 答案评价
-    private Long readSummaryId; // 阅读摘要ID
-    private List<UserAnswerDetailDTO> answerDetails; // 答题明细
-    private String title; // 题目标题
-}
-```
-
-
-##### `UserAnswerDetailDTO` 数据结构
-```java
-public class UserAnswerDetailDTO {
-    private Long questionId; // 问题ID
-    private String userAnswer; // 用户答案
-    private String correctAnswer; // 正确答案
-    private Boolean isCorrect; // 是否正确
-}
-```
-
-
-- **失败时**：
-  - 状态码：`500 Internal Server Error`
-  - 返回数据结构：`ResponseResult<T>`
-  ```json
-  {
-    "status": "error",
-    "message": "操作失败",
-    "code": 500,
-    "data": null
-  }
-  ```
-
-
-#### 6. **示例请求**
-```
-GET /topic/answers/record/123/456
-```
-
-
-#### 7. **示例响应**
-- **成功响应**：
+**响应：**
 ```json
 {
   "status": "success",
   "message": "操作成功",
   "code": 200,
   "data": {
-    "recordId": 123,
-    "userId": 456,
-    "readingId": 789,
-    "score": 7.5,
-    "durationSeconds": 180,
-    "deviceType": "Mobile",
-    "createdAt": "2023-10-01T10:00:00Z",
-    "updatedAt": "2023-10-01T10:05:00Z",
-    "answerEvaluation": "一般",
-    "readSummaryId": 101,
+    "recordId": "602442757554639803",
+    "userId": 26,
+    "readingId": "602435015098389550",
+    "score": 40.0,
+    "durationSeconds": null,
+    "deviceType": null,
+    "createdAt": 1744347973000,
+    "updatedAt": 1744690805000,
+    "answerEvaluation": "很棒，居然全对！ 恭喜你，没有错误。",
+    "readSummaryId": "602435014286168682",
     "answerDetails": [
       {
-        "questionId": 201,
-        "userAnswer": "A",
-        "correctAnswer": "B",
-        "isCorrect": false
+        "detailId": "602442757625070339",
+        "recordId": "602442757554639803",
+        "userId": "26",
+        "questionId": "602435014348054382",
+        "answerType": "SINGLE_CHOICE",
+        "submittedAnswer": "C",
+        "blankIndex": null,
+        "createdAt": 1744347973000,
+        "mergedColumn": "C",
+        "correct": true
       },
       {
-        "questionId": 202,
-        "userAnswer": "C",
-        "correctAnswer": "C",
-        "isCorrect": true
-      }
-    ],
-    "title": "阅读理解题目标题"
+        "detailId": "602442757642099296",
+        "recordId": "602442757554639803",
+        "userId": "26",
+        "questionId": "602435014397204415",
+        "answerType": "SINGLE_CHOICE",
+        "submittedAnswer": "D",
+        "blankIndex": null,
+        "createdAt": 1744347973000,
+        "mergedColumn": "D",
+        "correct": true
+      },
+      // 其他答题详情...
+    ]
   }
 }
 ```
 
 
-- **失败响应**：
+#### 响应字段说明
+| 字段名               | 类型   | 描述                           |
+|----------------------|--------|--------------------------------|
+| `status`             | String | 请求状态，`success` 表示成功   |
+| `message`            | String | 响应消息                       |
+| `code`               | Integer| 响应状态码，`200` 表示成功     |
+| `data`               | Object | 响应数据                       |
+| `data.recordId`      | String | 答题记录ID                     |
+| `data.userId`        | Integer| 用户ID                         |
+| `data.readingId`     | String | 阅读材料ID                     |
+| `data.score`         | Double | 答题得分                       |
+| `data.durationSeconds`| Integer| 答题耗时（秒）                 |
+| `data.deviceType`    | String | 答题设备类型                   |
+| `data.createdAt`     | Long   | 答题记录创建时间（时间戳）     |
+| `data.updatedAt`     | Long   | 答题记录更新时间（时间戳）     |
+| `data.answerEvaluation`| String | 答题评价                       |
+| `data.readSummaryId` | String | 阅读题汇总ID                   |
+| `data.answerDetails` | List   | 答题详情列表                   |
+| `answerDetails.detailId`| String | 答题详情ID                   |
+| `answerDetails.recordId`| String | 关联的答题记录ID             |
+| `answerDetails.userId`| String | 用户ID                       |
+| `answerDetails.questionId`| String | 题目ID                     |
+| `answerDetails.answerType`| String | 题目类型                   |
+| `answerDetails.submittedAnswer`| String | 用户提交的答案           |
+| `answerDetails.blankIndex`| Integer| 填空题的空白索引（可为空）|
+| `answerDetails.createdAt`| Long | 答题详情创建时间（时间戳）|
+| `answerDetails.mergedColumn`| String | 正确答案|
+| `answerDetails.correct`| Boolean | 答题是否正确               |
+
+#### 注意事项
+1. **路径参数**：`userId` 和 `recordId` 必须有效，否则会返回错误。
+2. **响应数据**：`answerDetails` 是一个列表，包含每个题目的详细答题情况。
+3. **时间戳**：`createdAt` 和 `updatedAt` 是 Unix 时间戳（毫秒级）。
+
+#### 错误响应
+如果请求参数无效或记录不存在，可能会返回以下错误：
 ```json
 {
   "status": "error",
-  "message": "查询用户答题记录失败",
-  "code": 500,
+  "message": "记录不存在",
+  "code": 404,
   "data": null
 }
 ```
 
 
-#### 8. **注意事项**
-- 如果 `recordId` 或 `userId` 不存在，可能会返回自定义错误信息。
-- 返回的 `answerDetails` 列表可能为空，表示该用户未作答或无明细记录。
+---
+
+通过以上文档，开发者可以清楚地了解如何使用该接口以及接口的返回数据结构。

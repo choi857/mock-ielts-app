@@ -2,6 +2,7 @@ package com.apps.controller.write;
 
 import com.apps.common.ResponseResult;
 import com.apps.dto.write.WritingAnswerRecordDTO;
+import com.apps.dto.write.WritingAnswerRecordDetailDTO;
 import com.apps.model.write.WritingAnswerDetail;
 import com.apps.service.write.WritingAnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,11 +46,12 @@ public class WritingAnswerController {
      * @return 答题详细信息
      */
     @GetMapping("/user/{userId}/record/{recordId}")
-    public ResponseResult<List<WritingAnswerDetail>> getWritingAnswerRecordByUserIdAndRecordId(@PathVariable Long userId, @PathVariable Long recordId) {
-        List<WritingAnswerDetail> answerDetail = writingAnswerService.getWritingAnswerRecordByUserIdAndRecordId(userId, recordId);
-        if (answerDetail == null) {
+    public ResponseResult<WritingAnswerRecordDetailDTO> getWritingAnswerRecordByUserIdAndRecordId(@PathVariable Long userId, @PathVariable Long recordId) {
+        WritingAnswerRecordDetailDTO answerRecordDetail = writingAnswerService.getWritingAnswerRecordByUserIdAndRecordId(userId, recordId);
+        if (answerRecordDetail == null) {
             return ResponseResult.fail("未找到对应的答题记录");
         }
-        return ResponseResult.success(answerDetail);
+        return ResponseResult.success(answerRecordDetail);
     }
+
 }

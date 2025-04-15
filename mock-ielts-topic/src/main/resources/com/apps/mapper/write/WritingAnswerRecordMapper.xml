@@ -50,4 +50,7 @@
         WHERE user_id = #{userId}
           AND record_id = #{recordId}
     </select>
+
+
+
 </mapper>

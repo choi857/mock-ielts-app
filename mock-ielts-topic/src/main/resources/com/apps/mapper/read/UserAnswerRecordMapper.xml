@@ -99,6 +99,7 @@
             record_id = #{recordId} AND user_id = #{userId}
     </select>
 
+
     <!-- 删除记录 -->
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         DELETE FROM COL_USER_ANSWER_RECORD WHERE record_id = #{recordId}

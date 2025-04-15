@@ -2,6 +2,8 @@ package com.apps.controller.read;
 
 import com.apps.common.ResponseResult;
 import com.apps.dto.read2.AnswerRecordDTO;
+import com.apps.dto.read2.UserAnswerCorrectDTO;
+import com.apps.dto.read2.UserAnswerCorrectRecordDTO;
 import com.apps.model.read.UserAnswerRecord;
 import com.apps.service.read.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +57,10 @@ public class AnswerController {
      * 根据主答案表的ID查询用户明细答题的内容
      * @param recordId 主答案表的ID
      */
-    @GetMapping("/record/{recordId}/{userId}")
-    public ResponseResult<AnswerRecordDTO> getUserAnswerRecordDetails(  @PathVariable("recordId") Long recordId,
-                                                                        @PathVariable("userId") Long userId) {
-        AnswerRecordDTO answerRecordDTO = answerService.getUserAnswerRecordDetails(recordId,userId);
+    @GetMapping("/user/{userId}/record/{recordId}")
+    public ResponseResult<UserAnswerCorrectRecordDTO> getUserAnswerRecordDetails(@PathVariable("recordId") Long recordId,
+                                                                           @PathVariable("userId") Long userId) {
+        UserAnswerCorrectRecordDTO answerRecordDTO = answerService.getUserAnswerRecordDetails(recordId,userId);
         return ResponseResult.success(answerRecordDTO);
     }
 }

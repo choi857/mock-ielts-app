@@ -2,6 +2,7 @@ package com.apps.service.listen;
 
 import com.apps.dto.listen.ListeningAnswerRecordDTO;
 import com.apps.dto.listen.ListeningAnswerSubmissionDTO;
+import com.apps.dto.listen.ListeningUserAnswerCorrectDetail;
 import com.apps.dto.speak.SpeakingAnswerRecordDTO;
 import com.apps.mapper.listen.ListeningAnswerMapper;
 import com.apps.mapper.listen.ListeningUserAnswerMapper;
@@ -67,18 +68,18 @@ public class ListeningAnswerService {
             }
         }
         // 计算得分和评价
-         calculateScoreAndEvaluation(record);
+         calculateScoreAndEvaluation(record.getId());
     }
 
 
 
     /**
      * 计算得分和评价
-     * @param record 答题记录
+     * @param recordId 答题记录id
      */
-    private void calculateScoreAndEvaluation(ListeningUserAnswerRecord record) {
+    public void calculateScoreAndEvaluation(Long recordId) {
         // 获取用户答案
-        List<ListeningUserAnswerDetail> details = listeningUserAnswerMapper.findUserAnswerDetailsByRecordId(record.getId());
+        List<ListeningUserAnswerDetail> details = listeningUserAnswerMapper.findUserAnswerDetailsByRecordId(recordId);
         int totalQuestions = details.size();
         int correctAnswers = 0;
 
@@ -124,10 +125,13 @@ public class ListeningAnswerService {
         } else {
             evaluation = "配对题错误最多，需要加强，要理解配对题的图片或者内容意思";
         }
-
+        evaluation = score == 40 ? "恭喜获得满分，继续加油！" : evaluation;
+        evaluation = score == 0 ? "很遗憾，没有正确回答任何问题。" : evaluation;
+        ListeningUserAnswerRecord record = new ListeningUserAnswerRecord();
         record.setScore(score);
         record.setAnswerEvaluation(evaluation);
-        listeningUserAnswerMapper.updateUserAnswerRecord(record);
+        record.setId(recordId);
+        listeningUserAnswerMapper.updateUserAnswerScoreRecord(record);
     }
 
 
@@ -147,7 +151,7 @@ public class ListeningAnswerService {
      * @return 答题详细信息
      */
     @Transactional
-    public List<ListeningUserAnswerDetail> getListeningAnswerDetailsByRecordIdAndUserId(Long userId, Long recordId) {
+    public List<ListeningUserAnswerCorrectDetail> getListeningAnswerDetailsByRecordIdAndUserId(Long userId, Long recordId) {
         return listeningUserAnswerMapper.findUserAnswerDetailsByRecordIdAndUserId(userId, recordId);
      }
 }

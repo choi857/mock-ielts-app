@@ -12,7 +12,7 @@ import java.util.List;
 public interface WritingAnswerDetailMapper {
     int insert(WritingAnswerDetail detail);
     // 根据 record_id 查询对应的 col_write_user_answer_detail 数据
-    @Select("SELECT detail_id, record_id, user_id, task_type, answer_content " +
+    @Select("SELECT detail_id, record_id, user_id, task_type, answer_content,score,answer_evaluation " +
             "FROM COL_WRITE_USER_ANSWER_DETAIL " +
             "WHERE record_id = #{recordId}")
     @Results({
@@ -20,7 +20,9 @@ public interface WritingAnswerDetailMapper {
             @Result(property = "recordId", column = "record_id"),
             @Result(property = "userId", column = "user_id"),
             @Result(property = "taskType", column = "task_type"),
-            @Result(property = "answerContent", column = "answer_content")
+            @Result(property = "answerContent", column = "answer_content"),
+            @Result(property = "score", column = "score"),
+            @Result(property = "answerEvaluation", column = "answer_evaluation")
     })
     List<WritingAnswerDetail> selectByRecordId(@Param("recordId") Long recordId);
 
