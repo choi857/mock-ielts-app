@@ -10,6 +10,7 @@ import com.apps.model.listen.ListeningAnswer;
 import com.apps.model.listen.ListeningUserAnswerDetail;
 import com.apps.model.listen.ListeningUserAnswerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +37,8 @@ public class ListeningAnswerService {
      * @param submission 提交的答案
      */
     @Transactional
-    public void submitAnswers(ListeningAnswerSubmissionDTO submission) {
+    @Async("taskExecutor")
+    public Long submitAnswers(ListeningAnswerSubmissionDTO submission) {
         if (submission == null || submission.getListening() == null || submission.getParts() == null) {
             throw new IllegalArgumentException("提交的答案数据不完整");
         }
@@ -69,6 +71,7 @@ public class ListeningAnswerService {
         }
         // 计算得分和评价
          calculateScoreAndEvaluation(record.getId());
+        return randomId;
     }
 
 

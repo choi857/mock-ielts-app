@@ -7,6 +7,7 @@ import com.apps.dto.read2.UserAnswerCorrectRecordDTO;
 import com.apps.model.read.UserAnswerRecord;
 import com.apps.service.read.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -22,17 +23,19 @@ public class AnswerController {
     @Autowired
     private AnswerService answerService;
 
+    @Autowired
+    private CacheManager cacheManager;
     /**
      * 保存答案列表
      * @param answersList 前端传过来的答案列表
      */
     @PostMapping("/save")
-    @Caching(evict = {
-            @CacheEvict(value = "getUserAnswerRecordsALL", key = "#userId"),
-            @CacheEvict(value = "getUserAnswerRecordDetails", key = "#userId + '-' + #recordId")
-    })
     public ResponseResult<Map> saveAnswers(@RequestBody List<Map<String, Object>> answersList) {
         Map<String, Long> stringLongMap = answerService.saveAnswers(answersList);
+        // 手动清除缓存
+        cacheManager.getCache("getUserAnswerRecordsALL").evict(stringLongMap.get("userId"));
+        cacheManager.getCache("getUserAnswerRecordDetails")
+                .evict(stringLongMap.get("userId") + "-" + stringLongMap.get("recordId"));
         return ResponseResult.success(stringLongMap);
     }
 
@@ -44,8 +47,8 @@ public class AnswerController {
      */
     @PostMapping("/getscores")
     @Caching(evict = {
-            @CacheEvict(value = "getUserAnswerRecordsALL", key = "#userId"),
-            @CacheEvict(value = "getUserAnswerRecordDetails", key = "#userId + '-' + #recordId")
+            @CacheEvict(value = "getUserAnswerRecordsALL", key = "#request.userId"),
+            @CacheEvict(value = "getUserAnswerRecordDetails", key = "#request.userId + '-' + #request.recordId")
     })
     public void validateAnswers(@RequestBody UserAnswerRecord request) {
         Long readSummaryId = request.getReadSummaryId();

@@ -1,0 +1,72 @@
+根据提供的上下文，`Paper`类已经定义了`getter`和`setter`方法，因此Jackson可以正确序列化`Paper`对象。以下是针对`getAllPapers`接口的详细文档：
+
+---
+
+### 接口文档
+
+#### 接口名称
+获取所有试卷
+
+#### 接口地址
+`GET http://localhost:9486/papers/all`
+
+#### 请求方式
+`GET`
+
+#### 请求参数
+无
+
+#### 返回参数
+| 参数名 | 类型 | 说明 |
+| ------ | ---- | ---- |
+| - | `List<Paper>` | 返回所有试卷的列表，每个试卷对象包含试卷的详细信息 |
+
+#### `Paper`对象字段说明
+| 字段名 | 类型 | 说明 |
+| ------ | ---- | ---- |
+| `paperId` | `Long` | 试卷的唯一标识 |
+| `paperName` | `String` | 试卷名称 |
+| `paperDescription` | `String` | 试卷描述 |
+| `readingSummaryId` | `Long` | 阅读部分摘要的ID |
+| `listenId` | `Long` | 听力部分的ID |
+| `writeId` | `Long` | 写作部分的ID |
+| `speakId` | `Long` | 口语部分的ID |
+| `createdAt` | `Timestamp` | 试卷创建时间 |
+| `updatedAt` | `Timestamp` | 试卷更新时间 |
+
+#### 返回示例
+```json
+[
+    {
+        "paperId": 1,
+        "paperName": "IELTS Listening Test 1",
+        "paperDescription": "This is the first listening test.",
+        "readingSummaryId": 101,
+        "listenId": 201,
+        "writeId": 301,
+        "speakId": 401,
+        "createdAt": "2025-04-23T16:45:50.000+00:00",
+        "updatedAt": "2025-04-23T16:45:50.000+00:00"
+    },
+    {
+        "paperId": 2,
+        "paperName": "IELTS Speaking Test 1",
+        "paperDescription": "This is the first speaking test.",
+        "readingSummaryId": 102,
+        "listenId": 202,
+        "writeId": 302,
+        "speakId": 402,
+        "createdAt": "2025-04-23T16:45:50.000+00:00",
+        "updatedAt": "2025-04-23T16:45:50.000+00:00"
+    }
+]
+```
+
+
+#### 说明
+- 该接口用于获取系统中所有试卷的列表。
+- 返回的试卷对象包含试卷的详细信息，如`paperId`、`paperName`、`paperDescription`等字段。
+
+#### 注意事项
+- 如果系统中没有试卷，返回的列表将为空。
+- 确保`Paper`类已正确实现序列化，否则可能返回序列化错误。

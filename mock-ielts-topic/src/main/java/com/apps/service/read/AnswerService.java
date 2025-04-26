@@ -98,7 +98,7 @@ public class AnswerService {
         HashMap<String, Long> stringLongHashMap = new HashMap<>();
         stringLongHashMap.put("readSummaryId",summaryId);
         stringLongHashMap.put("userId",userId);
-
+        stringLongHashMap.put("recordId",recordId);
         return stringLongHashMap;
     }
 

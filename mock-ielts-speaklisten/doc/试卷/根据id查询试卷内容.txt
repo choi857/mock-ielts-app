@@ -1,0 +1,59 @@
+以下是针对`getPaperById`和`createPaper`两个接口的详细接口文档：
+
+---
+
+### 1. 根据ID获取试卷接口
+
+#### 接口名称
+根据ID获取试卷
+
+#### 接口地址
+`GET http://localhost:9486/papers/{{id}}`
+
+#### 请求方式
+`GET`
+
+#### 请求参数
+| 参数名 | 类型 | 说明 |
+| ------ | ---- | ---- |
+| `id` | `Long` | 试卷的唯一标识 |
+
+#### 返回参数
+| 参数名 | 类型 | 说明 |
+| ------ | ---- | ---- |
+| - | `Paper` | 返回指定ID的试卷对象 |
+
+#### `Paper`对象字段说明
+| 字段名 | 类型 | 说明 |
+| ------ | ---- | ---- |
+| `paperId` | `Long` | 试卷的唯一标识 |
+| `paperName` | `String` | 试卷名称 |
+| `paperDescription` | `String` | 试卷描述 |
+| `readingSummaryId` | `Long` | 阅读部分摘要的ID |
+| `listenId` | `Long` | 听力部分的ID |
+| `writeId` | `Long` | 写作部分的ID |
+| `speakId` | `Long` | 口语部分的ID |
+| `createdAt` | `Timestamp` | 试卷创建时间 |
+| `updatedAt` | `Timestamp` | 试卷更新时间 |
+
+#### 返回示例
+```json
+{
+    "paperId": 1,
+    "paperName": "IELTS Listening Test 1",
+    "paperDescription": "This is the first listening test.",
+    "readingSummaryId": 101,
+    "listenId": 201,
+    "writeId": 301,
+    "speakId": 401,
+    "createdAt": "2025-04-23T16:45:50.000+00:00",
+    "updatedAt": "2025-04-23T16:45:50.000+00:00"
+}
+```
+
+
+#### 说明
+- 该接口用于根据试卷的唯一标识`id`获取试卷的详细信息。
+- 如果`id`对应的试卷不存在，返回`404 Not Found`。
+
+---

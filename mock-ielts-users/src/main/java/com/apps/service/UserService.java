@@ -6,6 +6,7 @@ import com.apps.mapper.UserMapper;
 import com.apps.model.Role;
 import com.apps.model.User;
  import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -22,7 +23,7 @@ public class UserService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+//    @Async("UserExecutor")
     public void registerUser(User user) {
 
         User existingUser = userMapper.selectUserByUsername(user.getUsername());

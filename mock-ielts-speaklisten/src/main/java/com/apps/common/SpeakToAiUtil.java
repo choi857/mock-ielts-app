@@ -168,16 +168,13 @@ public class SpeakToAiUtil extends WebSocketListener {
         super.onOpen(webSocket, response);
         new Thread(() -> {
             //连接成功，开始发送数据
-            int frameSize = 1280; //每一帧音频的大小,建议每 40ms 发送 1280B，大小可调整，但是不要超过19200B，即base64压缩后能超过26000B，否则会报错10163数据过长错误
+            int frameSize = 1280;
             int intervel = 40;
             int status = 0;  // 音频的状态
-            //FileInputStream fs = new FileInputStream("0.pcm");
             ssb(webSocket);
-            //ttp(webSocket);
             beginTime = (new Date()).getTime();
             try (FileInputStream fs = new FileInputStream(file)) {
                 byte[] buffer = new byte[frameSize];
-                // 发送音频
                 end:
                 while (true) {
                     int len = fs.read(buffer);

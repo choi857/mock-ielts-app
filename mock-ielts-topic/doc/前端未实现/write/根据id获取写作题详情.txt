@@ -1,0 +1,74 @@
+### 接口文档：根据记录ID获取写作题目详情
+
+#### 接口名称
+根据记录ID获取写作题目详情
+
+#### 接口路径
+`GET http://localhost:9485/topic/writing/get/questions/{{recordId}}`
+
+#### 请求参数
+| 参数名   | 类型   | 必填 | 描述           |
+| -------- | ------ | ---- | -------------- |
+| recordId | Long   | 是   | 写作记录的 ID  |
+
+#### 响应参数
+| 参数名 | 类型               | 描述                           |
+| ------ | ------------------ | ------------------------------ |
+| -      | List<WritingQuestion> | 包含写作题目详情的列表         |
+
+#### WritingQuestion 结构
+```java
+public class WritingQuestion implements Serializable {
+    private Long taskId; // 写作题目ID
+    private String taskTitle; // 写作题目标题
+    private String taskDescription; // 写作题目描述
+    private String taskType; // 写作题目类型（如 TASK1, TASK2）
+    private String taskRequirements; // 写作要求
+    private Integer wordLimit; // 字数限制
+    private Timestamp createdAt; // 创建时间
+    private Timestamp updatedAt; // 更新时间
+}
+```
+
+
+#### 响应示例
+```json
+[
+    {
+        "taskId": 12345,
+        "taskTitle": "Task 1 Title",
+        "taskDescription": "Task 1 Description",
+        "taskType": "TASK1",
+        "taskRequirements": "Write at least 150 words.",
+        "wordLimit": 150,
+        "createdAt": "2023-10-01T12:00:00",
+        "updatedAt": "2023-10-01T12:00:00"
+    },
+    {
+        "taskId": 67890,
+        "taskTitle": "Task 2 Title",
+        "taskDescription": "Task 2 Description",
+        "taskType": "TASK2",
+        "taskRequirements": "Write at least 250 words.",
+        "wordLimit": 250,
+        "createdAt": "2023-10-01T12:00:00",
+        "updatedAt": "2023-10-01T12:00:00"
+    }
+]
+```
+
+
+#### 错误响应示例
+```json
+{
+    "timestamp": "2023-10-01T12:00:00",
+    "status": 404,
+    "error": "Not Found",
+    "message": "Record not found for id: 99999",
+    "path": "/topic/writing/get/questions/99999"
+}
+```
+
+
+#### 缓存说明
+- 该接口使用了缓存，缓存名称为 `getWritingQuestionsByRecordId`，缓存键为 `#recordId`，即传入的记录 ID。

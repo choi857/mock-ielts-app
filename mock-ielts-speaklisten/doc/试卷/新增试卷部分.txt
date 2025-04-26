@@ -1,0 +1,78 @@
+
+### 2. 新增试卷接口
+
+#### 接口名称
+新增试卷
+
+#### 接口地址
+`POST http://localhost:9486/papers/add`
+
+#### 请求方式
+`POST`
+
+#### 请求参数
+| 参数名 | 类型 | 说明 |
+| ------ | ---- | ---- |
+| `paper` | `Paper` | 需要新增的试卷对象 |
+
+#### `Paper`对象字段说明
+| 字段名 | 类型 | 说明 |
+| ------ | ---- | ---- |
+| `paperName` | `String` | 试卷名称（必填） |
+| `paperDescription` | `String` | 试卷描述（必填） |
+| `readingSummaryId` | `Long` | 阅读部分摘要的ID（可选） |
+| `listenId` | `Long` | 听力部分的ID（可选） |
+| `writeId` | `Long` | 写作部分的ID（可选） |
+| `speakId` | `Long` | 口语部分的ID（可选） |
+| `createdAt` | `Timestamp` | 试卷创建时间（可选，默认为当前时间） |
+| `updatedAt` | `Timestamp` | 试卷更新时间（可选，默认为当前时间） |
+
+#### 返回参数
+| 参数名 | 类型 | 说明 |
+| ------ | ---- | ---- |
+| - | `Paper` | 返回新增的试卷对象，包含生成的`paperId` |
+
+#### 请求示例
+```json
+{
+    "paperName": "IELTS Listening Test 2",
+    "paperDescription": "This is the second listening test.",
+    "readingSummaryId": 102,
+    "listenId": 202,
+    "writeId": 302,
+    "speakId": 402
+}
+```
+
+
+#### 返回示例
+```json
+{
+    "paperId": 2,
+    "paperName": "IELTS Listening Test 2",
+    "paperDescription": "This is the second listening test.",
+    "readingSummaryId": 102,
+    "listenId": 202,
+    "writeId": 302,
+    "speakId": 402,
+    "createdAt": "2025-04-23T16:45:50.000+00:00",
+    "updatedAt": "2025-04-23T16:45:50.000+00:00"
+}
+```
+
+
+#### 说明
+- 该接口用于新增一个试卷对象。
+- 如果`paperName`或`paperDescription`为空，返回`400 Bad Request`。
+- 新增成功后，返回的试卷对象包含自动生成的`paperId`。
+
+---
+
+### 注意事项
+1. **字段验证**：确保`paperName`和`paperDescription`不为空，否则返回错误。
+2. **时间字段**：如果未提供`createdAt`和`updatedAt`，系统会自动设置为当前时间。
+3. **异常处理**：如果`id`不存在或请求参数不合法，返回相应的HTTP状态码和错误信息。
+
+---
+
+通过以上文档，开发者可以清晰地了解如何使用这两个接口，并确保数据的正确性和完整性。

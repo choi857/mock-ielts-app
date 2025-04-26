@@ -8,6 +8,7 @@ import com.apps.service.listen.ListeningAnswerService;
 import com.apps.service.listen.ListeningService;
 import com.apps.common.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
@@ -23,6 +24,9 @@ public class ListeningController {
     private ListeningService listeningService;
     @Autowired
     private ListeningAnswerService listeningAnswerService;
+
+    @Autowired
+    private CacheManager cacheManager;
     /**
      * 新增听力题及其题目和答案
      *
@@ -52,8 +56,8 @@ public class ListeningController {
      */
     @PostMapping("admin/update")
     @Caching(evict = {
-            @CacheEvict(value = "getListeningWithQuestionsAndAnswers", key = "#listeningId"),
-            @CacheEvict(value = "getQuestionsByListeningId", key = "#listeningId")
+            @CacheEvict(value = "getListeningWithQuestionsAndAnswers", key = "#dto.listening.id"),
+            @CacheEvict(value = "getQuestionsByListeningId", key = "#dto.listening.id")
     })
     public ResponseResult<Object> updateQuestion(@RequestBody ListeningWithQuestionsAndAnswersDTO dto) {
         return listeningService.updateListeningWithQuestionsAndAnswers(dto);
@@ -88,12 +92,13 @@ public class ListeningController {
      * @return ResponseResult<String> 响应结果
      */
     @PostMapping("/submit/answers")
-    @Caching(evict = {
-            @CacheEvict(value = "listeningAnswerRecords", key = "#userId"),
-            @CacheEvict(value = "getUserAnswerRecordDetails", key = "#userId + '-' + #recordId")
-    })
     public ResponseResult<String> submitAnswers(@RequestBody ListeningAnswerSubmissionDTO submission) {
-        listeningAnswerService.submitAnswers(submission);
+        Long recordId = listeningAnswerService.submitAnswers(submission);
+        // 手动清除缓存
+        cacheManager.getCache("listeningAnswerRecords").evict(submission.getListening().getUserId());
+        cacheManager.getCache("getUserAnswerRecordDetails")
+                .evict(submission.getListening().getUserId() + "-" + recordId);
+
         return ResponseResult.success("答案提交成功");
     }
 }

@@ -9,7 +9,8 @@ public class CreateId {
     private static final Random random = new Random();
     private static long lastTimestamp = -1L;
 
-    public static synchronized long generateId() {
+//    public static synchronized long generateId() {
+public static synchronized long generateId() {
         long timestamp = System.currentTimeMillis() - EPOCH; // 时间戳部分
 
         // 如果时间戳没有变化，重新生成随机数

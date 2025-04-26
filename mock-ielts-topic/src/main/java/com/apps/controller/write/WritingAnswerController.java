@@ -27,7 +27,7 @@ public class WritingAnswerController {
      */
     @PostMapping("/save")
     @Caching(evict = {
-            @CacheEvict(value = "getUserWritingAnswerRecords", key = "#userId"),
+            @CacheEvict(value = "getUserWritingAnswerRecords", key = "#answersList.get(0).userId"),
             @CacheEvict(value = "getAllWritingTaskRecords", key = "'all'")
     })
     public void saveWritingAnswers(@RequestBody List<Map<String, Object>> answersList) {
