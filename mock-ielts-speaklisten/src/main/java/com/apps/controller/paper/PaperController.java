@@ -1,5 +1,6 @@
 package com.apps.controller.paper;
 
+import com.apps.common.ResponseResult;
 import com.apps.model.paper.Paper;
 import com.apps.service.paper.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,16 @@ public class PaperController {
     public Paper createPaper(@RequestBody Paper paper) {
         return paperService.createPaper(paper);
     }
+    @PostMapping("/update")
+    public Paper updatePaper(@RequestBody Paper paper) {
+        return paperService.updatePaper(paper);
+    }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseResult deletePaper(@PathVariable Long id) {
+        paperService.deletePaper(id);
+        return ResponseResult.success("删除成功");
+    }
 
 
 }

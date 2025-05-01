@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -64,6 +65,13 @@ public class UserService {
         }
     }
 
+    /**
+     * 查询所有用户
+     * @return
+     */
+    public List<User> getAllUsers() {
+        return userMapper.selectAllUsers();
+    }
     /**
      * 查询用户全部信息
      * @param userId

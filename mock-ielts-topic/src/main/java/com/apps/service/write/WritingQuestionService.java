@@ -73,6 +73,57 @@ package com.apps.service.write;
                  return true;
              }
 
+ public boolean updateWritingQuestions(
+                     String taskId,
+                     String task1Title,
+                     String task1Requirements,
+                     String taskDescription1,
+                     String task2Title,
+                     String task2Requirements,
+                     String taskDescription2,
+                     String colTitle
+             ) {
+                 if (task1Title == null || task1Title.isEmpty() || task1Requirements == null || task1Requirements.isEmpty() ||
+                         task2Title == null || task2Title.isEmpty() || task2Requirements == null || task2Requirements.isEmpty() ||
+                         colTitle.isEmpty() || colTitle == null) {
+                     throw new IllegalArgumentException("写作题目标题和内容,标题不能为null，可以为空字符");
+                 }
+
+                 Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+
+                 // 获取现有的 WritingTaskRecord
+                 WritingTaskRecord record = writingTaskRecordMapper.selectById(Long.valueOf(taskId));
+                 if (record == null) {
+                     throw new IllegalArgumentException("未找到标题为 " + colTitle + " 的记录");
+                 }
+
+                 // 更新 Task1
+                 WritingQuestion task1 = writingQuestionMapper.selectById(record.getTask1Id());
+                 if (task1 != null) {
+                     task1.setTaskTitle(task1Title);
+                     task1.setTaskRequirements(task1Requirements);
+                     task1.setTaskDescription(taskDescription1);
+                     task1.setUpdatedAt(currentTime);
+                     writingQuestionMapper.update(task1);
+                 }
+
+                 // 更新 Task2
+                 WritingQuestion task2 = writingQuestionMapper.selectById(record.getTask2Id());
+                 if (task2 != null) {
+                     task2.setTaskTitle(task2Title);
+                     task2.setTaskRequirements(task2Requirements);
+                     task2.setTaskDescription(taskDescription2);
+                     task2.setUpdatedAt(currentTime);
+                     writingQuestionMapper.update(task2);
+                 }
+
+                 // 更新 WritingTaskRecord
+                 record.setUpdatedAt(currentTime);
+                 writingTaskRecordMapper.update(record);
+
+                 return true;
+             }
+
 
 
              public List<WritingQuestion> getWritingQuestionsByRecordId(Long recordId) {

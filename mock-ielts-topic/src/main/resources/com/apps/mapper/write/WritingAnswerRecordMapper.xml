@@ -11,6 +11,15 @@
         )
     </insert>
 
+    <update id="update" parameterType="com.apps.model.write.WritingTaskRecord">
+        UPDATE COL_WRITING_TASK_RECORD
+        <set>
+            updated_at = #{updatedAt}
+        </set>
+        WHERE col_title = #{colTitle}
+    </update>
+
+
     <!-- 根据ID查询记录 -->
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultType="com.apps.model.write.WritingAnswerRecord">
         SELECT

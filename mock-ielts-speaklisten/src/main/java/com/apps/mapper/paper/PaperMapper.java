@@ -43,4 +43,13 @@ public interface PaperMapper {
             "VALUES (#{paperName}, #{paperDescription}, #{readingSummaryId}, #{listenId}, #{writeId}, #{speakId}, #{createdAt}, #{updatedAt})")
     @Options(useGeneratedKeys = true, keyProperty = "paperId", keyColumn = "PAPER_ID")
     void createPaper(Paper paper);
+
+    @Update("UPDATE COL_PAPER SET PAPER_NAME = #{paperName}, PAPER_DESCRIPTION = #{paperDescription}, " +
+            "READING_SUMMARY_ID = #{readingSummaryId}, LISTEN_ID = #{listenId}, WRITE_ID = #{writeId}, " +
+            "SPEAK_ID = #{speakId}, UPDATED_AT = #{updatedAt} WHERE PAPER_ID = #{paperId}")
+    void updatePaper(Paper paper);
+
+    @Delete("DELETE FROM COL_PAPER WHERE PAPER_ID = #{id}")
+    void deletePaper(@Param("id") Long id);
+
 }

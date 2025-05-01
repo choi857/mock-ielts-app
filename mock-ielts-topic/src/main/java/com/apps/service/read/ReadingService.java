@@ -5,6 +5,7 @@ import com.apps.dto.read2.*;
 import com.apps.mapper.read.AnswerMapper;
 import com.apps.mapper.read.QuestionMapper;
 import com.apps.mapper.read.ReadingMapper;
+import com.apps.mapper.read.ReadingSummaryMapper;
 import com.apps.model.read.Answer;
 import com.apps.model.read.Question;
 import com.apps.model.read.Reading;
@@ -24,6 +25,9 @@ public class ReadingService {
 
     @Autowired
     private ReadingMapper readingMapper;
+
+    @Autowired
+    private ReadingSummaryMapper readingSummaryMapper;
 
     @Autowired
     private QuestionMapper questionMapper;
@@ -107,6 +111,81 @@ public class ReadingService {
                                 } catch (Exception e) {
                                     throw new RuntimeException(e);
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /**
+     * 更新阅读汇总信息、阅读材料及其题目和答案
+     * @param readingInsertDTO 包含阅读汇总信息、阅读材料及其题目和答案的 DTO
+     */
+    @Transactional
+    public void updateReadingWithQuestions(ReadingInsertDTO readingInsertDTO) {
+        if (readingInsertDTO == null || readingInsertDTO.getReadingSummary() == null) {
+            throw new IllegalArgumentException("阅读汇总信息不能为空");
+        }
+
+        // 更新阅读汇总信息
+        ReadingSummaryDTO readingSummaryDTO = readingInsertDTO.getReadingSummary();
+        ReadingSummary readingSummary = new ReadingSummary();
+        readingSummary.setId(readingSummaryDTO.getId());
+        readingSummary.setTitle(readingSummaryDTO.getTitle());
+        LocalDateTime now = LocalDateTime.now();
+        readingSummary.setUpdatedAt(Timestamp.valueOf(now)); // 更新时间
+        readingSummaryMapper.update(readingSummary);
+
+        // 遍历每个 Part，更新对应的阅读材料和题目
+        List<PartDTO> parts = readingInsertDTO.getParts();
+        if (parts != null && !parts.isEmpty()) {
+            for (PartDTO part : parts) {
+                ReadingDTO readingDTO = part.getReading();
+                if (readingDTO == null) {
+                    throw new IllegalArgumentException("阅读材料数据不能为空");
+                }
+
+                // 更新阅读材料
+                Reading reading = new Reading();
+                reading.setId(readingDTO.getId());
+                reading.setTitle(readingDTO.getTitle());
+                reading.setContent(readingDTO.getContent());
+                reading.setImageBase64(readingDTO.getImageBase64());
+                reading.setReadSummaryId(readingSummary.getId()); // 关联阅读汇总 ID
+                reading.setUpdatedAt(Timestamp.valueOf(now)); // 更新时间
+                readingMapper.updateReading(reading);
+
+                // 更新题目和答案
+                List<QuestionWrapperDTO> questions = part.getQuestions();
+                if (questions != null) {
+                    for (QuestionWrapperDTO wrapper : questions) {
+                        QuestionDTO questionDTO = wrapper.getQuestion();
+                        if (questionDTO == null) continue;
+
+                        // 更新题目
+                        Question question = new Question();
+                        question.setId(questionDTO.getId());
+                        question.setReadingId(reading.getId());
+                        question.setType(questionDTO.getType());
+                        question.setContent(questionDTO.getContent());
+                        question.setPlaceholderFormat(questionDTO.getPlaceholderFormat());
+                        question.setSerial(questionDTO.getSerial());
+                        question.setUpdatedAt(Timestamp.valueOf(now)); // 更新时间
+                        questionMapper.updateQuestion(question);
+
+                        // 更新答案
+                        List<AnswerDTO> answers = questionDTO.getAnswers();
+                        if (answers != null) {
+                            for (AnswerDTO answerDTO : answers) {
+                                Answer answer = new Answer();
+                                answer.setId(answerDTO.getId());
+                                answer.setQuestionId(question.getId());
+                                answer.setContent(answerDTO.getContent());
+                                answer.setCorrect(answerDTO.getCorrect());
+                                answer.setBlankNumber(answerDTO.getBlankNumber());
+                                answer.setMatchingKey(answerDTO.getMatchingKey());
+                                answerMapper.updateAnswer(answer);
                             }
                         }
                     }

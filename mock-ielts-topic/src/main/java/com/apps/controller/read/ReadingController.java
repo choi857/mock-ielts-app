@@ -40,6 +40,26 @@ public class ReadingController {
             return ResponseResult.fail("添加阅读材料失败，异常为: " + e.getMessage());
         }
     }
+    /**
+     * 更新阅读材料及其题目和答案
+     * @param readingInsertDTO 包含阅读材料、题目和答案的 DTO
+     * @return 更新结果
+     */
+    @PostMapping("/update")
+    @Caching(evict = {
+            @CacheEvict(value = "getAllReadingIDs", key = "'getAllReadingIDsall'"),
+            @CacheEvict(value = "getReadingWithQuestionsAndAnswers", key = "#readingInsertDTO.readingSummary.id")
+    })
+    public ResponseResult<Void> updateReadingWithQuestionsAndAnswers(@RequestBody ReadingInsertDTO readingInsertDTO) {
+        try {
+            // 调用服务层方法更新阅读材料及其题目和答案
+            readingService.updateReadingWithQuestions(readingInsertDTO);
+            return ResponseResult.success("阅读材料更新成功");
+        } catch (Exception e) {
+            // 捕获异常并返回失败信息
+            return ResponseResult.fail("更新阅读材料失败，异常为: " + e.getMessage());
+        }
+    }
 
     /**
      * 根据阅读材料 ID 获取阅读材料及其题目和答案

@@ -28,4 +28,15 @@ public class PaperServiceImpl implements PaperService {
         paperMapper.createPaper(paper);
         return paper;
     }
+
+    @Override
+    public Paper updatePaper(Paper paper) {
+        paperMapper.updatePaper(paper);
+        return paper;
+    }
+
+    @Override
+    public void deletePaper(Long id) {
+        paperMapper.deletePaper(id);
+    }
 }

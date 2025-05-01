@@ -17,7 +17,7 @@
         <set>
             task1_id = #{task1Id},
             task2_id = #{task2Id},
-            updated_at = #{updatedAt}
+            updated_at = #{updatedAt},
             COL_TITLE = #{colTitle}
         </set>
         WHERE record_id = #{recordId}

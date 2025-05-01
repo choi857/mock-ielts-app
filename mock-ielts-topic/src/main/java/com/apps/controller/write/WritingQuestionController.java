@@ -1,5 +1,7 @@
 package com.apps.controller.write;
 
+     import com.apps.common.ResponseResult;
+     import com.apps.dto.write.UpdateWritingQuestionsRequest;
      import com.apps.dto.write.WritingQuestionsRequest;
      import com.apps.model.write.WritingQuestion;
      import com.apps.model.write.WritingTaskRecord;
@@ -51,6 +53,47 @@ package com.apps.controller.write;
                          colTitle
              );
          }
+
+/**
+     * 更新写作题
+     *   task1Title Task1的标题
+     *   task1Requirements Task1的具体内容
+     *   task2Title Task2的标题
+     *   task2Requirements Task2的具体内容
+     * @return 更新结果
+     */
+@PostMapping("/update")
+@Caching(evict = {
+        @CacheEvict(value = "getAllWritingTaskRecords", key = "'all'"),
+        @CacheEvict(value = "getWritingQuestionsByRecordId", key = "#request.id")
+})
+public ResponseResult updateWritingQuestions(@RequestBody UpdateWritingQuestionsRequest request) {
+    String task1Title = Optional.ofNullable(request.getTask1Title()).orElse("");
+    String task1Requirements = Optional.ofNullable(request.getTask1Requirements()).orElse("");
+    String task2Title = Optional.ofNullable(request.getTask2Title()).orElse("");
+    String task2Requirements = Optional.ofNullable(request.getTask2Requirements()).orElse("");
+    String colTitle = Optional.ofNullable(request.getColTitle()).orElse("");
+    String taskDescription1 = Optional.ofNullable(request.getTaskDescription1()).orElse("");
+    String taskDescription2 = Optional.ofNullable(request.getTaskDescription2()).orElse("");
+    String taskId = Optional.ofNullable(request.getId()).orElse("");
+    if(
+            writingQuestionService.updateWritingQuestions(
+            taskId,
+            task1Title,
+            task1Requirements,
+            taskDescription1,
+            task2Title,
+            task2Requirements,
+            taskDescription2,
+            colTitle
+    )){
+       return ResponseResult.success("更新成功");
+    }
+    else{
+      return  ResponseResult.fail("更新失败");
+    }
+}
+
 
     /**
      * 根据题目主ID获取写作题目详情

@@ -10,4 +10,8 @@ public interface PaperService {
 
     Paper getPaperById(Long id);
     Paper createPaper(Paper paper);
+
+    Paper updatePaper(Paper paper);
+    void deletePaper(Long id);
+
 }

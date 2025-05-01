@@ -32,7 +32,7 @@ public interface SpeakingMapper {
     })
     Speaking findSpeakingById(Long id);
 
-    @Select("SELECT * FROM col_reading_summary")
+    @Select("SELECT * FROM col_speaking")
     @Results({
             @Result(property = "id", column = "COL_ID"),
             @Result(property = "title", column = "COL_TITLE"),

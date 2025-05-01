@@ -29,22 +29,26 @@
             email = #{email},
             role = #{role},
             image = #{image}
-        WHERE user_id = #{id}
+        WHERE user_id = #{id} and deleted = 0
     </update>
 
     <!-- 删除用户 -->
     <delete id="deleteUserById">
-        DELETE FROM COL_Users WHERE user_id = #{id}
+        UPDATE COL_Users SET deleted = 1  where user_id = #{id}
     </delete>
 
     <!-- 根据 ID 查询用户 -->
     <select id="selectUserById" resultMap="UserResultMap">
-        SELECT * FROM COL_Users WHERE user_id = #{id}
+        SELECT * FROM COL_Users WHERE user_id = #{id} and deleted = 0
     </select>
 
     <!-- 根据用户名查询用户 -->
     <select id="selectUserByUsername" resultMap="UserResultMap">
-        SELECT * FROM COL_Users WHERE username = #{username}
+        SELECT * FROM COL_Users WHERE username = #{username} and deleted = 0
+    </select>
+
+    <select id="selectAllUsers" resultMap="UserResultMap">
+        SELECT * FROM COL_Users where deleted = 0
     </select>
 
 </mapper>

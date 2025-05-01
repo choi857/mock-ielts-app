@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -89,6 +90,8 @@ public class UserController {
         }
     }
 
+
+
     @GetMapping("/{userId}")
     public ResponseEntity<ResponseResult<User>> getUserInfo(@PathVariable Long userId) {
         try {
@@ -119,6 +122,17 @@ public class UserController {
         }
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<ResponseResult<List<User>>> getAllUsers() {
+        try {
+            List<User> users = userService.getAllUsers();
+            return ResponseEntity.ok(ResponseResult.success("查询成功", 200, users));
+        } catch (Exception e) {
+            logger.error("查询所有用户失败: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ResponseResult.fail("查询所有用户失败: " + e.getMessage()));
+        }
+    }
 
 
 }

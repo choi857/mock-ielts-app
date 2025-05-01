@@ -1,0 +1,117 @@
+
+---
+
+### 接口文档
+
+#### 1. **接口名称**
+查询所有用户信息
+
+#### 2. **接口地址**
+`GET http://localhost:9091/users/all`
+
+#### 3. **请求方式**
+`GET`
+
+#### 4. **请求参数**
+无
+
+#### 5. **返回结果**
+
+##### 成功响应
+- **HTTP 状态码**: `200 OK`
+- **响应体**:
+  ```json
+  {
+      "code": 200,
+      "message": "查询成功",
+      "data": [
+          {
+              "id": 1,
+              "username": "user1",
+              "password": "加密后的密码",
+              "email": "user1@example.com",
+              "role": "user",
+              "image": "image_url"
+          },
+          {
+              "id": 2,
+              "username": "user2",
+              "password": "加密后的密码",
+              "email": "user2@example.com",
+              "role": "admin",
+              "image": "image_url"
+          }
+      ]
+  }
+  ```
+
+
+##### 失败响应
+- **HTTP 状态码**: `400 Bad Request`
+- **响应体**:
+  ```json
+  {
+      "code": 400,
+      "message": "查询所有用户失败: 错误信息",
+      "data": null
+  }
+  ```
+
+
+#### 6. **示例请求**
+```
+GET http://localhost:8080/users/all
+```
+
+
+#### 7. **示例响应**
+##### 成功响应
+```json
+{
+    "code": 200,
+    "message": "查询成功",
+    "data": [
+        {
+            "id": 1,
+            "username": "user1",
+            "password": "加密后的密码",
+            "email": "user1@example.com",
+            "role": "user",
+            "image": "image_url"
+        },
+        {
+            "id": 2,
+            "username": "user2",
+            "password": "加密后的密码",
+            "email": "user2@example.com",
+            "role": "admin",
+            "image": "image_url"
+        }
+    ]
+}
+```
+
+
+##### 失败响应
+```json
+{
+    "code": 400,
+    "message": "查询所有用户失败: 数据库连接失败",
+    "data": null
+}
+```
+
+
+#### 8. **错误码说明**
+- `200`: 查询成功
+- `400`: 查询失败，通常是由于数据库错误或其他异常导致
+
+#### 9. **备注**
+- 该接口返回所有用户的信息，包括 `id`, `username`, `password`, `email`, `role`, `image` 等字段。
+- `password` 字段是加密后的值，不可解密。
+- 如果用户表为空，返回的 `data` 字段为空数组。
+
+---
+
+### 总结
+该接口用于查询系统中所有用户的信息，返回格式为 `ResponseResult<List<User>>`，包含状态码、消息和用户列表。如果查询失败，返回 `400 Bad Request` 并附带错误信息。

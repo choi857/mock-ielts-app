@@ -71,24 +71,53 @@ public class SpeakingServiceImpl implements SpeakingService {
         return speakingDTO;
     }
 
-    @Override
-    @Transactional
-    public SpeakingDTO updateSpeaking(Long id, SpeakingDTO speakingDTO) {
-        // 根据ID查找现有的口语材料记录
-        Speaking speaking = speakingMapper.findSpeakingById(id);
-        if (speaking == null) {
-            throw new RuntimeException("Speaking not found");
-        }
-
-        // 更新口语材料的属性
-        speaking.setTitle(speakingDTO.getSpeaking().getTitle());
-        speaking.setImageUrl(speakingDTO.getSpeaking().getImageUrl());
-        speaking.setTranscript(speakingDTO.getSpeaking().getTranscript());
-
-        // 更新数据库中的口语材料记录
-        speakingMapper.updateSpeaking(speaking);
-        return speakingDTO;
+  @Override
+@Transactional
+public SpeakingDTO updateSpeaking(Long id, SpeakingDTO speakingDTO) {
+    // 根据ID查找现有的口语材料记录
+    Speaking speaking = speakingMapper.findSpeakingById(id);
+    if (speaking == null) {
+        throw new RuntimeException("Speaking not found");
     }
+
+    // 更新口语材料的属性
+    speaking.setTitle(speakingDTO.getSpeaking().getTitle());
+    speaking.setImageUrl(speakingDTO.getSpeaking().getImageUrl());
+    speaking.setTranscript(speakingDTO.getSpeaking().getTranscript());
+
+    // 更新数据库中的口语材料记录
+    speakingMapper.updateSpeaking(speaking);
+
+    // 更新或插入口语题目
+    if (speakingDTO.getParts() != null) {
+        for (Map.Entry<String, List<SpeakingDTO.QuestionWrapper>> entry : speakingDTO.getParts().entrySet()) {
+            for (SpeakingDTO.QuestionWrapper wrapper : entry.getValue()) {
+                SpeakingQuestionDTO questionDTO = wrapper.getQuestion();
+                SpeakingQuestion question = new SpeakingQuestion();
+                question.setId(questionDTO.getId()); // 使用原有的题目ID
+                question.setSpeakingId(id); // 设置关联的口语材料ID
+                question.setType(questionDTO.getType());
+                question.setContent(questionDTO.getContent());
+                question.setImageUrl(questionDTO.getImageUrl());
+                question.setPart(entry.getKey());
+                question.setSerial(questionDTO.getSerial());
+
+                if (question.getId() != null) {
+                    // 如果题目ID存在，则更新题目
+                    speakingQuestionMapper.updateSpeakingQuestion(question);
+                } else {
+                    // 如果题目ID不存在，则插入新题目
+                    long questionId = new CreateId().generateId(); // 生成一个随机的 long 值
+                    question.setId(questionId);
+                    speakingQuestionMapper.insertSpeakingQuestion(question);
+                    questionDTO.setId(question.getId());
+                }
+            }
+        }
+    }
+
+    return speakingDTO;
+}
 
     @Override
     @Transactional

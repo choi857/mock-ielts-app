@@ -2,6 +2,7 @@ package com.apps.mapper.write;
 
 import com.apps.dto.write.WritingAnswerRecordDTO;
 import com.apps.model.write.WritingAnswerRecord;
+import com.apps.model.write.WritingTaskRecord;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 public interface WritingAnswerRecordMapper {
     int insert(WritingAnswerRecord record);
     WritingAnswerRecord selectByPrimaryKey(Long recordId);
+    int update(WritingTaskRecord record);
 
 
 
