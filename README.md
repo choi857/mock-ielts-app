@@ -60,7 +60,7 @@ mock-ielts-app/
 ### 配置说明
 1. 数据库配置
    - 创建数据库：mock_ielts
-   - 执行SQL脚本：`mysql第四版.sql`
+   - 执行SQL脚本：`mysql第五版.sql`
 
 2. Nacos配置
    - 启动Nacos服务
@@ -140,4 +140,4 @@ java -jar target/mock-ielts-xxx.jar
    - 确认Redis端口是否被占用
 
 ## 联系方式
-如有问题，请联系项目负责人。 
+欢迎各位交流，应届不断学习中的小菜鸡一枚，邮箱：caixianduo@foxmail.com
